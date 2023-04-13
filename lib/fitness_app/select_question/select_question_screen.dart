@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:best_flutter_ui_templates/fitness_app/hotel_app_theme.dart';
 
+// 재준 : 원하는 클라이밍 장을 검색 하는 화면 구현-> 해당 화면에 필요현 list_view, model도 구현
 class SelectQuestionScreen extends StatefulWidget {
   const SelectQuestionScreen({Key? key, this.animationController})
       : super(key: key);
@@ -27,7 +28,7 @@ class _SelectQuestionScreenState extends State<SelectQuestionScreen>
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
             parent: widget.animationController!,
-            curve: Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
+            curve: const Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
     addAllListData();
 
     scrollController.addListener(() {
@@ -61,7 +62,7 @@ class _SelectQuestionScreenState extends State<SelectQuestionScreen>
       getSearchBarUI(),
     );
     listViews.add(
-      SizedBox(
+      const SizedBox(
         width: 100,
         height: 30,
       ),
@@ -71,8 +72,8 @@ class _SelectQuestionScreenState extends State<SelectQuestionScreen>
         titleTxt: '최근 검색 암장',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 2, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -81,7 +82,7 @@ class _SelectQuestionScreenState extends State<SelectQuestionScreen>
         mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(
                 parent: widget.animationController!,
-                curve: Interval((1 / count) * 3, 1.0,
+                curve: const Interval((1 / count) * 3, 1.0,
                     curve: Curves.fastOutSlowIn))),
         mainScreenAnimationController: widget.animationController,
       ),
@@ -102,7 +103,7 @@ class _SelectQuestionScreenState extends State<SelectQuestionScreen>
         body: Stack(
           children: <Widget>[
             getMainListViewUI(),
-            SizedBox(
+            const SizedBox(
               width: 100,
               height: 300,
             ),
@@ -243,7 +244,7 @@ Widget getSearchBarUI() {
                     fontSize: 18,
                   ),
                   cursorColor: HotelAppTheme.buildLightTheme().primaryColor,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: '클라이밍장 이름을 입력하세요',
                   ),

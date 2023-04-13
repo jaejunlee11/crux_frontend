@@ -2,9 +2,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+// 재준 : 비디오 실행에 필요한 화면 구현
 void main() => runApp(VideoPlayerApp());
 
 class VideoPlayerApp extends StatelessWidget {
+  const VideoPlayerApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +18,7 @@ class VideoPlayerApp extends StatelessWidget {
 }
 
 class VideoPlayerScreen extends StatefulWidget {
-  VideoPlayerScreen() : super();
+  const VideoPlayerScreen({super.key});
 
   @override
   _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
@@ -54,7 +57,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 child: VideoPlayer(_controller),
               );
             } else {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
           },
         ),

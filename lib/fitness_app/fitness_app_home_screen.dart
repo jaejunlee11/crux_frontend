@@ -9,8 +9,9 @@ import 'forum/forum_page.dart';
 import 'forum/forum_crew_page.dart';
 import 'forum/my_page.dart';
 
-
 class FitnessAppHomeScreen extends StatefulWidget {
+  const FitnessAppHomeScreen({super.key});
+
   @override
   _FitnessAppHomeScreenState createState() => _FitnessAppHomeScreenState();
 }
@@ -27,9 +28,9 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
 
   @override
   void initState() {
-    tabIconsList.forEach((TabIconData tab) {
+    for (var tab in tabIconsList) {
       tab.isSelected = false;
-    });
+    }
     tabIconsList[4].isSelected = true;
 
     animationController = AnimationController(
@@ -100,8 +101,7 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                   return;
                 }
                 setState(() {
-                  tabBody =
-                     ForumApp();
+                  tabBody = ForumApp();
                 });
               });
             } else if (index == 0) {
@@ -120,7 +120,7 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                   return;
                 }
                 setState(() {
-                  tabBody = MyPage();
+                  tabBody = const MyPage();
                 });
               });
             } else if (index == 2) {
@@ -132,7 +132,7 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                   tabBody = CrewForumApp();
                 });
               });
-            }           
+            }
           },
         ),
       ],

@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:best_flutter_ui_templates/main.dart';
 import 'package:file_picker/file_picker.dart';
 
+// 재준 : 문제를 볼 수 잇는 화면 구현-> 해당 화면에 필요현 list_view, model도 구현
 class ShowQuestionScreen extends StatefulWidget {
   const ShowQuestionScreen({Key? key, this.animationController})
       : super(key: key);
@@ -43,7 +44,7 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
             parent: widget.animationController!,
-            curve: Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
+            curve: const Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
     addAllListData();
 
     scrollController.addListener(() {
@@ -74,7 +75,7 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
   void addAllListData() {
     const int count = 9;
     listViews.add(
-      SizedBox(
+      const SizedBox(
         width: 100,
         height: 30,
       ),
@@ -84,8 +85,8 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
         titleTxt: 'sector A',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 2, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -103,7 +104,7 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
         mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(
                 parent: widget.animationController!,
-                curve: Interval((1 / count) * 3, 1.0,
+                curve: const Interval((1 / count) * 3, 1.0,
                     curve: Curves.fastOutSlowIn))),
         mainScreenAnimationController: widget.animationController,
       ),
@@ -113,8 +114,8 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
         titleTxt: '문제 동영상',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 2, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -123,14 +124,14 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
         mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(
                 parent: widget.animationController!,
-                curve: Interval((1 / count) * 3, 1.0,
+                curve: const Interval((1 / count) * 3, 1.0,
                     curve: Curves.fastOutSlowIn))),
         mainScreenAnimationController: widget.animationController,
       ),
     );
     listViews.add(
       Container(
-        padding: EdgeInsets.only(right: 16), // 우측으로 16만큼 패딩 추가
+        padding: const EdgeInsets.only(right: 16), // 우측으로 16만큼 패딩 추가
         child: Align(
           alignment: Alignment.centerRight,
           child: GestureDetector(
@@ -167,7 +168,7 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
         body: Stack(
           children: <Widget>[
             getMainListViewUI(),
-            SizedBox(
+            const SizedBox(
               width: 100,
               height: 300,
             ),

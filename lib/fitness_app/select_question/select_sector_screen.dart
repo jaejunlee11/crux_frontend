@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:best_flutter_ui_templates/fitness_app/hotel_app_theme.dart';
 
+// 재준 : 섹터를 선택 하는 화면 구현-> 해당 화면에 필요현 list_view, model도 구현
 class SelectSectorScreen extends StatefulWidget {
   const SelectSectorScreen({Key? key, this.animationController})
       : super(key: key);
@@ -27,7 +28,7 @@ class _SelectSectorScreenState extends State<SelectSectorScreen>
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
             parent: widget.animationController!,
-            curve: Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
+            curve: const Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
 
     scrollController.addListener(() {
       if (scrollController.offset >= 24) {
@@ -206,7 +207,7 @@ Widget getSearchBarUI() {
                     fontSize: 18,
                   ),
                   cursorColor: HotelAppTheme.buildLightTheme().primaryColor,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: '클라이밍장 이름을 입력하세요',
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:table_calendar/table_calendar.dart';
 
+// 민재 : 마이페이지 화면 구현 -> 해당 화면에 필요현 list_view, model도 구현
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
 

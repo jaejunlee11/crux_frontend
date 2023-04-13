@@ -4,6 +4,7 @@ import 'package:best_flutter_ui_templates/fitness_app/fitness_app_theme.dart';
 import 'package:best_flutter_ui_templates/fitness_app/my_diary/climbingVideo_list_view.dart';
 import 'package:flutter/material.dart';
 
+// 재준 : crux 홈 화면 구현-> 해당 화면에 필요현 list_view, model도 구현
 class MyDiaryScreen extends StatefulWidget {
   const MyDiaryScreen({Key? key, this.animationController}) : super(key: key);
 
@@ -25,7 +26,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
             parent: widget.animationController!,
-            curve: Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
+            curve: const Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
     addAllListData();
 
     scrollController.addListener(() {
@@ -55,7 +56,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
 
   void addAllListData() {
     const int count = 9;
-    listViews.add(SizedBox(
+    listViews.add(const SizedBox(
       height: 20,
     ));
     listViews.add(
@@ -63,8 +64,8 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
         titleTxt: '최신 동영상',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 2, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -74,7 +75,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
         mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(
                 parent: widget.animationController!,
-                curve: Interval((1 / count) * 3, 1.0,
+                curve: const Interval((1 / count) * 3, 1.0,
                     curve: Curves.fastOutSlowIn))),
         mainScreenAnimationController: widget.animationController,
       ),
@@ -85,12 +86,12 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
         titleTxt: '클라이밍 용품 구매',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 2, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
-    listViews.add(SizedBox(
+    listViews.add(const SizedBox(
       height: 45,
     ));
     listViews.add(
@@ -98,7 +99,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
         mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(
                 parent: widget.animationController!,
-                curve: Interval((1 / count) * 3, 1.0,
+                curve: const Interval((1 / count) * 3, 1.0,
                     curve: Curves.fastOutSlowIn))),
         mainScreenAnimationController: widget.animationController,
       ),

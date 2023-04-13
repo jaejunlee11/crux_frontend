@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// 민재 : 게시판에서 글 작성 화면 구현 -> 해당 화면에 필요현 list_view, model도 구현
 class NewPostScreen extends StatefulWidget {
   @override
   _NewPostScreenState createState() => _NewPostScreenState();
