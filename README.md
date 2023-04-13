@@ -1,16 +1,17 @@
-# best_flutter_ui_templates
+# crux_frontend
+## crux frontend flutter 사용
+### UI 구성 완료, crux backend에서 보낸 api를 받아서 데이터를 받아오고 보낼 예정
 
-A new Flutter project.
+### 진행 상황
+#### UI구현
+##### 재준 : 로그인 화면, crux 홈페이지, 클라이밍장 검색 화면, 섹터 선택 화면, 문제 선택 화면, 동영상 확인 화면
+##### 민재 : 자유 게시판 화면, 크루 게시판 화면, 마이페이지(추후 기능과 함께 마무리 예정)
+#### api를 통해서 데이터 받기 및 데이터 넣기
+##### backend 구현 중(test 데이터 보내기는 완료)
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# 파트 분류
+## 재준
+### UI : 로그인 화면, crux 홈페이지, 클라이밍장 검색 화면, 섹터 선택 화면, 문제 선택 화면, 동영상 확인 화면
+### api를 통해서 데이터 받아오기 구현 중
+## 민재
+### 자유 게시판 화면, 크루 게시판 화면, 마이페이지
