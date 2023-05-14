@@ -9,7 +9,7 @@ class centersListData {
   String endColor;
   String name;
 
-  factory centersListData.fromJason(Map<String, dynamic> json) {
+  factory centersListData.fromJson(Map<String, dynamic> json) {
     return centersListData(
       name: json['spotname'],
       startColor: '#33CC33',
@@ -17,7 +17,7 @@ class centersListData {
     );
   }
 
-  dynamic toJason() => {
+  dynamic toJson() => {
         'spotname': name,
       };
 }
