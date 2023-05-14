@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:best_flutter_ui_templates/fitness_app/models/forum_post_list_data.dart';
+import 'package:best_flutter_ui_templates/fitness_app/models/forum_comments_list_data.dart';
 import 'forum_new_post_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -12,6 +13,22 @@ class ForumApp extends StatefulWidget {
 }
 
 class _ForumAppState extends State<ForumApp> {
+
+List<Comment> comments = [];
+List<ForumPost> posts = [];
+bool isLoading = false;
+
+_fetchComments() async{
+  setState(() {
+    isLoading =true;
+  });
+
+  final response = await http.get('http://3.39.160.193:8000/comments/')
+
+
+}
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
