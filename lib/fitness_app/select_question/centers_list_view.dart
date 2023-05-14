@@ -1,6 +1,7 @@
 import 'package:best_flutter_ui_templates/fitness_app/fitness_app_home_screen_inCenter.dart';
 import 'package:best_flutter_ui_templates/fitness_app/fitness_app_theme.dart';
 import 'package:best_flutter_ui_templates/fitness_app/models/centers_list_data.dart';
+import 'package:best_flutter_ui_templates/fitness_app/providers/center_list_provider.dart';
 import 'package:best_flutter_ui_templates/main.dart';
 import 'package:flutter/material.dart';
 
@@ -19,13 +20,18 @@ class CenterListView extends StatefulWidget {
 class _CenterListViewState extends State<CenterListView>
     with TickerProviderStateMixin {
   AnimationController? animationController;
-  List<centersListData> mealsListData = centersListData.tabIconsList;
+  List<centersListData> mealsListData = <centersListData>[];
 
   @override
   void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     super.initState();
+    CenterProvider.fetchCenterListData().then((value) {
+      setState(() {
+        mealsListData = value;
+      });
+    });
   }
 
   Future<bool> getData() async {
@@ -109,80 +115,69 @@ class MealsView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(
                         top: 32, left: 8, right: 8, bottom: 16),
-                    child: mealsListData?.kacl != 0
-                        ? Positioned(
-                            top: 0,
-                            left: 0,
-                            child: SizedBox(
-                              width: 200,
-                              height: 300,
-                              child: Image.asset(mealsListData!.imagePath),
-                            ),
-                          )
-                        : GestureDetector(
-                            onTap: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const FitnessAppHomeScreenInCenter(
-                                    centerName: "a",
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                      color: HexColor(mealsListData!.endColor)
-                                          .withOpacity(0.6),
-                                      offset: const Offset(1.1, 4.0),
-                                      blurRadius: 8.0),
-                                ],
-                                gradient: LinearGradient(
-                                  colors: <HexColor>[
-                                    HexColor(mealsListData!.startColor),
-                                    HexColor(mealsListData!.endColor),
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                ),
-                                borderRadius: const BorderRadius.only(
-                                  bottomRight: Radius.circular(8.0),
-                                  bottomLeft: Radius.circular(8.0),
-                                  topLeft: Radius.circular(8.0),
-                                  topRight: Radius.circular(8.0),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 4, left: 16, right: 16, bottom: 8),
-                                child: SizedBox(
-                                  width: 200,
-                                  height: 60,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        mealsListData!.name,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                          fontFamily: FitnessAppTheme.fontName,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                          letterSpacing: 0.2,
-                                          color: FitnessAppTheme.white,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const FitnessAppHomeScreenInCenter(
+                              centerName: "a",
                             ),
                           ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                                color: HexColor(mealsListData!.endColor)
+                                    .withOpacity(0.6),
+                                offset: const Offset(1.1, 4.0),
+                                blurRadius: 8.0),
+                          ],
+                          gradient: LinearGradient(
+                            colors: <HexColor>[
+                              HexColor(mealsListData!.startColor),
+                              HexColor(mealsListData!.endColor),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            bottomRight: Radius.circular(8.0),
+                            bottomLeft: Radius.circular(8.0),
+                            topLeft: Radius.circular(8.0),
+                            topRight: Radius.circular(8.0),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 4, left: 16, right: 16, bottom: 8),
+                          child: SizedBox(
+                            width: 200,
+                            height: 60,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  mealsListData!.name,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontFamily: FitnessAppTheme.fontName,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    letterSpacing: 0.2,
+                                    color: FitnessAppTheme.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
