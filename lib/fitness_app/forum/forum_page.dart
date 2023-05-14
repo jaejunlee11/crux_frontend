@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:best_flutter_ui_templates/fitness_app/models/forum_post_list_data.dart';
 import 'forum_new_post_page.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 // 민재 : 게시판 화면 구현 -> 해당 화면에 필요현 list_view, model도 구현
 class ForumApp extends StatefulWidget {

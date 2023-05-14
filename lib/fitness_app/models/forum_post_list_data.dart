@@ -4,7 +4,7 @@ class ForumPost {
   final int documentnum;
   final String title;
   final String content;
-  final List<Comment> comments;
+  final Map<Comment,dynamic> comments;
 
   ForumPost(
       {required this.title,
@@ -19,16 +19,10 @@ class ForumPostListData {
       documentnum: 1,
       title: "글 1",
       content: "본문 1",
-      comments: [
-        ...ForumCommentListData.forumComments.map(
-          (comment) => Comment(
-            documentnum: comment.documentnum,
-            username: comment.username,
-            content: comment.content,
-          ),
-        ),
-      ],
-    ),
+      comments: ForumCommentListData.forumComments
+        .where((comment) => comment.documentnum == 1)
+        .toList(),
+      ),
     ForumPost(
       documentnum: 2,
       title: "Post 2",
