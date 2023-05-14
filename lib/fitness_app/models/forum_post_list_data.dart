@@ -1,18 +1,45 @@
-import 'forum_comments_list_data.dart';
+//기존의 comment 저장 방식은 제외하는 방향으로 forumpost만 불러오도록
 
 class ForumPost {
   final int documentnum;
   final String title;
-  final String content;
-  final Map<Comment,dynamic> comments;
+  final String content; 
+  final String username;
+  final String postdate;
 
   ForumPost(
-      {required this.title,
+      {required this.documentnum,
+      required this.title,
       required this.content,
-      required this.comments,
-      required this.documentnum});
+      required this.username,
+      required this.postdate,
+      });
+
+  ForumPost.fromMap(Map<String, dynamic>map)
+    : documentnum = map['PostsID'],
+      title = map['PostTitle'],
+      content = map['PostContent'],
+      username = map['PostWriteMemID'],
+      postdate = map['WriteDate'];
+
+  ForumPost.fromJson(Map<String, dynamic> json)
+    : documentnum = json['PostsID'],
+      title = json['PostTitle'],
+      content = json['PostContent'],
+      username = json['PostWriteMemID'],
+      postdate = json['WriteDate'];
+
+
 }
 
+List<ForumPost> posts = [];
+bool isLoading = false;
+
+
+
+
+//M:기존 UI 구현을 위해 작성했던 코드(차후 삭제 요망)
+/*
 class ForumPostListData {
   static List<ForumPost> forumPosts = [
     ForumPost(
@@ -39,14 +66,4 @@ class ForumPostListData {
     ),
   ];
 }
-
-class Comment {
-  final int documentnum;
-  final String username;
-  final String content;
-
-  Comment(
-      {required this.documentnum,
-      required this.username,
-      required this.content});
-}
+*/

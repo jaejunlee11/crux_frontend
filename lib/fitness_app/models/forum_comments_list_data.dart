@@ -27,7 +27,11 @@ class Comment {
       writedate = json['ReplyDate'],
       content = json['ReplyContent'];
 }
-//기존 UI용 리스트 데이터
+
+List<Comment> comments = [];
+bool isLoading = false;
+
+//M:기존 UI용 리스트 데이터
 /*class ForumCommentListData {
  static List<Comment> forumComments = [
     Comment(documentnum: 1, username: "User1", content: "Comment 1"),
