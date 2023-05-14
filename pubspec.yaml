@@ -39,6 +39,7 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   video_player: 
   file_picker: ^4.1.4
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:
