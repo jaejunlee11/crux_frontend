@@ -1,7 +1,6 @@
 import 'package:best_flutter_ui_templates/fitness_app/fitness_app_home_screen_inShow.dart';
 import 'package:best_flutter_ui_templates/fitness_app/hotel_app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:best_flutter_ui_templates/fitness_app/models/sector_list_data.dart';
 
 class SectorsListView extends StatelessWidget {
@@ -83,62 +82,62 @@ class SectorsListView extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                CrossAxisAlignment.center,
                                             children: <Widget>[
                                               Text(
                                                 sectorData!.titleTxt,
                                                 textAlign: TextAlign.left,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 22,
                                                 ),
                                               ),
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Text(
-                                                    sectorData!.subTxt,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.grey
-                                                            .withOpacity(0.8)),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 4,
-                                                  ),
-                                                  Icon(
-                                                    FontAwesomeIcons
-                                                        .solidCircle,
-                                                    size: 12,
-                                                    color: sectorData!.rating ==
-                                                            1
-                                                        ? Colors.white
-                                                        : sectorData!.rating ==
-                                                                2
-                                                            ? Colors.yellow
-                                                            : sectorData!
-                                                                        .rating ==
-                                                                    3
-                                                                ? Colors.green
-                                                                : sectorData!
-                                                                            .rating ==
-                                                                        4
-                                                                    ? Colors
-                                                                        .blue
-                                                                    : sectorData!.rating ==
-                                                                            5
-                                                                        ? Colors
-                                                                            .red
-                                                                        : sectorData!.rating ==
-                                                                                6
-                                                                            ? Colors.purple
-                                                                            : Colors.grey,
-                                                  ),
-                                                ],
-                                              ),
+                                              // Row(
+                                              //   crossAxisAlignment:
+                                              //       CrossAxisAlignment.center,
+                                              //   mainAxisAlignment:
+                                              //       MainAxisAlignment.start,
+                                              //   children: <Widget>[
+                                              // Text(
+                                              //   sectorData!.subTxt,
+                                              //   style: TextStyle(
+                                              //       fontSize: 14,
+                                              //       color: Colors.grey
+                                              //           .withOpacity(0.8)),
+                                              // ),
+                                              // const SizedBox(
+                                              //   width: 4,
+                                              // ),
+                                              // Icon(
+                                              //   FontAwesomeIcons
+                                              //       .solidCircle,
+                                              //   size: 12,
+                                              //   color: sectorData!.rating ==
+                                              //           1
+                                              //       ? Colors.white
+                                              //       : sectorData!.rating ==
+                                              //               2
+                                              //           ? Colors.yellow
+                                              //           : sectorData!
+                                              //                       .rating ==
+                                              //                   3
+                                              //               ? Colors.green
+                                              //               : sectorData!
+                                              //                           .rating ==
+                                              //                       4
+                                              //                   ? Colors
+                                              //                       .blue
+                                              //                   : sectorData!.rating ==
+                                              //                           5
+                                              //                       ? Colors
+                                              //                           .red
+                                              //                       : sectorData!.rating ==
+                                              //                               6
+                                              //                           ? Colors.purple
+                                              //                           : Colors.grey,
+                                              // ),
+                                              //   ],
+                                              // ),
                                             ],
                                           ),
                                         ),
