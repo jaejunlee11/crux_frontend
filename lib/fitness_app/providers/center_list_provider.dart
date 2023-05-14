@@ -11,7 +11,7 @@ class CenterProvider {
       final List<dynamic> responseData =
           jsonDecode(utf8.decode(response.bodyBytes));
       final List<centersListData> listData = responseData
-          .map((dynamic item) => centersListData.fromJason(item))
+          .map((dynamic item) => centersListData.fromJson(item))
           .toList();
       return listData;
     } else {
