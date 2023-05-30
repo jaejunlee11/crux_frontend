@@ -7,6 +7,8 @@ import 'dart:convert';
 
 
 // 민재 : 게시판 화면 구현 -> 해당 화면에 필요현 list_view, model도 구현
+// Post/reply의 분리 구현중
+// class(model)의 분리 필요
 class ForumApp extends StatefulWidget {
   @override
   _ForumAppState createState() => _ForumAppState();
