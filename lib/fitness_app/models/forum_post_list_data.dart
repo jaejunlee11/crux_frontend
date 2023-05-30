@@ -22,12 +22,22 @@ class ForumPost {
       username = map['PostWriteMemID'],
       postdate = map['WriteDate'];
 
-  ForumPost.fromJson(Map<String, dynamic> json)
-    : documentnum = json['PostsID'],
-      title = json['PostTitle'],
-      content = json['PostContent'],
-      username = json['PostWriteMemID'],
-      postdate = json['WriteDate'];
+  factory ForumPost.fromJson(Map<String, dynamic> json){
+    return ForumPost(
+      documentnum : json['PostsID'],
+      title : json['PostTitle'],
+      content : json['PostContent'],
+      username : json['PostWriteMemID'],
+      postdate : json['WriteDate']
+    );
+  }
+  dynamic toJson() => {
+      'PostsID': documentnum,
+      'PostTitle': title,
+      'PostContent':content,
+      'PostWriteMemID':username,
+      'WriteDate':postdate
+  };
 
 
 }
