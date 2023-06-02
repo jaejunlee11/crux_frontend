@@ -1,10 +1,11 @@
+import 'package:best_flutter_ui_templates/fitness_app/forum/forum_new_post_page.dart';
 import 'package:flutter/material.dart';
 import 'tabs/post_tab.dart';
 
 class ForumHomeScreen extends StatefulWidget {
 
   @override
-  State<ForumHomeScreen> createState() => _ForumHomeScreenState();
+  _ForumHomeScreenState createState() => _ForumHomeScreenState();
 }
 
 class _ForumHomeScreenState extends State<ForumHomeScreen> 
@@ -18,7 +19,7 @@ with SingleTickerProviderStateMixin{  // 단일 애니메이션 위젯 정의 �
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('자유 게시판 메인'),
+        title: Text('게시글 확인'),
       actions: <Widget>[
         Padding(
           padding: const EdgeInsets.fromLTRB(0.0,0.0,40.0,0.0),
@@ -27,7 +28,7 @@ with SingleTickerProviderStateMixin{  // 단일 애니메이션 위젯 정의 �
             Icons.add,  
             color: Colors.white,
             size: 50.0),
-            onPressed: (){},),
+            onPressed: (){NewPostScreen();},),
         ),
       ],
       bottom: TabBar(
@@ -39,7 +40,7 @@ with SingleTickerProviderStateMixin{  // 단일 애니메이션 위젯 정의 �
       body: TabBarView(
         controller: controller,
         children: <Widget>[
-          PostTab(),
+          ForumPostTab(),
         ],
       ),
           );

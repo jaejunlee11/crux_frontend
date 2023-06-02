@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../models/forum_post_list_data.dart';
 import "post_list_items.dart";
 
-class PostList extends StatelessWidget{
-  final List<ForumPost> postlist;
-  PostList({required this.postlist});
+class ForumPostList extends StatelessWidget{
+  final List<ForumPost> forumpostlist;
+  ForumPostList({required this.forumpostlist});
 
   @override
   Widget build(BuildContext context){
@@ -16,7 +16,7 @@ class PostList extends StatelessWidget{
 
 
 List<Widget> getChilderenPosts(){
-  return postlist.map((ForumPost)=>PostListItem(post:ForumPost)).toList();
+  return forumpostlist.map((posts)=>ForumPostListItem(forumpost:posts)).toList();
 }
 
 }

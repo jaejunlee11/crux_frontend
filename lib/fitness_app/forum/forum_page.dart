@@ -44,7 +44,7 @@ class ForumApp extends StatelessWidget{
     return ChangeNotifierProvider(
       create: (context) => ForumPostProvider(),
       child: MaterialApp(
-      title: '자유 게시판: 글 보기',
+      title: '자유 게시판(전체보기)',
       home: ForumHomeScreen(),
         ),
       );  

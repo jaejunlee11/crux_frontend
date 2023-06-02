@@ -1,11 +1,11 @@
 //기존의 comment 저장 방식은 제외하는 방향으로 forumpost만 불러오도록
 
 class ForumPost {
-  final int documentnum;
-  final String title;
-  final String content; 
-  final String username;
-  final String postdate;
+  int documentnum;
+  String title;
+  String content; 
+  String username;
+  String postdate;
 
   ForumPost(
       {required this.documentnum,
@@ -14,37 +14,37 @@ class ForumPost {
       required this.username,
       required this.postdate,
       });
-
+/*
   ForumPost.fromMap(Map<String, dynamic>map)
-    : documentnum = map['PostsID'],
-      title = map['PostTitle'],
-      content = map['PostContent'],
-      username = map['PostWriteMemID'],
-      postdate = map['WriteDate'];
-
+    : documentnum = map['postsid'],
+      title = map['posttitle'],
+      content = map['postcontent'],
+      username = map['postwritememid'],
+      postdate = map['writedate'];
+*/
   factory ForumPost.fromJson(Map<String, dynamic> json){
     return ForumPost(
-      documentnum : json['PostsID'],
-      title : json['PostTitle'],
-      content : json['PostContent'],
-      username : json['PostWriteMemID'],
-      postdate : json['WriteDate']
+      documentnum : json['postsid'],
+      title : json['posttitle'],
+      content : json['postcontent'],
+      username : json['postwritememid'],
+      postdate : json['writedate']
     );
   }
   dynamic toJson() => {
-      'PostsID': documentnum,
-      'PostTitle': title,
-      'PostContent':content,
-      'PostWriteMemID':username,
-      'WriteDate':postdate
+      'postsid': documentnum,
+      'posttitle': title,
+      'postcontent':content,
+      'postwritememid':username,
+      'writedate':postdate
   };
 
 
 }
-
+/*
 List<ForumPost> posts = [];
 bool isLoading = false;
-
+*/
 
 
 
