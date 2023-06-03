@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 
 class CenterProvider {
   static Future<List<centersListData>> fetchCenterListData() async {
-    String urlString = "http://3.39.160.193:8000/spotname";
+    // String urlString = "http://3.39.160.193:8000/spotname";
+    String urlString = "http://0.0.0.0:8000/spotname";
     Uri uri = Uri.parse(urlString);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
