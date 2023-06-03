@@ -6,7 +6,7 @@ import 'bottom_navigation_view/bottom_bar_view.dart';
 import 'fitness_app_theme.dart';
 import 'my_diary/my_diary_screen.dart';
 import 'select_question/select_question_screen.dart';
-import 'forum/forum_page.dart';
+import 'forum/forum_post_home.dart';
 import 'forum/forum_crew_page.dart';
 import 'forum/my_page.dart';
 
@@ -108,7 +108,7 @@ class _FitnessAppHomeScreenInCenterState
                 }
                 setState(() {
                   tabBody =
-                     ForumApp();
+                     ForumHomeScreen();
                 });
               });
             } else if (index == 0) {
