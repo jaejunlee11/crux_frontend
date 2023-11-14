@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "../../models/forum_post_list_data.dart";
+import "../tabs/post_detail_tab.dart";
 
 
 class ForumPostListItem extends StatelessWidget {
@@ -8,9 +9,20 @@ class ForumPostListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return InkWell(  
+      onTap: () {
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ForumPostDetail(forumpost.documentnum)),
+                );
+            },
+    
+    
+    child: ListTile(
       title:Text(forumpost.title),
-      subtitle:Text(forumpost.username),
+      subtitle:Text(forumpost.content, maxLines:2),
+    )
     );
   }
 }

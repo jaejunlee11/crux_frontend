@@ -1,61 +1,47 @@
-import 'forum_crew_comments_list_data.dart';
 
-class CrewForumPost {
-  final int documentnum;
-  final String title;
-  final String content;
-  final String region;
-  final List<Comment> comments;
+class ForumCrewPost {
+  int documentnum;
+  String title;
+  String content; 
+  String username;
+  String postdate;
+  String region;
+  int like;
+  int dislike;
 
-  CrewForumPost(
-      {required this.title,
-      required this.content,
-      required this.region,
-      required this.comments,
-      required this.documentnum});
-}
-
-class CrewForumPostListData {
-  static List<CrewForumPost> forumPosts = [
-    CrewForumPost(
-      documentnum: 1,
-      title: "글 1",
-      content: "본문 1",
-      region: 'seoul',
-      comments: [
-        ...CrewForumCommentListData.forumComments.map(
-          (comment) => Comment(
-            documentnum: comment.documentnum,
-            username: comment.username,
-            content: comment.content,
-          ),
-        ),
-      ],
-    ),
-    CrewForumPost(
-      documentnum: 2,
-      title: "Post 2",
-      content: "This is the content for post 2",
-      region: 'Gyeonggi',
-      comments: [
-        ...CrewForumCommentListData.forumComments.map(
-          (comment) => Comment(
-            documentnum: comment.documentnum,
-            username: comment.username,
-            content: comment.content,
-          ),
-        ),
-      ],
-    ),
-  ];
-}
-
-class Comment {
-  final int documentnum;
-  final String username;
-  final String content;
-  Comment(
+  ForumCrewPost(
       {required this.documentnum,
+      required this.title,
+      required this.content,
       required this.username,
-      required this.content});
+      required this.region,
+      required this.postdate,
+      required this.like,
+      required this.dislike
+      });
+
+  factory ForumCrewPost.fromJson(Map<String, dynamic> json){
+    return ForumCrewPost(
+      documentnum : json['postsid'],
+      title : json['posttitle'],
+      content : json['postcontent'],
+      username : json['postwritememid'],
+      region : json['region'],
+      postdate : json['writedate'], 
+      like : json ['likenum'],
+      dislike : json ['dislikenum']
+    );
+  }
+  dynamic toJson() => {
+      'postsid': documentnum,
+      'posttitle': title,
+      'postcontent':content,
+      'postwritememid':username,
+      'region':region,
+      'writedate':postdate,
+      'likenum':like,
+      'dislikenum':dislike
+  };
+
+
 }

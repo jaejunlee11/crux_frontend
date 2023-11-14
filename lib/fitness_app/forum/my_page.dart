@@ -1,3 +1,4 @@
+import 'package:best_flutter_ui_templates/fitness_app/forum/my_page_profile_select.dart';
 import 'package:flutter/material.dart';
 //import 'package:table_calendar/table_calendar.dart';
 
@@ -12,29 +13,29 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   int _level = 1;
   int _exp = 0;
+  final String _userid = 'test123';
   final String _nickname = 'John Doe';
+  final String _introtext = '안녕하세요';
   final AssetImage _profileImage =
       const AssetImage('assets/images/userImage.png');
+  double _progress =  0;   
 
 //CalendarController _calendarController = CalendarController();
 //Map<DateTime, List<dynamic>> _events = {};
 //List<dynamic> _selectedEvents = [];
 
-  void _increaseExp() {
+  void _calculateprogress() {
     setState(() {
-      _exp += 10;
-      if (_exp >= 100) {
-        _exp = 0;
-        _level++;
-      }
-    });
+      _progress = _exp / (_level*100);
+      });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Page'),
+        title: const Text('내 정보'),
+        backgroundColor: Colors.green,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -46,37 +47,54 @@ class _MyPageState extends State<MyPage> {
           ),
           const SizedBox(height: 16),
           Text(
-            _nickname,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            '내 닉네임: $_nickname',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
+          Text(
+            '내 ID: $_userid',
+            style: const TextStyle(fontSize: 20),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            '내 소개글: $_introtext',
+            style: const TextStyle(fontSize: 20),
+          ),
+          
+          const SizedBox(height: 16),          
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Level $_level',
+                '내 레벨 $_level',
                 style: const TextStyle(fontSize: 20),
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: LinearProgressIndicator(
-                  value: _exp / 100,
+                  value: _progress,
                   backgroundColor: Colors.grey[300],
-                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
                 ),
               ),
               const SizedBox(width: 16),
               Text(
-                '$_exp/100 XP',
+                '$_exp / ${_level*100}',
                 style: const TextStyle(fontSize: 20),
               ),
             ],
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            child: const Text('Degug: Gain XP'),
+            child: const Text('프로필 이미지 선택하기'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            ),
             onPressed: () {
-              _increaseExp();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileSelectPage()),
+                );
             },
           ),
         ],

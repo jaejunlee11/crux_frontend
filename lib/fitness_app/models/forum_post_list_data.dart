@@ -6,6 +6,8 @@ class ForumPost {
   String content; 
   String username;
   String postdate;
+  int like;
+  int dislike;
 
   ForumPost(
       {required this.documentnum,
@@ -13,22 +15,19 @@ class ForumPost {
       required this.content,
       required this.username,
       required this.postdate,
+      required this.like,
+      required this.dislike
       });
-/*
-  ForumPost.fromMap(Map<String, dynamic>map)
-    : documentnum = map['postsid'],
-      title = map['posttitle'],
-      content = map['postcontent'],
-      username = map['postwritememid'],
-      postdate = map['writedate'];
-*/
+
   factory ForumPost.fromJson(Map<String, dynamic> json){
     return ForumPost(
       documentnum : json['postsid'],
       title : json['posttitle'],
       content : json['postcontent'],
       username : json['postwritememid'],
-      postdate : json['writedate']
+      postdate : json['writedate'], 
+      like : json ['likenum'],
+      dislike : json ['dislikenum']
     );
   }
   dynamic toJson() => {
@@ -36,44 +35,19 @@ class ForumPost {
       'posttitle': title,
       'postcontent':content,
       'postwritememid':username,
-      'writedate':postdate
+      'writedate':postdate,
+      'likenum':like,
+      'dislikenum':dislike
   };
 
+void pluslike(){
+  like++;
+}
+
+void plusdislike(){
+  dislike++;
+}
+
+
 
 }
-/*
-List<ForumPost> posts = [];
-bool isLoading = false;
-*/
-
-
-
-//M:기존 UI 구현을 위해 작성했던 코드(차후 삭제 요망)
-/*
-class ForumPostListData {
-  static List<ForumPost> forumPosts = [
-    ForumPost(
-      documentnum: 1,
-      title: "글 1",
-      content: "본문 1",
-      comments: ForumCommentListData.forumComments
-        .where((comment) => comment.documentnum == 1)
-        .toList(),
-      ),
-    ForumPost(
-      documentnum: 2,
-      title: "Post 2",
-      content: "This is the content for post 2",
-      comments: [
-        ...ForumCommentListData.forumComments.map(
-          (comment) => Comment(
-            documentnum: comment.documentnum,
-            username: comment.username,
-            content: comment.content,
-          ),
-        ),
-      ],
-    ),
-  ];
-}
-*/

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../models/forum_post_list_data.dart';
 import "post_list_items.dart";
 
+int minimumLikes = 10;
+
 class ForumPostList extends StatelessWidget{
   final List<ForumPost> forumpostlist;
   ForumPostList({required this.forumpostlist});
@@ -18,5 +20,12 @@ class ForumPostList extends StatelessWidget{
 List<Widget> getChilderenPosts(){
   return forumpostlist.map((posts)=>ForumPostListItem(forumpost:posts)).toList();
 }
+
+List<Widget> getFilteredChildrenPosts() {
+    final filteredPosts =
+        forumpostlist.where((post) => post.like >= minimumLikes).toList();
+
+    return filteredPosts.map((post) => ForumPostListItem(forumpost: post)).toList();
+  }
 
 }
