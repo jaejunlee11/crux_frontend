@@ -5,12 +5,22 @@ import 'package:best_flutter_ui_templates/main.dart';
 import 'package:flutter/material.dart';
 
 class questionListView extends StatefulWidget {
-  const questionListView(
-      {Key? key, this.mainScreenAnimationController, this.mainScreenAnimation})
-      : super(key: key);
+  const questionListView({
+    Key? key,
+    this.mainScreenAnimationController,
+    this.mainScreenAnimation,
+    required this.centerNum,
+    required this.questionColor,
+    required this.userId,
+    required this.userNickname,
+  }) : super(key: key);
 
   final AnimationController? mainScreenAnimationController;
   final Animation<double>? mainScreenAnimation;
+  final int centerNum;
+  final String questionColor;
+  final String userId;
+  final String userNickname;
   @override
   _questionListViewState createState() => _questionListViewState();
 }
@@ -47,7 +57,7 @@ class _questionListViewState extends State<questionListView>
           child: Transform(
             transform: Matrix4.translationValues(
                 0.0, 30 * (1.0 - widget.mainScreenAnimation!.value), 0.0),
-            child: Container(
+            child: SizedBox(
               height: 100,
               width: double.infinity,
               child: ListView.builder(
@@ -70,6 +80,10 @@ class _questionListViewState extends State<questionListView>
                     questionsData: questionsData[index],
                     animation: animation,
                     animationController: animationController!,
+                    centerNum: widget.centerNum,
+                    questionColor: widget.questionColor,
+                    userId: widget.userId,
+                    userNickname: widget.userNickname,
                   );
                 },
               ),
@@ -82,13 +96,24 @@ class _questionListViewState extends State<questionListView>
 }
 
 class QuestionsView extends StatelessWidget {
-  const QuestionsView(
-      {Key? key, this.questionsData, this.animationController, this.animation})
-      : super(key: key);
+  const QuestionsView({
+    Key? key,
+    this.questionsData,
+    this.animationController,
+    this.animation,
+    required this.centerNum,
+    required this.questionColor,
+    required this.userId,
+    required this.userNickname,
+  }) : super(key: key);
 
   final questionsListData? questionsData;
   final AnimationController? animationController;
   final Animation<double>? animation;
+  final int centerNum;
+  final String questionColor;
+  final String userId;
+  final String userNickname;
 
   @override
   Widget build(BuildContext context) {
@@ -107,25 +132,20 @@ class QuestionsView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(
                         top: 32, left: 8, right: 8, bottom: 16),
-                    child: questionsData?.kacl != 0
-                        ? Positioned(
-                            top: 0,
-                            left: 0,
-                            child: SizedBox(
-                              width: 200,
-                              height: 300,
-                              child: Image.asset(questionsData!.imagePath),
-                            ),
-                          )
-                        : GestureDetector(
+                    child: questionsData?.name == questionColor
+                        ? GestureDetector(
                             onTap: () {
-                              questionsData!.startColor = "#006600";
-                              questionsData!.endColor = "#006600";
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          FitnessAppHomeScreenInShow()));
+                                          FitnessAppHomeScreenInShow(
+                                            centerNum: centerNum,
+                                            questionColor: questionsData!.name,
+                                            colorNum: questionsData!.kacl,
+                                            userId: userId,
+                                            userNickname: userNickname,
+                                          )));
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -138,7 +158,7 @@ class QuestionsView extends StatelessWidget {
                                 ],
                                 gradient: LinearGradient(
                                   colors: <HexColor>[
-                                    HexColor(questionsData!.startColor),
+                                    HexColor(questionsData!.endColor),
                                     HexColor(questionsData!.endColor),
                                   ],
                                   begin: Alignment.topLeft,
@@ -165,10 +185,76 @@ class QuestionsView extends StatelessWidget {
                                       Text(
                                         questionsData!.name,
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: FitnessAppTheme.fontName,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 15,
+                                          fontSize: 10,
+                                          letterSpacing: 0.2,
+                                          color: FitnessAppTheme.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          FitnessAppHomeScreenInShow(
+                                            centerNum: centerNum,
+                                            questionColor: questionsData!.name,
+                                            colorNum: questionsData!.kacl,
+                                            userId: userId,
+                                            userNickname: userNickname,
+                                          )));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                      color: HexColor(questionsData!.startColor)
+                                          .withOpacity(0.6),
+                                      offset: const Offset(1.1, 4.0),
+                                      blurRadius: 8.0),
+                                ],
+                                gradient: LinearGradient(
+                                  colors: <HexColor>[
+                                    HexColor(questionsData!.startColor),
+                                    HexColor(questionsData!.startColor),
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  bottomRight: Radius.circular(8.0),
+                                  bottomLeft: Radius.circular(8.0),
+                                  topLeft: Radius.circular(8.0),
+                                  topRight: Radius.circular(8.0),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 3, left: 3, right: 3, bottom: 3),
+                                child: SizedBox(
+                                  width: 40,
+                                  height: 40,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        questionsData!.name,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontFamily: FitnessAppTheme.fontName,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 10,
                                           letterSpacing: 0.2,
                                           color: FitnessAppTheme.white,
                                         ),

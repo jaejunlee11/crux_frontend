@@ -7,10 +7,16 @@ import 'package:best_flutter_ui_templates/fitness_app/hotel_app_theme.dart';
 
 // 재준 : 원하는 클라이밍 장을 검색 하는 화면 구현-> 해당 화면에 필요현 list_view, model도 구현
 class SelectQuestionScreen extends StatefulWidget {
-  const SelectQuestionScreen({Key? key, this.animationController})
-      : super(key: key);
+  const SelectQuestionScreen({
+    Key? key,
+    this.animationController,
+    required this.userId,
+    required this.userNickname,
+  }) : super(key: key);
 
   final AnimationController? animationController;
+  final String userId;
+  final String userNickname;
   @override
   _SelectQuestionScreenState createState() => _SelectQuestionScreenState();
 }
@@ -58,9 +64,9 @@ class _SelectQuestionScreenState extends State<SelectQuestionScreen>
 
   void addAllListData() {
     const int count = 9;
-    listViews.add(
-      getSearchBarUI(),
-    );
+    // listViews.add(
+    //   getSearchBarUI(),
+    // );
     listViews.add(
       const SizedBox(
         width: 100,
@@ -69,7 +75,7 @@ class _SelectQuestionScreenState extends State<SelectQuestionScreen>
     );
     listViews.add(
       TitleView(
-        titleTxt: '최근 검색 암장',
+        titleTxt: '암장 선택',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
             curve: const Interval((1 / count) * 2, 1.0,
@@ -85,6 +91,8 @@ class _SelectQuestionScreenState extends State<SelectQuestionScreen>
                 curve: const Interval((1 / count) * 3, 1.0,
                     curve: Curves.fastOutSlowIn))),
         mainScreenAnimationController: widget.animationController,
+        userId: widget.userId,
+        userNickname: widget.userNickname,
       ),
     );
   }
@@ -183,21 +191,38 @@ class _SelectQuestionScreenState extends State<SelectQuestionScreen>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'CRUX',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: FitnessAppTheme.fontName,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 22 + 6 - 6 * topBarOpacity,
-                                    letterSpacing: 1.2,
+                            const SizedBox(width: 130),
+                            Text(
+                              'CRUX',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: FitnessAppTheme.fontName,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 22 + 6 - 6 * topBarOpacity,
+                                letterSpacing: 1.2,
+                                color: FitnessAppTheme.darkerText,
+                              ),
+                            ),
+                            const SizedBox(
+                                width:
+                                    65), // Add some spacing between "CRUX" and user info
+                            Column(
+                              children: [
+                                Text(
+                                  '아이디: ${widget.userId}',
+                                  style: const TextStyle(
                                     color: FitnessAppTheme.darkerText,
+                                    fontSize: 12,
                                   ),
                                 ),
-                              ),
+                                Text(
+                                  '닉네임: ${widget.userNickname}',
+                                  style: const TextStyle(
+                                    color: FitnessAppTheme.darkerText,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),

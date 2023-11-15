@@ -48,7 +48,7 @@ class _MealsListViewState extends State<ClimbingVideoListView>
           child: Transform(
             transform: Matrix4.translationValues(
                 0.0, 30 * (1.0 - widget.mainScreenAnimation!.value), 0.0),
-            child: Container(
+            child: SizedBox(
               height: 216,
               width: double.infinity,
               child: ListView.builder(
@@ -108,7 +108,7 @@ class MealsView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(
                         top: 32, left: 8, right: 8, bottom: 16),
-                    child: mealsListData?.kacl != 0
+                    child: mealsListData?.sectornum != 0
                         ? Positioned(
                             top: 0,
                             left: 0,
@@ -152,7 +152,7 @@ class MealsView extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
-                                    Text(
+                                    const Text(
                                       "동영상을\n 등록하세요!",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
@@ -163,7 +163,7 @@ class MealsView extends StatelessWidget {
                                         color: FitnessAppTheme.white,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 20,
                                     ),
                                     Container(
@@ -174,7 +174,7 @@ class MealsView extends StatelessWidget {
                                           BoxShadow(
                                               color: FitnessAppTheme.nearlyBlack
                                                   .withOpacity(0.4),
-                                              offset: Offset(8.0, 8.0),
+                                              offset: const Offset(8.0, 8.0),
                                               blurRadius: 8.0),
                                         ],
                                       ),

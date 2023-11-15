@@ -1,38 +1,130 @@
-import 'package:best_flutter_ui_templates/fitness_app/fitness_app_home_screen_inShow.dart';
-import 'package:best_flutter_ui_templates/fitness_app/hotel_app_theme.dart';
-import 'package:flutter/material.dart';
-import 'package:best_flutter_ui_templates/fitness_app/models/sector_list_data.dart';
+import 'dart:io';
 
-class SectorsListView extends StatelessWidget {
-  const SectorsListView(
-      {Key? key,
-      this.sectorData,
-      this.animationController,
-      this.animation,
-      this.callback})
-      : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:best_flutter_ui_templates/fitness_app/fitness_app_home_screen_inShow.dart';
+import 'package:best_flutter_ui_templates/fitness_app/models/sector_list_data.dart';
+import 'package:best_flutter_ui_templates/fitness_app/hotel_app_theme.dart';
+import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class SectorsListView extends StatefulWidget {
+  const SectorsListView({
+    Key? key,
+    this.sectorData,
+    this.animationController,
+    this.animation,
+    this.callback,
+    required this.userId,
+    required this.userNickname,
+  }) : super(key: key);
 
   final VoidCallback? callback;
   final SectorListData? sectorData;
   final AnimationController? animationController;
   final Animation<double>? animation;
+  final String userId;
+  final String userNickname;
+
+  @override
+  _SectorsListViewState createState() => _SectorsListViewState();
+}
+
+class _SectorsListViewState extends State<SectorsListView> {
+  final ImagePicker _picker = ImagePicker();
+  // File? _image;
+  File? _image;
+  dynamic sendData;
+  // List<File> _files = [];
+  Future<void> getImage() async {
+    final file = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 1920,
+        maxHeight: 1080,
+        imageQuality: 100 //0-100
+        );
+    if (file?.path != null) {
+      setState(() {
+        _image = File(file!.path);
+        sendData = _image!.path;
+      });
+    }
+  }
+
+  void _uploadImage(String a, int b) async {
+    await getImage();
+    print("upload");
+    print(sendData);
+    try {
+      // String url = 'http://0.0.0.0:8000/post-sector';
+      String url = 'http://0.0.0.0:8000/update-sector/$b';
+      String fileName = "$a.jpg";
+      FormData formData = FormData.fromMap({
+        'sectorimage':
+            (MultipartFile.fromFileSync(sendData, filename: fileName)),
+        'sectornum': b,
+      });
+      Response response = await Dio().put(url, data: formData);
+      // Response response = await Dio().post(url, data: formData);
+
+      if (response.statusCode == 201) {
+        print('Image uploaded successfully.');
+      } else {
+        print('Failed to upload image.');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  // void _getImage(int id) async {
+  //   String urlString = "http://0.0.0.0:8000/sector/$id";
+  //   Uri uri = Uri.parse(urlString);
+  //   final response = await http.get(uri);
+  //   if (response.statusCode == 200) {
+  //     final List<dynamic> responseData =
+  //         jsonDecode(utf8.decode(response.bodyBytes));
+
+  //     // Check if responseData is not empty and contains at least one map
+  //     if (responseData.isNotEmpty && responseData[0] is Map<String, dynamic>) {
+  //       final Map<String, dynamic> firstItem = responseData[0];
+  //       _image = firstItem['sectorimage'];
+  //     } else {
+  //       print('Response data is not in the expected format.');
+  //     }
+  //   } else {
+  //     print("오류");
+  //   }
+
+  Future<Widget> _getImage(int id) async {
+    String urlString = "http://0.0.0.0:8000/sector/$id";
+    Uri uri = Uri.parse(urlString);
+    final response = await http.get(uri);
+    final List<dynamic> responseData =
+        jsonDecode(utf8.decode(response.bodyBytes));
+    final Map<String, dynamic> firstItem = responseData[0];
+    String url = firstItem['sectorimage'];
+    String urlString2 = "http://0.0.0.0:8000$url";
+    return Image.network(urlString2, fit: BoxFit.cover);
+  }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: animationController!,
+      animation: widget.animationController!,
       builder: (BuildContext context, Widget? child) {
         return FadeTransition(
-          opacity: animation!,
+          opacity: widget.animation!,
           child: Transform(
             transform: Matrix4.translationValues(
-                0.0, 50 * (1.0 - animation!.value), 0.0),
+                0.0, 50 * (1.0 - widget.animation!.value), 0.0),
             child: Padding(
               padding: const EdgeInsets.only(
                   left: 24, right: 24, top: 8, bottom: 16),
               child: InkWell(
                 splashColor: Colors.transparent,
-                onTap: callback,
+                // onTap:
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(16.0)),
@@ -54,16 +146,44 @@ class SectorsListView extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        FitnessAppHomeScreenInShow()));
+                                        FitnessAppHomeScreenInShow(
+                                          centerNum: widget.sectorData!.num,
+                                          questionColor: "",
+                                          colorNum: 0,
+                                          userId: widget.userId,
+                                          userNickname: widget.userNickname,
+                                        )));
                           },
                           child: Column(
                             children: <Widget>[
                               AspectRatio(
                                 aspectRatio: 2,
-                                child: Image.asset(
-                                  sectorData!.imagePath,
-                                  fit: BoxFit.cover,
-                                ),
+                                child: _image != null
+                                    ? Image.file(_image!, fit: BoxFit.cover)
+                                    // : Image.asset(
+                                    //     widget.sectorData!.imagePath,
+                                    //     fit: BoxFit.cover,
+                                    //   ),
+                                    : FutureBuilder<Widget>(
+                                        future:
+                                            _getImage(widget.sectorData!.num),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<Widget> snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const CircularProgressIndicator();
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                                'Error: ${snapshot.error}');
+                                          } else {
+                                            return snapshot.data ??
+                                                Image.asset(
+                                                  'path_to_placeholder_image',
+                                                  fit: BoxFit.cover,
+                                                );
+                                          }
+                                        },
+                                      ),
                               ),
                               Container(
                                 color: HotelAppTheme.buildLightTheme()
@@ -85,7 +205,7 @@ class SectorsListView extends StatelessWidget {
                                                 CrossAxisAlignment.center,
                                             children: <Widget>[
                                               Text(
-                                                sectorData!.titleTxt,
+                                                widget.sectorData!.titleTxt,
                                                 textAlign: TextAlign.left,
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.w600,
@@ -143,9 +263,9 @@ class SectorsListView extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 16, top: 8),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.only(right: 16, top: 8),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -168,13 +288,18 @@ class SectorsListView extends StatelessWidget {
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(32.0),
                               ),
-                              onTap: () {},
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                              onTap: () {
+                                // 이미지가 선택된 경우에만 작동
+                                _uploadImage(widget.sectorData!.imagePath,
+                                    widget.sectorData!.num); // 이미지 업로드 함수 호출
+                                // _getImage(2);
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.all(7.0),
                                 child: Icon(
-                                  Icons.favorite_border,
-                                  color: HotelAppTheme.buildLightTheme()
-                                      .primaryColor,
+                                  Icons.change_circle,
+                                  color: Colors.purple,
+                                  size: 50,
                                 ),
                               ),
                             ),

@@ -12,8 +12,16 @@ import 'forum/my_page.dart';
 
 class FitnessAppHomeScreenInCenter extends StatefulWidget {
   final String centerName;
+  final int centerNum;
+  final String userId;
+  final String userNickname;
 
-  const FitnessAppHomeScreenInCenter({Key? key, required this.centerName})
+  const FitnessAppHomeScreenInCenter(
+      {Key? key,
+      required this.centerName,
+      required this.centerNum,
+      required this.userId,
+      required this.userNickname})
       : super(key: key);
 
   @override
@@ -24,7 +32,6 @@ class FitnessAppHomeScreenInCenter extends StatefulWidget {
 class _FitnessAppHomeScreenInCenterState
     extends State<FitnessAppHomeScreenInCenter> with TickerProviderStateMixin {
   AnimationController? animationController;
-
   List<TabIconData> tabIconsList = TabIconData.tabIconsList;
 
   Widget tabBody = Container(
@@ -33,14 +40,17 @@ class _FitnessAppHomeScreenInCenterState
 
   @override
   void initState() {
-    tabIconsList.forEach((TabIconData tab) {
+    for (var tab in tabIconsList) {
       tab.isSelected = false;
-    });
+    }
     tabIconsList[0].isSelected = true;
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
     tabBody = SelectSectorScreen(
       animationController: animationController,
+      centerNum: widget.centerNum,
+      userId: widget.userId,
+      userNickname: widget.userNickname,
     );
     super.initState();
   }
@@ -81,7 +91,7 @@ class _FitnessAppHomeScreenInCenterState
     return true;
   }
 
-   Widget bottomBar() {
+  Widget bottomBar() {
     return Column(
       children: <Widget>[
         const Expanded(
@@ -97,8 +107,11 @@ class _FitnessAppHomeScreenInCenterState
                   return;
                 }
                 setState(() {
-                  tabBody =
-                      MyDiaryScreen(animationController: animationController);
+                  tabBody = MyDiaryScreen(
+                    animationController: animationController,
+                    userId: widget.userId,
+                    userNickname: widget.userNickname,
+                  );
                 });
               });
             } else if (index == 1) {
@@ -107,8 +120,7 @@ class _FitnessAppHomeScreenInCenterState
                   return;
                 }
                 setState(() {
-                  tabBody =
-                     ForumHomeScreen();
+                  tabBody = ForumHomeScreen();
                 });
               });
             } else if (index == 0) {
@@ -118,7 +130,10 @@ class _FitnessAppHomeScreenInCenterState
                 }
                 setState(() {
                   tabBody = SelectQuestionScreen(
-                      animationController: animationController);
+                    animationController: animationController,
+                    userId: widget.userId,
+                    userNickname: widget.userNickname,
+                  );
                 });
               });
             } else if (index == 3) {
@@ -127,7 +142,10 @@ class _FitnessAppHomeScreenInCenterState
                   return;
                 }
                 setState(() {
-                  tabBody = MyPage();
+                  tabBody = MyPage(
+                    userId: widget.userId,
+                    userNickname: widget.userNickname,
+                  );
                 });
               });
             } else if (index == 2) {
@@ -139,7 +157,7 @@ class _FitnessAppHomeScreenInCenterState
                   tabBody = CrewForumApp();
                 });
               });
-            }           
+            }
           },
         ),
       ],

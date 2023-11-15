@@ -2,16 +2,25 @@ import 'package:best_flutter_ui_templates/fitness_app/fitness_app_home_screen_in
 import 'package:best_flutter_ui_templates/fitness_app/fitness_app_theme.dart';
 import 'package:best_flutter_ui_templates/fitness_app/models/centers_list_data.dart';
 import 'package:best_flutter_ui_templates/fitness_app/providers/center_list_provider.dart';
+import 'package:best_flutter_ui_templates/fitness_app/models/sector_list_data.dart';
 import 'package:best_flutter_ui_templates/main.dart';
 import 'package:flutter/material.dart';
 
 class CenterListView extends StatefulWidget {
-  const CenterListView(
-      {Key? key, this.mainScreenAnimationController, this.mainScreenAnimation})
-      : super(key: key);
+  const CenterListView({
+    Key? key,
+    this.mainScreenAnimationController,
+    this.mainScreenAnimation,
+    this.sectorData,
+    required this.userId,
+    required this.userNickname,
+  }) : super(key: key);
 
   final AnimationController? mainScreenAnimationController;
   final Animation<double>? mainScreenAnimation;
+  final SectorListData? sectorData;
+  final String userId;
+  final String userNickname;
 
   @override
   _CenterListViewState createState() => _CenterListViewState();
@@ -78,6 +87,8 @@ class _CenterListViewState extends State<CenterListView>
                     mealsListData: mealsListData[index],
                     animation: animation,
                     animationController: animationController!,
+                    userId: widget.userId,
+                    userNickname: widget.userNickname,
                   );
                 },
               ),
@@ -90,13 +101,22 @@ class _CenterListViewState extends State<CenterListView>
 }
 
 class MealsView extends StatelessWidget {
-  const MealsView(
-      {Key? key, this.mealsListData, this.animationController, this.animation})
-      : super(key: key);
+  const MealsView({
+    Key? key,
+    this.mealsListData,
+    this.animationController,
+    this.animation,
+    this.sectorData,
+    required this.userId,
+    required this.userNickname,
+  }) : super(key: key);
 
   final centersListData? mealsListData;
   final AnimationController? animationController;
   final Animation<double>? animation;
+  final SectorListData? sectorData;
+  final String userId;
+  final String userNickname;
 
   @override
   Widget build(BuildContext context) {
@@ -120,9 +140,11 @@ class MealsView extends StatelessWidget {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                const FitnessAppHomeScreenInCenter(
+                            builder: (context) => FitnessAppHomeScreenInCenter(
                               centerName: "a",
+                              centerNum: mealsListData!.sectorNum,
+                              userId: userId,
+                              userNickname: userNickname,
                             ),
                           ),
                         );

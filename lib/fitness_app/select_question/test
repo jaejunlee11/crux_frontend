@@ -1,0 +1,166 @@
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
+class SectorsListView extends StatefulWidget {
+  const SectorsListView({
+    Key? key,
+    this.sectorData,
+    this.animationController,
+    this.animation,
+    this.callback,
+  }) : super(key: key);
+
+  final VoidCallback? callback;
+  final SectorListData? sectorData;
+  final AnimationController? animationController;
+  final Animation<double>? animation;
+
+  @override
+  _SectorsListViewState createState() => _SectorsListViewState();
+}
+
+class _SectorsListViewState extends State<SectorsListView> {
+  File? _image;
+
+  Future<void> _getImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  void _uploadImage(File imageFile) {
+    // 이미지 업로드 로직을 여기에 추가
+    // 업로드된 이미지를 서버로 전송하거나 필요한 작업을 수행할 수 있습니다.
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: widget.animationController!,
+      builder: (BuildContext context, Widget? child) {
+        return FadeTransition(
+          opacity: widget.animation!,
+          child: Transform(
+            transform: Matrix4.translationValues(
+                0.0, 50 * (1.0 - widget.animation!.value), 0.0),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 24, right: 24, top: 8, bottom: 16),
+              child: InkWell(
+                splashColor: Colors.transparent,
+                onTap: () {
+                  _getImage(); // 이미지 선택 기능을 호출합니다.
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.6),
+                        offset: const Offset(4, 4),
+                        blurRadius: 16,
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                    child: Stack(
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            // 이미지가 선택되었을 때 실행할 작업을 여기에 추가
+                            if (_image != null) {
+                              // 이미지가 선택된 경우에만 작동
+                              _uploadImage(_image!); // 이미지 업로드 함수 호출
+                            }
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const FitnessAppHomeScreenInShow(),
+                              ),
+                            );
+                          },
+                          child: Column(
+                            children: <Widget>[
+                              AspectRatio(
+                                aspectRatio: 2,
+                                child: _image != null
+                                    ? Image.file(_image!, fit: BoxFit.cover)
+                                    : Image.asset(
+                                        widget.sectorData!.imagePath,
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
+                              Container(
+                                  // ... 이하 코드는 그대로 유지
+                                  ),
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(32.0),
+                              ),
+                              onTap: () {
+                                // 이미지 업로드 또는 다른 작업을 수행하도록 원하는 함수를 호출할 수 있습니다.
+                                if (_image != null) {
+                                  // 이미지가 선택된 경우에만 작동
+                                  _uploadImage(_image!); // 이미지 업로드 함수 호출
+                                }
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.all(7.0),
+                                child: Icon(
+                                  Icons.change_circle,
+                                  color: Colors.purple,
+                                  size: 50,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class FitnessAppHomeScreenInShow extends StatelessWidget {
+  const FitnessAppHomeScreenInShow({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // FitnessAppHomeScreenInShow 화면을 렌더링하는 코드를 여기에 추가
+  }
+}
+
+class SectorListData {
+  final String imagePath;
+  final String titleTxt;
+
+  SectorListData({
+    required this.imagePath,
+    required this.titleTxt,
+  });
+}

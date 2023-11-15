@@ -7,10 +7,18 @@ import 'package:best_flutter_ui_templates/fitness_app/hotel_app_theme.dart';
 
 // 재준 : 섹터를 선택 하는 화면 구현-> 해당 화면에 필요현 list_view, model도 구현
 class SelectSectorScreen extends StatefulWidget {
-  const SelectSectorScreen({Key? key, this.animationController})
-      : super(key: key);
+  const SelectSectorScreen({
+    Key? key,
+    this.animationController,
+    required this.centerNum,
+    required this.userId,
+    required this.userNickname,
+  }) : super(key: key);
 
   final AnimationController? animationController;
+  final int centerNum;
+  final String userId;
+  final String userNickname;
   @override
   _SelectSectorScreenState createState() => _SelectSectorScreenState();
 }
@@ -25,6 +33,9 @@ class _SelectSectorScreenState extends State<SelectSectorScreen>
 
   @override
   void initState() {
+    for (var i = 0; i < sectorList.length; i++) {
+      sectorList[i].num = (widget.centerNum - 1) * 10 + i + 1;
+    }
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
             parent: widget.animationController!,
@@ -92,6 +103,8 @@ class _SelectSectorScreenState extends State<SelectSectorScreen>
                       sectorData: sectorList[index],
                       animation: animation,
                       animationController: widget.animationController!,
+                      userId: widget.userId,
+                      userNickname: widget.userNickname,
                     );
                   },
                 ),
@@ -149,16 +162,43 @@ class _SelectSectorScreenState extends State<SelectSectorScreen>
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'CRUX',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: FitnessAppTheme.fontName,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 22 + 6 - 6 * topBarOpacity,
-                                    letterSpacing: 1.2,
-                                    color: FitnessAppTheme.darkerText,
-                                  ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    const SizedBox(width: 130),
+                                    Text(
+                                      'CRUX',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontFamily: FitnessAppTheme.fontName,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 22 + 6 - 6 * topBarOpacity,
+                                        letterSpacing: 1.2,
+                                        color: FitnessAppTheme.darkerText,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                        width:
+                                            65), // Add some spacing between "CRUX" and user info
+                                    Column(
+                                      children: [
+                                        Text(
+                                          '아이디: ${widget.userId}',
+                                          style: const TextStyle(
+                                            color: FitnessAppTheme.darkerText,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                        Text(
+                                          '닉네임: ${widget.userNickname}',
+                                          style: const TextStyle(
+                                            color: FitnessAppTheme.darkerText,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
