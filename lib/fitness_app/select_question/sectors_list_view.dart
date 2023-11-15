@@ -266,12 +266,12 @@ class _SectorsListViewState extends State<SectorsListView> {
                                     const Padding(
                                       padding:
                                           EdgeInsets.only(right: 16, top: 8),
- /*                                     child: Column(
+                                      child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.end,
-                                      ), */ //확인 필요 
+                                      ),
                                     ),
                                   ],
                                 ),
