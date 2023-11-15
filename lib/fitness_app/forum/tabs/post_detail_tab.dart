@@ -7,6 +7,7 @@ import '../../models/forum_post_list_data.dart';
 import '../widgets/post_list.dart';
 import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'post_detail_tab_modify.dart';
 
 class ForumPostDetail extends StatelessWidget {
   final int docID;
@@ -40,12 +41,15 @@ class ForumPostDetail extends StatelessWidget {
               Column(
               children: [ 
               Container(
+
               decoration: BoxDecoration(
               color: titlecolor,
               border: Border.all(color: Colors.black, width: 2.0),
               borderRadius: BorderRadius.circular(30),
               ),  
-              child:  
+
+              child: 
+
               Text("글 제목: ${specificPost.title}",
                   style: TextStyle(
                     color: Colors.black,
@@ -53,9 +57,35 @@ class ForumPostDetail extends StatelessWidget {
                     fontFamily: 'Arial',
                   ),
               ),
+
               ),
               ],
               ),
+              Row(
+                children: [
+                // Add your delete and change icons here
+                  IconButton(
+                    onPressed: () {
+                      showDeleteConfirmation(context,specificPost.documentnum,value);
+                      },
+                            icon: Icon(Icons.delete),
+                            color: Colors.red,
+                          ),
+                  IconButton(
+                     onPressed: () {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ForumPostDetailModify(specificPost: specificPost)),
+                );
+                      },
+                            icon: Icon(Icons.edit),
+                            color: Colors.blue,
+                          ),
+                ],
+              ),
+
+
+
               const SizedBox(height:15),
 
             Expanded(
@@ -86,18 +116,15 @@ class ForumPostDetail extends StatelessWidget {
           ),
         ),
         );
-      },
+      },      
     );
   }
+ 
+
+
+
 }
 
-void pluslike(ForumPost post){
-  post.like++;
-}
-
-void plusdislike(ForumPost post){
-  post.dislike++;
-}
 
 
 void showLikeMessage(){
@@ -122,3 +149,45 @@ void showDislikeMessage(){
   );
 
 }
+
+void showDeleteMessage(){
+  Fluttertoast.showToast(
+    msg: '글을 삭제했습니다',
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: Colors.grey,
+    fontSize: 20,
+    textColor: Colors.white,
+    toastLength: Toast.LENGTH_SHORT,
+  );
+
+}
+
+Future<void> showDeleteConfirmation(BuildContext context, int docID,ForumPostProvider value) async {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('삭제 확인'),
+        content: Text('정말 이 글을 지우시겠습니까?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+            child: Text('취소'),
+          ),
+          TextButton(
+            onPressed: () async {
+              await value.deletePost(docID);
+              Navigator.of(context).pop(); // Close the dialog
+              showDeleteMessage();
+              Navigator.pop(context); // Optionally, pop the current screen after deletion
+            },
+            child: Text('삭제'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
