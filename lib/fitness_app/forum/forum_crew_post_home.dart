@@ -2,7 +2,8 @@ import 'package:best_flutter_ui_templates/fitness_app/forum/forum_new_post_page.
 import 'package:best_flutter_ui_templates/fitness_app/forum/tabs/crew_post_tab.dart';
 import 'package:flutter/material.dart';
 import 'forum_crew_new_post_page.dart';
-import 'tabs/post_tab.dart';
+import 'tabs/crew_like_tab.dart';
+
 
 class ForumCrewHomeScreen extends StatefulWidget {
 
@@ -15,6 +16,7 @@ int docID = 0; //default id
 class _ForumCrewHomeScreenState extends State<ForumCrewHomeScreen> 
 with SingleTickerProviderStateMixin{  // 단일 애니메이션 위젯 정의 시 사용함
   late TabController controller; //차후 확인 (late)
+  int _currentTabIndex = 1;
   @override
   void initState(){
     super.initState();
@@ -43,21 +45,29 @@ with SingleTickerProviderStateMixin{  // 단일 애니메이션 위젯 정의 �
       tabs: <Widget>[
         Tab(
           child:InkWell(
-                onTap: () {print('Icon pressed');},
+                onTap: () {
+                  setState((){
+                    _currentTabIndex=0;
+                  });
+                },
                 child: Icon(
-                    Icons.person_outline,
+                    Icons.person,
                     color: Colors.black,
-//                    text: '즐겨찾기'
+//                    text: '전체글 보기'
                   ),
           ),
         ),
         Tab(
           child:InkWell(
-                onTap: () {print('Icon pressed');},
+                onTap: () {
+                  setState((){
+                  _currentTabIndex=1;
+                });
+                },
                 child: Icon(
-                    Icons.person,
+                    Icons.person_outline,
                     color: Colors.black,
- //                   text: '추천글'
+ //                   text: '모집 진행중 글 보기'
                   ),
           ),
         ),
@@ -79,8 +89,14 @@ with SingleTickerProviderStateMixin{  // 단일 애니메이션 위젯 정의 �
       ),
       body: TabBarView(
         controller: controller,
+        physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
-          ForumCrewPostTab(onTapCallback: setDocID),
+          _currentTabIndex ==0
+          ?ForumCrewPostTab(onTapCallback: setDocID)
+          : Container(),
+          _currentTabIndex == 1
+          ?ForumCrewLikeTab(onTapCallback: setDocID)
+          : Container(),
         ],
       ),
           );

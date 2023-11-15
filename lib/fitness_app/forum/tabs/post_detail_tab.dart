@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../models/forum_post_list_data.dart';
 import '../widgets/post_list.dart';
 import 'package:intl/intl.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ForumPostDetail extends StatelessWidget {
   final int docID;
@@ -30,10 +30,11 @@ class ForumPostDetail extends StatelessWidget {
           decoration: BoxDecoration(
             color: pagecolor,
             border: Border.all(color: Colors.black, width: 1.0),
-
           ),
+
           child: Padding(
             padding: const EdgeInsets.fromLTRB(0.0,50.0,0.0,70.0),
+
           child: Column(
             children: [
               Column(
@@ -45,7 +46,7 @@ class ForumPostDetail extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
               ),  
               child:  
-              Text("Post Title: ${specificPost.title}",
+              Text("글 제목: ${specificPost.title}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 32,
@@ -60,7 +61,7 @@ class ForumPostDetail extends StatelessWidget {
             Expanded(
               child:Align(
                 alignment: Alignment.center,
-                child:Text("Post Content: ${specificPost.content}",
+                child:Text("글 내용: ${specificPost.content}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -75,8 +76,9 @@ class ForumPostDetail extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [ 
-              ElevatedButton(onPressed: specificPost.pluslike , child: Text("Like"), style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.green))),
-              ElevatedButton(onPressed: specificPost.plusdislike, child: Text("Dislike"), style: ButtonStyle(backgroundColor:MaterialStateProperty.all(Colors.green))),
+              ElevatedButton(onPressed: () async {await value.likePost(docID); showLikeMessage();}, child: Text("Like: ${specificPost.like}"), style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.green))),
+
+              ElevatedButton(onPressed: () async {await value.dislikePost(docID); showDislikeMessage();}, child: Text("Dislike: ${specificPost.dislike}"), style: ButtonStyle(backgroundColor:MaterialStateProperty.all(Colors.green))),
               ]
               ),
               ),
@@ -98,3 +100,25 @@ void plusdislike(ForumPost post){
 }
 
 
+void showLikeMessage(){
+  Fluttertoast.showToast(
+    msg: '좋아요를 눌렀습니다',
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: Colors.grey,
+    fontSize: 20,
+    textColor: Colors.white,
+    toastLength: Toast.LENGTH_SHORT,
+  );
+}
+
+void showDislikeMessage(){
+  Fluttertoast.showToast(
+    msg: '싫어요를 눌렀습니다',
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: Colors.grey,
+    fontSize: 20,
+    textColor: Colors.white,
+    toastLength: Toast.LENGTH_SHORT,
+  );
+
+}

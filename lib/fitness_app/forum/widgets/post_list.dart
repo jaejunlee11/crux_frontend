@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/forum_post_list_data.dart';
 import "post_list_items.dart";
 
-int minimumLikes = 10;
+int minimumLikes = 7;
 
 class ForumPostList extends StatelessWidget{
   final List<ForumPost> forumpostlist;

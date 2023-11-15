@@ -132,9 +132,8 @@ class _NewPostCrewScreenState extends State<NewPostCrewScreen> {
                   final forumcrewPostProvider = Provider.of<ForumCrewPostProvider>(context, listen: false);
                   forumcrewPostProvider.addPost(newcrewpost);
                   showCompleteMessage(); 
-                  Navigator.push(
+                  Navigator.pop(
                   context,
-                  MaterialPageRoute(builder: (context) => ForumCrewHomeScreen()),
                   );
 
 

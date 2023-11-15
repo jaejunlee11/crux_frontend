@@ -13,9 +13,9 @@ class ForumCrewPostListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Icon leadingIcon;
     if (forumcrewpost.like <= forumcrewpost.dislike) {
-      leadingIcon = Icon(Icons.person);
-    } else {
       leadingIcon = Icon(Icons.person_outline);
+    } else {
+      leadingIcon = Icon(Icons.person);
     }
 
 
