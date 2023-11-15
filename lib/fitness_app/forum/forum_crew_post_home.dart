@@ -1,16 +1,18 @@
 import 'package:best_flutter_ui_templates/fitness_app/forum/forum_new_post_page.dart';
+import 'package:best_flutter_ui_templates/fitness_app/forum/tabs/crew_post_tab.dart';
 import 'package:flutter/material.dart';
+import 'forum_crew_new_post_page.dart';
 import 'tabs/post_tab.dart';
 
-class ForumHomeScreen extends StatefulWidget {
+class ForumCrewHomeScreen extends StatefulWidget {
 
 int docID = 0; //default id  
 
   @override
-  _ForumHomeScreenState createState() => _ForumHomeScreenState();
+  _ForumCrewHomeScreenState createState() => _ForumCrewHomeScreenState();
 }
 
-class _ForumHomeScreenState extends State<ForumHomeScreen> 
+class _ForumCrewHomeScreenState extends State<ForumCrewHomeScreen> 
 with SingleTickerProviderStateMixin{  // 단일 애니메이션 위젯 정의 시 사용함
   late TabController controller; //차후 확인 (late)
   @override
@@ -29,7 +31,7 @@ with SingleTickerProviderStateMixin{  // 단일 애니메이션 위젯 정의 �
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('게시글 확인 / 자유 게시판'),
+        title: Text('게시글 확인 / 크루 모집 게시판'),
         backgroundColor: Colors.green,
       actions: <Widget>[
         Padding(
@@ -43,8 +45,8 @@ with SingleTickerProviderStateMixin{  // 단일 애니메이션 위젯 정의 �
           child:InkWell(
                 onTap: () {print('Icon pressed');},
                 child: Icon(
-                    Icons.favorite,
-                    color: Colors.red,
+                    Icons.person_outline,
+                    color: Colors.black,
 //                    text: '즐겨찾기'
                   ),
           ),
@@ -53,8 +55,8 @@ with SingleTickerProviderStateMixin{  // 단일 애니메이션 위젯 정의 �
           child:InkWell(
                 onTap: () {print('Icon pressed');},
                 child: Icon(
-                    Icons.thumb_up,
-                    color: Colors.blue,
+                    Icons.person,
+                    color: Colors.black,
  //                   text: '추천글'
                   ),
           ),
@@ -64,7 +66,7 @@ with SingleTickerProviderStateMixin{  // 단일 애니메이션 위젯 정의 �
                 onTap: () {                
                   Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NewPostScreen()));},
+                  MaterialPageRoute(builder: (context) => NewPostCrewScreen()));},
                 child: Icon(
                     Icons.create,
                     color: Colors.black,
@@ -78,14 +80,10 @@ with SingleTickerProviderStateMixin{  // 단일 애니메이션 위젯 정의 �
       body: TabBarView(
         controller: controller,
         children: <Widget>[
-          ForumPostTab(onTapCallback: setDocID),
+          ForumCrewPostTab(onTapCallback: setDocID),
         ],
       ),
           );
      
   }
 }
-
-
-
-

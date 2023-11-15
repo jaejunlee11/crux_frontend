@@ -23,6 +23,26 @@ class ForumPostProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> addPost(ForumPost newPost) async {
+    final postJson = newPost.toJson();
+
+    final response = await http.post(
+      Uri.parse("http://10.0.2.2:8000/post-forumpost/"),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(postJson),
+    );
+
+    if (response.statusCode == 201) {
+      // Successfully added the new post to the database.
+    } else {
+      // Handle errors, e.g., server error or validation error
+      throw Exception(
+          'Failed to add post. Status code: ${response.statusCode}');
+    }
+  }
 }
 
 
