@@ -79,9 +79,8 @@ class _NewPostScreenState extends State<NewPostScreen> {
                   final forumPostProvider = Provider.of<ForumPostProvider>(context, listen: false);
                   forumPostProvider.addPost(newpost);
                   showCompleteMessage(); 
-                  Navigator.push(
+                  Navigator.pop(
                   context,
-                  MaterialPageRoute(builder: (context) => ForumHomeScreen()),
                   );
 
 

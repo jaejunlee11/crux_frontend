@@ -23,12 +23,14 @@ class ProfileSelectPage extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               // Handle image tap
+              String selectedImage = ImageList.images[index].assetName;
+
               print('Image tapped: ${ImageList.images[index].assetName}');
               showCompleteMessage(); 
+
               Future.delayed(Duration(milliseconds: 300),(){
-             Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MyPage()),
+             Navigator.pop(
+                context
              );
               });
             },

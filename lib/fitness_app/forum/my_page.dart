@@ -16,9 +16,11 @@ class _MyPageState extends State<MyPage> {
   final String _userid = 'test123';
   final String _nickname = 'John Doe';
   final String _introtext = '안녕하세요';
-  final AssetImage _profileImage =
-      const AssetImage('assets/images/userImage.png');
-  double _progress =  0;   
+  AssetImage profileImage = AssetImage('assets/images/userImage.png');
+  double _progress =  0;  
+
+  _MyPageState({this.profileImage = const AssetImage('assets/images/userImage.png')});
+
 
 //CalendarController _calendarController = CalendarController();
 //Map<DateTime, List<dynamic>> _events = {};
@@ -43,7 +45,7 @@ class _MyPageState extends State<MyPage> {
         children: [
           CircleAvatar(
             radius: 60,
-            backgroundImage: _profileImage,
+            backgroundImage: profileImage,
           ),
           const SizedBox(height: 16),
           Text(
@@ -97,6 +99,17 @@ class _MyPageState extends State<MyPage> {
                 );
             },
           ),
+        const SizedBox(height: 16),
+        ElevatedButton(
+          child: const Text('소개글 변경하기'),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+          ),
+          onPressed: () {
+  },
+        )
+
+
         ],
       ),
     );

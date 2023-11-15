@@ -53,11 +53,84 @@ ForumPostProvider(){
     }
 
 }
+  Future<void> updateLikes(int postId, int newLike) async {
+    final postIndex = _posts.indexWhere((post) => post.documentnum == postId);
 
+    if (postIndex != -1) {
+      final updatedPost = _posts[postIndex].copyWith(like: newLike);
+      _posts[postIndex] = updatedPost;
+      notifyListeners();
 
+      // Update the likes in the database
+      final response = await http.put(
+        Uri.parse("http://10.0.2.2:8000/put-forumpost/$postId"),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(updatedPost.toJson()),
+      );
 
-
+      if (response.statusCode != 200) {
+        // Handle errors when updating likes in the database
+        throw Exception('Failed to update likes. Status code: ${response.statusCode}');
+      }
+    }
   }
+
+Future<void> updateDislikes(int postId, int newDislike) async {
+   final postIndex = _posts.indexWhere((post) => post.documentnum == postId);
+
+    if (postIndex != -1) {
+      final updatedPost = _posts[postIndex].copyWith(dislike: newDislike);
+      _posts[postIndex] = updatedPost;
+      notifyListeners();
+
+      // Update the likes in the database
+      final response = await http.put(
+        Uri.parse("http://10.0.2.2:8000/put-forumpost/$postId"),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(updatedPost.toJson()),
+      );
+
+      if (response.statusCode != 200) {
+        // Handle errors when updating likes in the database
+        throw Exception('Failed to update dislikes. Status code: ${response.statusCode}');
+      }
+    }
+  }
+
+    Future<void> likePost(int postId) async {
+    final specificPost = _posts.firstWhere(
+      (post) => post.documentnum == postId,
+      orElse: () => ForumPost(documentnum: 0, title: "Post not found", like: 0, dislike: 0, content: " ",username: " ",postdate: " "),
+    );
+
+    // Update the likes for the specific post
+    await updateLikes(postId, specificPost.like + 1);
+  }
+
+    Future<void> dislikePost(int postId) async {
+    final specificPost = _posts.firstWhere(
+      (post) => post.documentnum == postId,
+      orElse: () => ForumPost(documentnum: 0, title: "Post not found", like: 0, dislike: 0, content: " ",username: " ",postdate: " "),
+    );
+
+    // Update the dislikes for the specific post
+    await updateDislikes(postId, specificPost.dislike + 1);
+  }
+
+
+
+}
+
+
+
+
+
+
+  
 
 
 //안드로이드 환경에서만 작동을 확인? 

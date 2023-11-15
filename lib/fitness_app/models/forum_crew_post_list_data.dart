@@ -32,6 +32,30 @@ class ForumCrewPost {
       dislike : json ['dislikenum']
     );
   }
+
+    ForumCrewPost copyWith({
+    int? documentnum,
+    String? title,
+    String? content, 
+    String? username,
+    String? postdate,
+    int? like,
+    int? dislike,
+    String? region,
+  }) {
+    return ForumCrewPost(
+      documentnum: documentnum ?? this.documentnum,
+      title: title ?? this.title,
+      content: content ?? this.content,
+      username: username ?? this.username,
+      postdate: postdate ?? this.postdate,
+      like: like ?? this.like,
+      dislike: dislike ?? this.dislike,
+      region: region?? this.region,
+    );
+  }
+
+
   dynamic toJson() => {
       'postsid': documentnum,
       'posttitle': title,

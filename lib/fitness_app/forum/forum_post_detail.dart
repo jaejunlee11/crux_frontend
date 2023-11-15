@@ -2,6 +2,8 @@ import 'package:best_flutter_ui_templates/fitness_app/forum/forum_new_post_page.
 import 'package:flutter/material.dart';
 import 'tabs/post_detail_tab.dart';
 
+/*
+
 class ForumDetailScreen extends StatefulWidget {
 
 final int docID;
@@ -58,3 +60,4 @@ with SingleTickerProviderStateMixin{  // 단일 애니메이션 위젯 정의 �
   }
 }
 
+*/
