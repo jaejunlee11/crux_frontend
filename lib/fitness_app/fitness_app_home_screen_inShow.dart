@@ -10,8 +10,22 @@ import 'forum/forum_page.dart';
 import 'forum/forum_crew_page.dart';
 import 'forum/my_page.dart';
 
-
 class FitnessAppHomeScreenInShow extends StatefulWidget {
+  final int centerNum;
+  final String questionColor;
+  final int colorNum;
+  final String userId;
+  final String userNickname;
+
+  const FitnessAppHomeScreenInShow({
+    Key? key,
+    required this.centerNum,
+    required this.questionColor,
+    required this.colorNum,
+    required this.userId,
+    required this.userNickname,
+  }) : super(key: key);
+
   @override
   _FitnessAppHomeScreenInShowState createState() =>
       _FitnessAppHomeScreenInShowState();
@@ -29,14 +43,21 @@ class _FitnessAppHomeScreenInShowState extends State<FitnessAppHomeScreenInShow>
 
   @override
   void initState() {
-    tabIconsList.forEach((TabIconData tab) {
+    for (var tab in tabIconsList) {
       tab.isSelected = false;
-    });
+    }
     tabIconsList[0].isSelected = true;
 
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
-    tabBody = ShowQuestionScreen(animationController: animationController);
+    tabBody = ShowQuestionScreen(
+      animationController: animationController,
+      sectorNum: widget.centerNum,
+      questionColor: widget.questionColor,
+      colorNum: widget.colorNum,
+      userId: widget.userId,
+      userNickname: widget.userNickname,
+    );
     super.initState();
   }
 
@@ -76,7 +97,7 @@ class _FitnessAppHomeScreenInShowState extends State<FitnessAppHomeScreenInShow>
     return true;
   }
 
-   Widget bottomBar() {
+  Widget bottomBar() {
     return Column(
       children: <Widget>[
         const Expanded(
@@ -92,8 +113,11 @@ class _FitnessAppHomeScreenInShowState extends State<FitnessAppHomeScreenInShow>
                   return;
                 }
                 setState(() {
-                  tabBody =
-                      MyDiaryScreen(animationController: animationController);
+                  tabBody = MyDiaryScreen(
+                    animationController: animationController,
+                    userId: widget.userId,
+                    userNickname: widget.userNickname,
+                  );
                 });
               });
             } else if (index == 1) {
@@ -102,8 +126,7 @@ class _FitnessAppHomeScreenInShowState extends State<FitnessAppHomeScreenInShow>
                   return;
                 }
                 setState(() {
-                  tabBody =
-                     ForumApp();
+                  tabBody = const ForumApp();
                 });
               });
             } else if (index == 0) {
@@ -113,7 +136,9 @@ class _FitnessAppHomeScreenInShowState extends State<FitnessAppHomeScreenInShow>
                 }
                 setState(() {
                   tabBody = SelectQuestionScreen(
-                      animationController: animationController);
+                      animationController: animationController,
+                      userId: widget.userId,
+                      userNickname: widget.userNickname);
                 });
               });
             } else if (index == 3) {
@@ -122,7 +147,10 @@ class _FitnessAppHomeScreenInShowState extends State<FitnessAppHomeScreenInShow>
                   return;
                 }
                 setState(() {
-                  tabBody = MyPage();
+                  tabBody = MyPage(
+                    userId: widget.userId,
+                    userNickname: widget.userNickname,
+                  );
                 });
               });
             } else if (index == 2) {
@@ -134,7 +162,7 @@ class _FitnessAppHomeScreenInShowState extends State<FitnessAppHomeScreenInShow>
                   tabBody = CrewForumApp();
                 });
               });
-            }           
+            }
           },
         ),
       ],

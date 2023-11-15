@@ -5,23 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ForumPostProvider extends ChangeNotifier {
-ForumPostProvider(){
-  this.fetchPosts();
-}
+  ForumPostProvider() {
+    fetchPosts();
+  }
 
-
-  List<ForumPost> _posts= [];
-  UnmodifiableListView<ForumPost> get allPosts =>
-    UnmodifiableListView(_posts);
+  List<ForumPost> _posts = [];
+  UnmodifiableListView<ForumPost> get allPosts => UnmodifiableListView(_posts);
 
   fetchPosts() async {
-    final response = await http.get(Uri.parse("http://10.0.2.2:8000/forumpost/"));  //localhost 임시설정(10.0.2.2 for android?/127.0.0.1 for pc?)
+    final response = await http.get(Uri.parse(
+        "http://10.0.2.2:8000/forumpost/")); //localhost 임시설정(10.0.2.2 for android?/127.0.0.1 for pc?)
+    // final response =
+    //     await http.get(Uri.parse("http://0.0.0.0:8000/forumpost/"));
     if (response.statusCode == 200) {
       var data = jsonDecode(utf8.decode(response.bodyBytes)) as List;
-      _posts = data.map<ForumPost>((json)=> ForumPost.fromJson(json)).toList();
+      _posts = data.map<ForumPost>((json) => ForumPost.fromJson(json)).toList();
       notifyListeners();
-    }  
-
+    }
   }
 }
 

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 // 민재 : 마이페이지 화면 구현 -> 해당 화면에 필요현 list_view, model도 구현
 class MyPage extends StatefulWidget {
-  const MyPage({super.key});
-
+  const MyPage({super.key, required this.userId, required this.userNickname});
+  final String userId;
+  final String userNickname;
   @override
   _MyPageState createState() => _MyPageState();
 }

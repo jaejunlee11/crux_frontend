@@ -10,7 +10,10 @@ import 'forum/forum_crew_page.dart';
 import 'forum/my_page.dart';
 
 class FitnessAppHomeScreen extends StatefulWidget {
-  const FitnessAppHomeScreen({super.key});
+  final String userId;
+  final String userNickname;
+  const FitnessAppHomeScreen(
+      {required this.userId, required this.userNickname, super.key});
 
   @override
   _FitnessAppHomeScreenState createState() => _FitnessAppHomeScreenState();
@@ -35,7 +38,11 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
 
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
-    tabBody = MyDiaryScreen(animationController: animationController);
+    tabBody = MyDiaryScreen(
+      animationController: animationController,
+      userId: widget.userId,
+      userNickname: widget.userNickname,
+    );
     super.initState();
   }
 
@@ -91,8 +98,11 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                   return;
                 }
                 setState(() {
-                  tabBody =
-                      MyDiaryScreen(animationController: animationController);
+                  tabBody = MyDiaryScreen(
+                    animationController: animationController,
+                    userId: widget.userId,
+                    userNickname: widget.userNickname,
+                  );
                 });
               });
             } else if (index == 1) {
@@ -101,7 +111,7 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                   return;
                 }
                 setState(() {
-                  tabBody = ForumApp();
+                  tabBody = const ForumApp();
                 });
               });
             } else if (index == 0) {
@@ -111,7 +121,9 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                 }
                 setState(() {
                   tabBody = SelectQuestionScreen(
-                      animationController: animationController);
+                      animationController: animationController,
+                      userId: widget.userId,
+                      userNickname: widget.userNickname);
                 });
               });
             } else if (index == 3) {
@@ -120,7 +132,10 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                   return;
                 }
                 setState(() {
-                  tabBody = const MyPage();
+                  tabBody = MyPage(
+                    userId: widget.userId,
+                    userNickname: widget.userNickname,
+                  );
                 });
               });
             } else if (index == 2) {

@@ -1,79 +1,75 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
-
-// 재준 : 비디오 실행에 필요한 화면 구현
-void main() => runApp(VideoPlayerApp());
-
-class VideoPlayerApp extends StatelessWidget {
-  const VideoPlayerApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Video Player Demo',
-      home: VideoPlayerScreen(),
-    );
-  }
-}
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen({super.key});
+  const VideoPlayerScreen({Key? key, required this.videoId}) : super(key: key);
+  final String videoId;
 
   @override
   _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
-  late VideoPlayerController _controller;
-  late Future<void> _initializeVideoPlayerFuture;
+  late YoutubePlayerController _controller;
 
   @override
   void initState() {
-    _controller = VideoPlayerController.asset('assets/videos/sample3.mp4');
-
-    _controller.setLooping(true);
-    _initializeVideoPlayerFuture = _controller.initialize();
     super.initState();
+    loadVideo();
+  }
+
+  void loadVideo() async {
+    final videoId = widget.videoId;
+
+    if (videoId.isEmpty) {
+      // 값이 없을 경우, 이전 화면으로 돌아감
+      Navigator.pop(context);
+    } else {
+      _controller = YoutubePlayerController(
+        initialVideoId: videoId,
+        flags: const YoutubePlayerFlags(
+          autoPlay: true,
+          mute: false,
+        ),
+      );
+      setState(() {}); // Update the state to rebuild the widget
+    }
   }
 
   @override
   void dispose() {
     _controller.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    const aspectRatio = 9 / 16;
+
     return Scaffold(
       body: Center(
-        child: FutureBuilder(
-          future: _initializeVideoPlayerFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
+        child: SizedBox(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.width / aspectRatio,
+          child: YoutubePlayerBuilder(
+            player: YoutubePlayer(
+              controller: _controller,
+            ),
+            builder: (context, player) {
+              return player;
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            if (_controller.value.isPlaying) {
-              _controller.pause();
-            } else {
-              _controller.play();
-            }
-          });
+          Navigator.pop(context);
         },
-        child: Icon(
-          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+        child: const Icon(
+          Icons.arrow_back,
         ),
       ),
     );
