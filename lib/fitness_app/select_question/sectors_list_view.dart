@@ -264,6 +264,7 @@ class _SectorsListViewState extends State<SectorsListView> {
                                       ),
                                     ),
                                     const Padding(
+                                      //여기?
                                       padding:
                                           EdgeInsets.only(right: 16, top: 8),
                                       child: Column(
