@@ -26,7 +26,7 @@ class ForumCrewPostDetail extends StatelessWidget {
 
         ForumCrewPost specificPost = value.allPosts.firstWhere(
           (post) => post.documentnum == docID,
-          orElse: () => ForumCrewPost(documentnum: 0, title: "Post not found", content: "Post not found", username:"0",region:'none' ,like: 0, dislike: 0, postdate: DateFormat("yyyy-MM-dd").format(DateTime.now())),
+          orElse: () => ForumCrewPost(documentnum: 0, title: "삭제된 글입니다", content: "삭제된 글입니다", username:"0",region:'없음' ,like: 0, dislike: 0, postdate: DateFormat("yyyy-MM-dd").format(DateTime.now())),
         );
 
         return Container(

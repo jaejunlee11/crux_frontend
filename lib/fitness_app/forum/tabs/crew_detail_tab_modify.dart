@@ -65,6 +65,9 @@ class _ForumCrewPostDetailModifyState extends State<ForumCrewPostDetailModify> {
               Navigator.pop(context);
                 },
               child: Text('수정 완료하기'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+              ),
             ),
           ],
         ),
