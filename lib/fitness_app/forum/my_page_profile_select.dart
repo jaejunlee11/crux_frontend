@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import 'widgets/image_list.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'my_page.dart';
-
+import '../models/user.dart';
+import 'package:provider/provider.dart';
+import '../providers/user_mypage_provider.dart';
 
 class ProfileSelectPage extends StatelessWidget {
+
+ final String id;
+  
+  ProfileSelectPage({required this.id});
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('프로필 이미지 선택'),
+        title: Text('프로필 변경하기'),
         backgroundColor: Colors.green,
       ),
       body: GridView.builder(
@@ -21,11 +29,11 @@ class ProfileSelectPage extends StatelessWidget {
         itemCount: ImageList.images.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {
+            onTap: () async {
               // Handle image tap
               String selectedImage = ImageList.images[index].assetName;
 
-              print('Image tapped: ${ImageList.images[index].assetName}');
+              await Provider.of<UserProvider>(context, listen: false).updateProfilePic(id, selectedImage);
               showCompleteMessage(); 
 
               Future.delayed(Duration(milliseconds: 300),(){
@@ -47,7 +55,7 @@ class ProfileSelectPage extends StatelessWidget {
 
 void showCompleteMessage(){
   Fluttertoast.showToast(
-    msg: '프로필 변경 완료',
+    msg: '사진 변경 완료',
     gravity: ToastGravity.BOTTOM,
     backgroundColor: Colors.grey,
     fontSize: 20,
@@ -55,4 +63,3 @@ void showCompleteMessage(){
     toastLength: Toast.LENGTH_SHORT,
   );
 }
-

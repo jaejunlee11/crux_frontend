@@ -1,12 +1,16 @@
 import 'package:best_flutter_ui_templates/fitness_app/forum/my_page_profile_select.dart';
 import 'package:flutter/material.dart';
 //import 'package:table_calendar/table_calendar.dart';
+import '../providers/user_mypage_provider.dart';
+import '../models/user.dart';
+import 'my_page_intro_modify.dart';
 
 // 민재 : 마이페이지 화면 구현 -> 해당 화면에 필요현 list_view, model도 구현
 class MyPage extends StatefulWidget {
   const MyPage({super.key, required this.userId, required this.userNickname});
   final String userId;
   final String userNickname;
+
   @override
   _MyPageState createState() => _MyPageState();
 }
@@ -19,14 +23,28 @@ class _MyPageState extends State<MyPage> {
   final String _introtext = '안녕하세요';
   AssetImage profileImage = const AssetImage('assets/images/userImage.png');
   double _progress = 0;
+  late User _user;
+  late UserProvider _userProvider;
 
   @override
   void initState() {
     super.initState();
-    _userid = widget.userId;
-    _nickname = widget.userNickname;
+    _userProvider = UserProvider();
+    _user = _fetchUserInfo();
     // Other initialization if needed
   }
+
+    _fetchUserInfo() async {
+    User? user = await _userProvider.fetchUserInfo(widget.userId);
+    if (user != null) {
+      setState(() {
+        // Do something with the fetched user data
+      });
+    } else {
+      // Handle the case where user information couldn't be fetched
+    }
+  }
+
 
   _MyPageState();
 
@@ -53,21 +71,21 @@ class _MyPageState extends State<MyPage> {
         children: [
           CircleAvatar(
             radius: 60,
-            backgroundImage: profileImage,
+            backgroundImage: AssetImage(_user.profilepic),
           ),
           const SizedBox(height: 16),
           Text(
-            '내 닉네임: $_nickname',
+            '내 닉네임: ${_user.nickname}',
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
           Text(
-            '내 ID: $_userid',
+            '내 ID: ${_user.ID}',
             style: const TextStyle(fontSize: 20),
           ),
           const SizedBox(height: 16),
           Text(
-            '내 소개글: $_introtext',
+            '내 소개글: ${_user.intro}',
             style: const TextStyle(fontSize: 20),
           ),
           const SizedBox(height: 16),
@@ -101,7 +119,7 @@ class _MyPageState extends State<MyPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfileSelectPage()),
+                MaterialPageRoute(builder: (context) => ProfileSelectPage(id:_user.ID)),
               );
             },
             child: const Text('프로필 이미지 선택하기'),
@@ -111,7 +129,12 @@ class _MyPageState extends State<MyPage> {
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
             ),
-            onPressed: () {},
+            onPressed: () {
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileIntroPage(id:_user.ID,intro:_user.intro)),
+              );
+            },
             child: const Text('소개글 변경하기'),
           )
         ],
@@ -119,3 +142,5 @@ class _MyPageState extends State<MyPage> {
     );
   }
 }
+
+
