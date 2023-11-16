@@ -53,7 +53,7 @@ class User {
       ID : json['memberid'] ?? '',
       PW : json['memberpw'] ?? '',
       nickname : json['membernickname'] ?? '',
-      profilepic : json['memberorofilepic'] ?? '',
+      profilepic : json['memberprofilepic'] ?? '',
       intro : json['memberprofileintro'] ?? '',
       recentqueue : json ['memberprofilerecentqueue'] ?? '',
     );
