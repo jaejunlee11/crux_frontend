@@ -21,7 +21,11 @@ class ProfileIntroPage extends StatelessWidget {
         title: Text('소개글 변경하기'),
         backgroundColor: Colors.green,
       ),
-      body: Column(
+      body: 
+      SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child:
+      Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [       
        TextField(
@@ -47,6 +51,7 @@ class ProfileIntroPage extends StatelessWidget {
               ),
           ],
         ),
+      ),
     );
   }
 }

@@ -10,6 +10,7 @@ class MyPage extends StatefulWidget {
   const MyPage({super.key, required this.userId, required this.userNickname});
   final String userId;
   final String userNickname;
+  
 
   @override
   _MyPageState createState() => _MyPageState();
@@ -111,7 +112,7 @@ class _MyPageState extends State<MyPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfileSelectPage(id:_user.ID)),
+                MaterialPageRoute(builder: (context) => ProfileSelectPage(user:_user)),
               );
             },
             child: const Text('프로필 이미지 선택하기'),

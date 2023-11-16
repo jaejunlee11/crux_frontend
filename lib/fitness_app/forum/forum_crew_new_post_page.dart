@@ -34,7 +34,10 @@ class _NewPostCrewScreenState extends State<NewPostCrewScreen> {
         title: Text('New Post'),
         backgroundColor: Colors.green
       ),
-      body: Padding(
+      body: 
+      SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child:Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
@@ -152,6 +155,7 @@ class _NewPostCrewScreenState extends State<NewPostCrewScreen> {
             ],
           ),
         ),
+      ),
       ),
     );
   }

@@ -39,7 +39,11 @@ class _ForumCrewPostDetailModifyState extends State<ForumCrewPostDetailModify> {
       ),
     body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
+        child: 
+        SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child:        
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Original Title: ${widget.specificPost.title}', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -70,6 +74,7 @@ class _ForumCrewPostDetailModifyState extends State<ForumCrewPostDetailModify> {
               ),
             ),
           ],
+        ),
         ),
       ),
     );

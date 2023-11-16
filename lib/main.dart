@@ -1,6 +1,8 @@
 import 'package:best_flutter_ui_templates/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'fitness_app/providers/user_mypage_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -8,8 +10,19 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
   ]);
-  runApp(const MyApp());
+    runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(), // or your specific provider
+      child: MyApp(),
+    ),
+  );
 }
+
+
+
+
+
+//original :   runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

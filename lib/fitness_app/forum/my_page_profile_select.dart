@@ -8,13 +8,16 @@ import '../providers/user_mypage_provider.dart';
 
 class ProfileSelectPage extends StatelessWidget {
 
- final String id;
+ final User user;
   
-  ProfileSelectPage({required this.id});
+  ProfileSelectPage({required this.user});
 
 
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserProvider>(context);
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text('프로필 변경하기'),
@@ -30,10 +33,10 @@ class ProfileSelectPage extends StatelessWidget {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () async {
+              print('눌렸음');
               // Handle image tap
               String selectedImage = ImageList.images[index].assetName;
-
-              await Provider.of<UserProvider>(context, listen: false).updateProfilePic(id, selectedImage);
+              await userProvider.updateProfilePic(user, selectedImage);
               showCompleteMessage(); 
 
               Future.delayed(Duration(milliseconds: 300),(){
@@ -44,18 +47,18 @@ class ProfileSelectPage extends StatelessWidget {
             },
             child: Card(
               elevation: 2.0,
-              child: Image(image: ImageList.images[index]),
+              child:  Image(image: ImageList.images[index]),            
             ),
           );
         },
-      ),
+      )
     );
   }
 }
 
 void showCompleteMessage(){
   Fluttertoast.showToast(
-    msg: '사진 변경 완료',
+    msg: '프로필 변경 완료',
     gravity: ToastGravity.BOTTOM,
     backgroundColor: Colors.grey,
     fontSize: 20,
