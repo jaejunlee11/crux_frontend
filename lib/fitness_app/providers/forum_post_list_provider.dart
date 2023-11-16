@@ -170,7 +170,7 @@ class ForumPostProvider extends ChangeNotifier {
 
       // Update the post in the database
       final response = await http.put(
-        Uri.parse("http://$MINJAEURL/update-forumpost/$postId"),
+        Uri.parse("http://$MINJAEURL/put-forumpost/$postId"),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },

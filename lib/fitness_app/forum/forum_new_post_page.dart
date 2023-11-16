@@ -78,7 +78,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                     _formKey.currentState!.save();
                     now = DateTime.now();
                     String time = '${now.year}-${now.month}-${now.day}';
-                    int id = defaultid + now.year * 10^8 + now.month * 10^6 +now.day * 10^4 + now.hour * 10^2 + now.minute;
+                    int id = defaultid + now.month * 1000000 +now.day * 10000 + now.hour * 100 + now.minute;
                   final newpost = ForumPost(title: _title, content: _content, documentnum:id,username:'test',postdate:time,like:0,dislike:0); //username, postdate 수정 요구
                   defaultid++;
                   final forumPostProvider = Provider.of<ForumPostProvider>(context, listen: false);
