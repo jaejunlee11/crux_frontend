@@ -45,6 +45,7 @@ class _MyPageState extends State<MyPage> {
       print("Failed to get user info");
     }
   }
+
   void _calculateprogress() {
     setState(() {
       _progress = _exp / (_level * 100);
@@ -124,15 +125,15 @@ class _MyPageState extends State<MyPage> {
             ),
             onPressed: () {
                 Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfileIntroPage(id:_user.ID,intro:_user.intro)),
-              );
-            },
-            child: const Text('소개글 변경하기'),
-          )
-        ],
-      )
-    );
-    }
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ProfileIntroPage(id: _user.ID, intro: _user.intro)),
+                );
+              },
+              child: const Text('소개글 변경하기'),
+            )
+          ],
+        ));
+  }
 }
-

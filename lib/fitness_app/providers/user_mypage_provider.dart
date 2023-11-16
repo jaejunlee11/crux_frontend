@@ -18,47 +18,49 @@ Future<User?> fetchUserInfo(String userId) async {
   _isLoading = true;
   _error = 'failed to get user info'; // Reset error message
 
-  final url = 'http://$MYURL/user/$userId';
+    final url = 'http://$MYURL/user/$userId';
 
-  try {
-    final response = await http.get(Uri.parse(url));
+    try {
+      final response = await http.get(Uri.parse(url));
 
-    if (response.statusCode == 200) {
-      final dynamic responseData = jsonDecode(utf8.decode(response.bodyBytes));
+      if (response.statusCode == 200) {
+        final dynamic responseData =
+            jsonDecode(utf8.decode(response.bodyBytes));
 
-      if (responseData is List<dynamic> && responseData.isNotEmpty) {
-        // If the response is a non-empty JSON array, take the first element
-        final Map<String, dynamic> userData = responseData[0];
-        print("Fetched user data(array): $userData");
-        _user = User.fromJson(userData);
-        print("convert complete: ${_user?.nickname}");
-        notifyListeners();
-        return _user;
-      } else if (responseData is Map<String, dynamic>) {
-        // If the response is a JSON object
-        print("Fetched user data(object): $responseData");
-        _user = User.fromJson(responseData);
-        notifyListeners();
-        return _user;
+        if (responseData is List<dynamic> && responseData.isNotEmpty) {
+          // If the response is a non-empty JSON array, take the first element
+          final Map<String, dynamic> userData = responseData[0];
+          print("Fetched user data(array): $userData");
+          _user = User.fromJson(userData);
+          print("convert complete: ${_user?.profilepic}");
+          notifyListeners();
+          return _user;
+        } else if (responseData is Map<String, dynamic>) {
+          // If the response is a JSON object
+          print("Fetched user data(object): $responseData");
+          _user = User.fromJson(responseData);
+          notifyListeners();
+          return _user;
+        } else {
+          _error = 'Received unexpected response format.';
+          print(_error);
+          return null;
+        }
       } else {
-        _error = 'Received unexpected response format.';
+        _error =
+            'Failed to fetch user information. Status code: ${response.statusCode}';
         print(_error);
         return null;
       }
-    } else {
-      _error = 'Failed to fetch user information. Status code: ${response.statusCode}';
+    } catch (e) {
+      _error = 'Error fetching user information: $e';
       print(_error);
       return null;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
-  } catch (e) {
-    _error = 'Error fetching user information: $e';
-    print(_error);
-    return null;
-  } finally {
-    _isLoading = false;
-    notifyListeners();
   }
-}
 
 Future<void> updateProfilePic(User user, String newProfilePic) async {
  final updatedUser = user.copyWith(profilepic: newProfilePic);
