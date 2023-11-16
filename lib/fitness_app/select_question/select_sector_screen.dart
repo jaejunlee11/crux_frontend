@@ -179,7 +179,7 @@ class _SelectSectorScreenState extends State<SelectSectorScreen>
                                     ),
                                     const SizedBox(
                                         width:
-                                            65), // Add some spacing between "CRUX" and user info
+                                            30), // Add some spacing between "CRUX" and user info
                                     Column(
                                       children: [
                                         Text(
