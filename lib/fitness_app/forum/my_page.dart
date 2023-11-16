@@ -36,7 +36,7 @@ class _MyPageState extends State<MyPage> {
   Future<void> _fetchUserInfo() async {
     User? user = await _userProvider.fetchUserInfo(widget.userId);
     if (user != null) {
-      print("Fetched user info: $user");
+      print("Fetched user info: ${user.nickname}");
       setState(() {
         _user = user;
       });

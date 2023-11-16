@@ -15,7 +15,7 @@ class User {
       required this.intro,
       required this.recentqueue,
       });
-      
+
   factory User.initial() {
     return User(
       ID: '',
@@ -50,12 +50,12 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json){
     return User(
-      ID : json['MemberID'],
-      PW : json['MemberPW'],
-      nickname : json['MemberNickname'],
-      profilepic : json['MemberProfilePic'],
-      intro : json['MemberProfileIntro'], 
-      recentqueue : json ['MemberProfileRecentQueue'],
+      ID : json['memberid'] ?? '',
+      PW : json['memberpw'] ?? '',
+      nickname : json['membernickname'] ?? '',
+      profilepic : json['memberorofilepic'] ?? '',
+      intro : json['memberprofileintro'] ?? '',
+      recentqueue : json ['memberprofilerecentqueue'] ?? '',
     );
   }
   static List<User> listFromJson(List<dynamic> jsonList) {
@@ -68,12 +68,12 @@ class User {
 
 
    Map<String, dynamic> toJson() => {
-      'MemberID': ID,
-      'MemberPW': PW,
-      'MemberNickname':nickname,
-      'MemberProfilePic':profilepic,
-      'MemberProfileIntro':intro,
-      'MemberProfileRecentQueue':recentqueue,
+      'memberid': ID,
+      'memberpw': PW,
+      'membernickname':nickname,
+      'memberprofilepic':profilepic,
+      'memberprofileintro':intro,
+      'memberProfilerecentqueue':recentqueue,
   };
 
 }
