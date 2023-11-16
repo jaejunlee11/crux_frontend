@@ -13,14 +13,14 @@ class UserProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String get error => _error;
 
-  Future<User?> fetchUserInfo(String userId) async {
-    _isLoading = true;
-    _error = 'failed to get user info'; // Reset error message
+Future<User?> fetchUserInfo(String userId) async {
+  _isLoading = true;
+  _error = 'failed to get user info'; // Reset error message
 
-    final url = 'http://$MYURL/user/$userId';
+  final url = 'http://$MYURL/user/$userId';
 
-    try {
-      final response = await http.get(Uri.parse(url));
+  try {
+    final response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> userData = jsonDecode(response.body);
@@ -38,11 +38,16 @@ class UserProvider extends ChangeNotifier {
       _error = 'Error fetching user information: $e';
       print(_error);
       return null;
-    } finally {
-      _isLoading = false;
-      notifyListeners();
     }
+  } catch (e) {
+    _error = 'Error fetching user information: $e';
+    print(_error);
+    return null;
+  } finally {
+    _isLoading = false;
+    notifyListeners();
   }
+}
 
   Future<void> updateProfilePic(String userId, String newProfilePic) async {
     final url = 'http://$MYURL/put-user/$userId';

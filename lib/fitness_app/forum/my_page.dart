@@ -28,24 +28,19 @@ class _MyPageState extends State<MyPage> {
   void initState() {
     super.initState();
     _userProvider = UserProvider();
-    _user = _fetchUserInfo();
     // Other initialization if needed
   }
 
-    _fetchUserInfo() async {
+  Future<void> _fetchUserInfo() async {
     User? user = await _userProvider.fetchUserInfo(widget.userId);
     if (user != null) {
       setState(() {
-        _user=user;
+        _user = user;
       });
     } else {
-        print("failed to get user info");
+      print("Failed to get user info");
     }
   }
-
-
-  _MyPageState();
-
   void _calculateprogress() {
     setState(() {
       _progress = _exp / (_level * 100);
@@ -59,7 +54,18 @@ class _MyPageState extends State<MyPage> {
         title: const Text('내 정보'),
         backgroundColor: Colors.green,
       ),
-      body: Column(
+       body: FutureBuilder(
+        future: _fetchUserInfo(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Return a loading indicator or placeholder
+            return CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            // Handle error state
+            return Text("Error: ${snapshot.error}");
+          } else {
+            // Build your UI with fetched data
+            return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -132,7 +138,10 @@ class _MyPageState extends State<MyPage> {
             child: const Text('소개글 변경하기'),
           )
         ],
-      ),
+      );
+          };
+        },
+      ), 
     );
   }
 }
