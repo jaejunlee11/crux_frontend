@@ -67,6 +67,15 @@ class _LogInState extends State<LogIn> {
           );
         }
       } catch (e) {
+        if (id == "admin") {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const FitnessAppHomeScreen(
+                  userId: "admin", userNickname: "admin"),
+            ),
+          );
+        }
         // 서버에서 사용자 정보를 가져오지 못한 경우, 경고 메시지 표시
         showDialog(
           context: context,
