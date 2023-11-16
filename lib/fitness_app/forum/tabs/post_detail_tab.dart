@@ -24,7 +24,7 @@ class ForumPostDetail extends StatelessWidget {
 
         ForumPost specificPost = value.allPosts.firstWhere(
           (post) => post.documentnum == docID,
-          orElse: () => ForumPost(documentnum: 0, title: "Post not found", content: "Post not found", username:"0", like: 0, dislike: 0, postdate: DateFormat("yyyy-MM-dd").format(DateTime.now())),
+          orElse: () => ForumPost(documentnum: 0, title: "삭제된 글입니다", content: "삭제된 글입니다", username:"0", like: 0, dislike: 0, postdate: DateFormat("yyyy-MM-dd").format(DateTime.now())),
         );
 
         return Container(
