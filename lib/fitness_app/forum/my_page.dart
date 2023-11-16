@@ -12,16 +12,23 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
-  int _level = 1;
-  int _exp = 0;
-  final String _userid = 'test123';
-  final String _nickname = 'John Doe';
+  final int _level = 1;
+  final int _exp = 0;
+  String _userid = '';
+  String _nickname = '';
   final String _introtext = '안녕하세요';
-  AssetImage profileImage = AssetImage('assets/images/userImage.png');
-  double _progress =  0;  
+  AssetImage profileImage = const AssetImage('assets/images/userImage.png');
+  double _progress = 0;
 
-  _MyPageState({this.profileImage = const AssetImage('assets/images/userImage.png')});
+  @override
+  void initState() {
+    super.initState();
+    _userid = widget.userId;
+    _nickname = widget.userNickname;
+    // Other initialization if needed
+  }
 
+  _MyPageState();
 
 //CalendarController _calendarController = CalendarController();
 //Map<DateTime, List<dynamic>> _events = {};
@@ -29,8 +36,8 @@ class _MyPageState extends State<MyPage> {
 
   void _calculateprogress() {
     setState(() {
-      _progress = _exp / (_level*100);
-      });
+      _progress = _exp / (_level * 100);
+    });
   }
 
   @override
@@ -63,8 +70,7 @@ class _MyPageState extends State<MyPage> {
             '내 소개글: $_introtext',
             style: const TextStyle(fontSize: 20),
           ),
-          
-          const SizedBox(height: 16),          
+          const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -82,35 +88,32 @@ class _MyPageState extends State<MyPage> {
               ),
               const SizedBox(width: 16),
               Text(
-                '$_exp / ${_level*100}',
+                '$_exp / ${_level * 100}',
                 style: const TextStyle(fontSize: 20),
               ),
             ],
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            child: const Text('프로필 이미지 선택하기'),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
             ),
             onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfileSelectPage()),
-                );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileSelectPage()),
+              );
             },
+            child: const Text('프로필 이미지 선택하기'),
           ),
-        const SizedBox(height: 16),
-        ElevatedButton(
-          child: const Text('소개글 변경하기'),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-          ),
-          onPressed: () {
-  },
-        )
-
-
+          const SizedBox(height: 16),
+          ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            ),
+            onPressed: () {},
+            child: const Text('소개글 변경하기'),
+          )
         ],
       ),
     );
