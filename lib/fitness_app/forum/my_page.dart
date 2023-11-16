@@ -46,10 +46,6 @@ class _MyPageState extends State<MyPage> {
 
   _MyPageState();
 
-//CalendarController _calendarController = CalendarController();
-//Map<DateTime, List<dynamic>> _events = {};
-//List<dynamic> _selectedEvents = [];
-
   void _calculateprogress() {
     setState(() {
       _progress = _exp / (_level * 100);
