@@ -18,8 +18,6 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   final int _level = 1;
   final int _exp = 0;
-  String _userid = '';
-  String _nickname = '';
   final String _introtext = '안녕하세요';
   AssetImage profileImage = const AssetImage('assets/images/userImage.png');
   double _progress = 0;
@@ -38,10 +36,10 @@ class _MyPageState extends State<MyPage> {
     User? user = await _userProvider.fetchUserInfo(widget.userId);
     if (user != null) {
       setState(() {
-        // Do something with the fetched user data
+        _user=user;
       });
     } else {
-      // Handle the case where user information couldn't be fetched
+        print("failed to get user info");
     }
   }
 

@@ -45,7 +45,16 @@ class User {
       recentqueue : json ['MemberProfileRecentQueue'],
     );
   }
-  dynamic toJson() => {
+  static List<User> listFromJson(List<dynamic> jsonList) {
+    return jsonList.map((json) => User.fromJson(json)).toList();
+  }
+
+  static List<dynamic> listToJson(List<User> users) {
+    return users.map((user) => user.toJson()).toList();
+  }
+
+
+   Map<String, dynamic> toJson() => {
       'MemberID': ID,
       'MemberPW': PW,
       'MemberNickname':nickname,
