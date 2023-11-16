@@ -8,6 +8,8 @@ import 'package:intl/intl.dart';
 
 // 민재 : 게시판에서 글 작성 화면 구현 -> 해당 화면에 필요현 list_view, model도 구현
 class NewPostScreen extends StatefulWidget {
+  const NewPostScreen({super.key});
+
   @override
   _NewPostScreenState createState() => _NewPostScreenState();
 }
@@ -17,17 +19,14 @@ class _NewPostScreenState extends State<NewPostScreen> {
   String _title = '';
   String _content = '';
   late DateTime now;
-  int defaultid= 300;
+  int defaultid = 300;
   int defaultnum = 0;
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('New Post'),
-        backgroundColor: Colors.green
-      ),
+      appBar:
+          AppBar(title: const Text('New Post'), backgroundColor: Colors.green),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -36,7 +35,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Title',
                   border: OutlineInputBorder(),
                 ),
@@ -52,9 +51,9 @@ class _NewPostScreenState extends State<NewPostScreen> {
                   });
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Content',
                   border: OutlineInputBorder(),
                 ),
@@ -71,31 +70,41 @@ class _NewPostScreenState extends State<NewPostScreen> {
                   });
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    now = DateTime.now();
-                    String time = '${now.year}-${now.month}-${now.day}';
-                    int id = defaultid + now.year * 10^8 + now.month * 10^6 +now.day * 10^4 + now.hour * 10^2 + now.minute;
-                  final newpost = ForumPost(title: _title, content: _content, documentnum:id,username:'test',postdate:time,like:0,dislike:0); //username, postdate 수정 요구
-                  defaultid++;
-                  final forumPostProvider = Provider.of<ForumPostProvider>(context, listen: false);
-                  forumPostProvider.addPost(newpost);
-                  showCompleteMessage(); 
-                  Navigator.pop(
-                  context,
-                  );
-
-
-                  }
-                },
-                child: Text('Create Post'),
-                style: ElevatedButton.styleFrom(                  
-                    backgroundColor: Colors.green,                  
-                )
-              ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      now = DateTime.now();
+                      String time = '${now.year}-${now.month}-${now.day}';
+                      int id = defaultid +
+                          now.month * 1000000 +
+                          now.day * 10000 +
+                          now.hour * 100 +
+                          now.minute;
+                      final newpost = ForumPost(
+                          title: _title,
+                          content: _content,
+                          documentnum: id,
+                          username: 'test',
+                          postdate: time,
+                          like: 0,
+                          dislike: 0); //username, postdate 수정 요구
+                      defaultid++;
+                      final forumPostProvider = Provider.of<ForumPostProvider>(
+                          context,
+                          listen: false);
+                      forumPostProvider.addPost(newpost);
+                      showCompleteMessage();
+                      Navigator.pop(
+                        context,
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
+                  child: const Text('Create Post')),
             ],
           ),
         ),
@@ -104,7 +113,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
   }
 }
 
-void showCompleteMessage(){
+void showCompleteMessage() {
   Fluttertoast.showToast(
     msg: '게시글 작성 완료',
     gravity: ToastGravity.BOTTOM,
