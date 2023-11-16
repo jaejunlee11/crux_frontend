@@ -180,8 +180,7 @@ Future<void> showDeleteConfirmation(BuildContext context, int docID,ForumPostPro
             onPressed: () async {
               await value.deletePost(docID);
               Navigator.of(context).pop(); // Close the dialog
-              showDeleteMessage();
-              Navigator.pop(context); // Optionally, pop the current screen after deletion
+              showDeleteMessage();// Optionally, pop the current screen after deletion
             },
             child: Text('삭제'),
           ),
