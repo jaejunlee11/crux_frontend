@@ -101,4 +101,91 @@ class ForumCrewPostProvider extends ChangeNotifier {
     // Update the likes for the specific post
     await updateLikes(postId, specificPost.like + 1);
   }
+
+ Future<void> deletePost(int postId) async {
+    final postIndex = _posts.indexWhere((post) => post.documentnum == postId);
+
+    if (postIndex != -1) {
+      // Optimistically remove the post from the local state
+      final deletedPost = _posts.removeAt(postIndex);
+      notifyListeners();
+
+      // Delete the post from the database
+      final response = await http.delete(
+        Uri.parse("http://$MINJAEURL/delete-forumpost/$postId"),
+      );
+
+      if (response.statusCode == 204) {
+        // Successfully deleted post in the database
+      } else {
+        // Revert local update on failure
+        _posts.insert(postIndex, deletedPost);
+        notifyListeners();
+
+        // Handle errors when deleting post in the database
+        throw Exception(
+            'Failed to delete post. Status code: ${response.statusCode}');
+      }
+    }
+  }
+
+  Future<void> updatePost(
+      int postId, String newTitle, String newContent) async {
+    final postIndex = _posts.indexWhere((post) => post.documentnum == postId);
+
+    if (postIndex != -1) {
+      // Optimistically update the post in the local state
+      final updatedPost = _posts[postIndex].copyWith(
+        title: newTitle,
+        content: newContent,
+      );
+      _posts[postIndex] = updatedPost;
+      notifyListeners();
+
+      // Update the post in the database
+      final response = await http.put(
+        Uri.parse("http://$MINJAEURL/put-forumpost/$postId"),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(updatedPost.toJson()),
+      );
+
+      if (response.statusCode == 200) {
+        // Successfully updated post in the database
+      } else {
+        // Revert local update on failure
+        _posts[postIndex] = _posts[postIndex].copyWith(
+          title: _posts[postIndex].title, // revert title
+          content: _posts[postIndex].content, // revert content
+        );
+        notifyListeners();
+
+        // Handle errors when updating post in the database
+        throw Exception(
+            'Failed to update post. Status code: ${response.statusCode}');
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+

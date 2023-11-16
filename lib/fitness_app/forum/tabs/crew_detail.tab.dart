@@ -9,6 +9,8 @@ import '../../providers/forum_crew_post_list_provider.dart';
 import '../widgets/post_list.dart';
 import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'crew_detail_tab_modify.dart';
+
 
 class ForumCrewPostDetail extends StatelessWidget {
   final int docID;
@@ -46,7 +48,9 @@ class ForumCrewPostDetail extends StatelessWidget {
                       border: Border.all(color: Colors.black,width: 2.0),
                       borderRadius: BorderRadius.circular(45),
                     ),
+
                     child:
+
                     Text("${specificPost.region} | ${specificPost.title}",
                       style: TextStyle(
                         color: Colors.black, 
@@ -54,7 +58,30 @@ class ForumCrewPostDetail extends StatelessWidget {
                         fontFamily: 'Arial',
                         ),
                     ),
+
                   ),
+                ],
+              ),
+              Row(
+                children: [
+                // Add your delete and change icons here
+                  IconButton(
+                    onPressed: () {
+                      showDeleteConfirmation(context,specificPost.documentnum,value);
+                      },
+                            icon: Icon(Icons.delete),
+                            color: Colors.red,
+                          ),
+                  IconButton(
+                     onPressed: () {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ForumCrewPostDetailModify(specificPost: specificPost)),
+                );
+                      },
+                            icon: Icon(Icons.edit),
+                            color: Colors.blue,
+                          ),
                 ],
               ),
 
@@ -103,3 +130,44 @@ void showApplyMessage(){
     toastLength: Toast.LENGTH_SHORT,
   );
 }
+
+void showDeleteMessage(){
+  Fluttertoast.showToast(
+    msg: '글을 삭제했습니다',
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: Colors.grey,
+    fontSize: 20,
+    textColor: Colors.white,
+    toastLength: Toast.LENGTH_SHORT,
+  );
+
+}
+
+Future<void> showDeleteConfirmation(BuildContext context, int docID,ForumCrewPostProvider value) async {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('삭제 확인'),
+        content: Text('정말 이 글을 지우시겠습니까?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+            child: Text('취소'),
+          ),
+          TextButton(
+            onPressed: () async {
+              await value.deletePost(docID);
+              Navigator.of(context).pop(); // Close the dialog
+              showDeleteMessage();// Optionally, pop the current screen after deletion
+            },
+            child: Text('삭제'),
+          ),
+        ],
+      );
+    },
+  );
+}
+

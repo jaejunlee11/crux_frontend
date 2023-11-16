@@ -50,7 +50,7 @@ class ForumPostDetail extends StatelessWidget {
 
               child: 
 
-              Text("글 제목: ${specificPost.title}",
+              Text("${specificPost.title}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 32,
@@ -91,7 +91,7 @@ class ForumPostDetail extends StatelessWidget {
             Expanded(
               child:Align(
                 alignment: Alignment.center,
-                child:Text("글 내용: ${specificPost.content}",
+                child:Text("${specificPost.content}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
