@@ -15,6 +15,19 @@ class User {
       required this.intro,
       required this.recentqueue,
       });
+      
+  factory User.initial() {
+    return User(
+      ID: '',
+      PW: '',
+      nickname: '',
+      profilepic: '',
+      intro: '',
+      recentqueue: '',
+    );
+  }
+
+
 
   User copyWith({
     String? ID,

@@ -13,36 +13,49 @@ class UserProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String get error => _error;
 
-  Future<User?> fetchUserInfo(String userId) async {
-    _isLoading = true;
-    _error = 'failed to get user info'; // Reset error message
+Future<User?> fetchUserInfo(String userId) async {
+  _isLoading = true;
+  _error = 'failed to get user info'; // Reset error message
 
-    final url = 'http://$MYURL/user/$userId';
+  final url = 'http://$MYURL/user/$userId';
 
-    try {
-      final response = await http.get(Uri.parse(url));
+  try {
+    final response = await http.get(Uri.parse(url));
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> userData = jsonDecode(response.body);
-        _user = User.fromJson(userData);
-        // Notify listeners about the change in data
+    if (response.statusCode == 200) {
+      final dynamic responseData = jsonDecode(response.body);
+
+      if (responseData is Map<String, dynamic>) {
+        // If the response is a JSON object
+        print("Fetched user data: $responseData");
+        _user = User.fromJson(responseData);
         notifyListeners();
         return _user;
+      } else if (responseData is List<dynamic> && responseData.isNotEmpty) {
+        // If the response is a non-empty JSON array, you might want to handle individual elements
+        // Example: _user = User.fromJson(responseData[0]);
+        _error = 'Received unexpected JSON array instead of an object.';
+        print(_error);
+        return null;
       } else {
-        _error =
-            'Failed to fetch user information. Status code: ${response.statusCode}';
+        _error = 'Received unexpected response format.';
         print(_error);
         return null;
       }
-    } catch (e) {
-      _error = 'Error fetching user information: $e';
+    } else {
+      _error = 'Failed to fetch user information. Status code: ${response.statusCode}';
       print(_error);
       return null;
-    } finally {
-      _isLoading = false;
-      notifyListeners();
     }
+  } catch (e) {
+    _error = 'Error fetching user information: $e';
+    print(_error);
+    return null;
+  } finally {
+    _isLoading = false;
+    notifyListeners();
   }
+}
 
   Future<void> updateProfilePic(String userId, String newProfilePic) async {
     final url = 'http://$MYURL/put-user/$userId';
