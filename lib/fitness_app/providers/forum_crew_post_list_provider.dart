@@ -69,7 +69,7 @@ class ForumCrewPostProvider extends ChangeNotifier {
 
       // Update the likes in the database
       final response = await http.put(
-        Uri.parse("http://$MINJAEURL/put-forumpost/$postId"),
+        Uri.parse("http://$MINJAEURL/put-forumcrewpost/$postId"),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -112,7 +112,7 @@ class ForumCrewPostProvider extends ChangeNotifier {
 
       // Delete the post from the database
       final response = await http.delete(
-        Uri.parse("http://$MINJAEURL/delete-forumpost/$postId"),
+        Uri.parse("http://$MINJAEURL/delete-forumcrewpost/$postId"),
       );
 
       if (response.statusCode == 204) {
@@ -144,7 +144,7 @@ class ForumCrewPostProvider extends ChangeNotifier {
 
       // Update the post in the database
       final response = await http.put(
-        Uri.parse("http://$MINJAEURL/put-forumpost/$postId"),
+        Uri.parse("http://$MINJAEURL/put-forumcrewpost/$postId"),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },

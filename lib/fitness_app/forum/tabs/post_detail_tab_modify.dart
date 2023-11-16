@@ -35,6 +35,7 @@ class _ForumPostDetailModifyState extends State<ForumPostDetailModify> {
     return Scaffold(
       appBar: AppBar(
         title: Text('글 수정하기'),
+        backgroundColor: Colors.green,
       ),
     body: Padding(
         padding: const EdgeInsets.all(16.0),
