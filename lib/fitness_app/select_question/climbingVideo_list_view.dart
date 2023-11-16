@@ -96,27 +96,27 @@ class MealsView extends StatelessWidget {
       this.animation,
       required this.videoID})
       : super(key: key);
-
+  final String BACKENDURL = "0.0.0.0:8000";
   final MealsListData? mealsListData;
   final AnimationController? animationController;
   final Animation<double>? animation;
   final int videoID;
 
   Future<Image> _getImage(int id) async {
-    String urlString = "http://0.0.0.0:8000/sector/$id";
+    String urlString = "http://$BACKENDURL/sector/$id";
     Uri uri = Uri.parse(urlString);
     final response = await http.get(uri);
     final List<dynamic> responseData =
         jsonDecode(utf8.decode(response.bodyBytes));
     final Map<String, dynamic> firstItem = responseData[0];
     String url = firstItem['sectorimage'];
-    String urlString2 = "http://0.0.0.0:8000$url";
+    String urlString2 = "http://$BACKENDURL$url";
     return Image.network(urlString2, fit: BoxFit.cover);
   }
 
   Future<String> getThumbnailUrl(int videoID, int sectorNum) async {
     // 동영상 ID와 sectorNum을 조합하여 URL 생성
-    String urlString = "http://0.0.0.0:8000/video/${videoID + sectorNum}";
+    String urlString = "http://$BACKENDURL/video/${videoID + sectorNum}";
     final Uri uri = Uri.parse(urlString);
     final response = await http.get(uri);
     final List<dynamic> responseData =
@@ -144,7 +144,7 @@ class MealsView extends StatelessWidget {
   }
 
   Future<String> getVideoId(int id) async {
-    final urlString = "http://0.0.0.0:8000/video/$id";
+    final urlString = "http://$BACKENDURL/video/$id";
     final Uri uri = Uri.parse(urlString);
     final response = await http.get(uri);
     final List<dynamic> responseData =
