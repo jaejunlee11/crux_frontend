@@ -36,6 +36,7 @@ class _SectorsListViewState extends State<SectorsListView> {
   // File? _image;
   File? _image;
   dynamic sendData;
+  String BACKENDURL = "0.0.0.0:8000";
   // List<File> _files = [];
   Future<void> getImage() async {
     final file = await ImagePicker().pickImage(
@@ -58,7 +59,7 @@ class _SectorsListViewState extends State<SectorsListView> {
     print(sendData);
     try {
       // String url = 'http://0.0.0.0:8000/post-sector';
-      String url = 'http://0.0.0.0:8000/update-sector/$b';
+      String url = 'http://$BACKENDURL/update-sector/$b';
       String fileName = "$a.jpg";
       FormData formData = FormData.fromMap({
         'sectorimage':
@@ -98,14 +99,14 @@ class _SectorsListViewState extends State<SectorsListView> {
   //   }
 
   Future<Widget> _getImage(int id) async {
-    String urlString = "http://0.0.0.0:8000/sector/$id";
+    String urlString = "http://$BACKENDURL/sector/$id";
     Uri uri = Uri.parse(urlString);
     final response = await http.get(uri);
     final List<dynamic> responseData =
         jsonDecode(utf8.decode(response.bodyBytes));
     final Map<String, dynamic> firstItem = responseData[0];
     String url = firstItem['sectorimage'];
-    String urlString2 = "http://0.0.0.0:8000$url";
+    String urlString2 = "http://$BACKENDURL$url";
     return Image.network(urlString2, fit: BoxFit.cover);
   }
 
@@ -263,7 +264,7 @@ class _SectorsListViewState extends State<SectorsListView> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
+                                    const Padding(
                                       //여기?
                                       padding:
                                           EdgeInsets.only(right: 16, top: 8),

@@ -13,6 +13,8 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
+  String BACKENDURL = "0.0.0.0:8000";
+
   final TextEditingController idController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   String hashPassword(String password) {
@@ -27,7 +29,7 @@ class _LogInState extends State<LogIn> {
     final password = passwordController.text;
 
     // 요청을 보내어 사용자 정보를 가져오는 로직
-    final url = Uri.parse('http://0.0.0.0:8000/user/$id');
+    final url = Uri.parse('http://$BACKENDURL/user/$id');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {

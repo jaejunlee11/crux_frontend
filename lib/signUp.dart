@@ -12,6 +12,8 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  String BACKENDURL = "0.0.0.0:8000";
+
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -46,8 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
         },
       );
     } else {
-      final url =
-          Uri.parse('http://0.0.0.0:8000/post-user'); // Django API 엔드포인트
+      final url = Uri.parse('http://$BACKENDURL/post-user'); // Django API 엔드포인트
       final response = await http.post(
         url,
         body: {

@@ -40,6 +40,7 @@ class ShowQuestionScreen extends StatefulWidget {
 
 class _ShowQuestionScreenState extends State<ShowQuestionScreen>
     with TickerProviderStateMixin {
+  String BACKENDURL = "0.0.0.0:8000";
   Animation<double>? topBarAnimation;
   List<SectorListData> sectorList = SectorListData.sectorList;
   List<MealsListData> mealsListData = MealsListData.tabIconsList;
@@ -57,7 +58,7 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
   }
 
   Future<Widget> _getImage(int id, String questionColor) async {
-    String urlString = "http://0.0.0.0:8000/sector/$id";
+    String urlString = "http://$BACKENDURL/sector/$id";
     Uri uri = Uri.parse(urlString);
     try {
       final response = await http.get(uri);
@@ -66,12 +67,12 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
       final Map<String, dynamic> firstItem = responseData[0];
       String url = firstItem['sectorimage'];
       if (questionColor == "") {
-        String urlString2 = "http://0.0.0.0:8000$url";
+        String urlString2 = "http://$BACKENDURL$url";
         return Image.network(urlString2, fit: BoxFit.cover);
       } else {
         url = url.substring(7);
         String urlString2 =
-            "http://0.0.0.0:8000/media/exp/$id/$questionColor$url";
+            "http://$BACKENDURL/media/exp/$id/$questionColor$url";
         Uri uri2 = Uri.parse(urlString2);
         final response2 = await http.get(uri2);
         if (response2.statusCode == 200) {
@@ -94,7 +95,7 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
 
   void uploadVideo(String youtubeUrl, int count) async {
     try {
-      String url = 'http://0.0.0.0:8000/post-video';
+      String url = 'http://$BACKENDURL/post-video';
       FormData formData = FormData.fromMap({
         'videoid': 10000 * widget.sectorNum + 100 * widget.colorNum + count,
         'uploaddate': 10000 * widget.sectorNum + 100 * widget.colorNum + count,
