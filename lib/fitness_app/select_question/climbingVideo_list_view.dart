@@ -96,7 +96,7 @@ class MealsView extends StatelessWidget {
       this.animation,
       required this.videoID})
       : super(key: key);
-  final String BACKENDURL = "0.0.0.0:8000";
+  final String BACKENDURL = "61.98.244.12:8000";
   final MealsListData? mealsListData;
   final AnimationController? animationController;
   final Animation<double>? animation;

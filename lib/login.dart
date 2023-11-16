@@ -13,7 +13,7 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
-  String BACKENDURL = "0.0.0.0:8000";
+  String BACKENDURL = "61.98.244.12:8000";
 
   final TextEditingController idController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();

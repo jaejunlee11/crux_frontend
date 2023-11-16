@@ -36,7 +36,7 @@ class _SectorsListViewState extends State<SectorsListView> {
   // File? _image;
   File? _image;
   dynamic sendData;
-  String BACKENDURL = "0.0.0.0:8000";
+  String BACKENDURL = "61.98.244.12:8000";
   // List<File> _files = [];
   Future<void> getImage() async {
     final file = await ImagePicker().pickImage(
@@ -264,7 +264,7 @@ class _SectorsListViewState extends State<SectorsListView> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
+                                    const Padding(
                                       //여기?
                                       padding:
                                           EdgeInsets.only(right: 16, top: 8),

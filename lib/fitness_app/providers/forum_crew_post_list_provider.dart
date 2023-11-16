@@ -8,7 +8,7 @@ class ForumCrewPostProvider extends ChangeNotifier {
   ForumCrewPostProvider() {
     fetchPosts();
   }
-  String MINJAEURL = "0.0.0.0:8000";
+  String MINJAEURL = "61.98.244.12:8000";
 
   List<ForumCrewPost> _posts = [];
   UnmodifiableListView<ForumCrewPost> get allPosts =>
@@ -102,7 +102,7 @@ class ForumCrewPostProvider extends ChangeNotifier {
     await updateLikes(postId, specificPost.like + 1);
   }
 
- Future<void> deletePost(int postId) async {
+  Future<void> deletePost(int postId) async {
     final postIndex = _posts.indexWhere((post) => post.documentnum == postId);
 
     if (postIndex != -1) {
@@ -167,25 +167,4 @@ class ForumCrewPostProvider extends ChangeNotifier {
       }
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-

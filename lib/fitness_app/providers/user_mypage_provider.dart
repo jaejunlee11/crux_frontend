@@ -4,8 +4,7 @@ import 'package:flutter/foundation.dart';
 import '../models/user.dart';
 
 class UserProvider extends ChangeNotifier {
-
-  String MYURL = '0.0.0.0:8000';
+  String MYURL = '61.98.244.12:8000';
   User? _user;
   bool _isLoading = false;
   String _error = '';
@@ -30,7 +29,8 @@ class UserProvider extends ChangeNotifier {
         notifyListeners();
         return _user;
       } else {
-        _error = 'Failed to fetch user information. Status code: ${response.statusCode}';
+        _error =
+            'Failed to fetch user information. Status code: ${response.statusCode}';
         print(_error);
         return null;
       }
@@ -59,14 +59,15 @@ class UserProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         // Successfully updated profile picture in the database
       } else {
-        print('Failed to update profile picture. Status code: ${response.statusCode}');
+        print(
+            'Failed to update profile picture. Status code: ${response.statusCode}');
       }
     } catch (e) {
       print('Error updating profile picture: $e');
     }
   }
 
-Future<void> updateIntro(String userId, String newIntro) async {
+  Future<void> updateIntro(String userId, String newIntro) async {
     final url = 'http://$MYURL/put-user/$userId';
 
     try {
@@ -87,31 +88,4 @@ Future<void> updateIntro(String userId, String newIntro) async {
       print('Error updating intro: $e');
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

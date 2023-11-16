@@ -40,7 +40,7 @@ class ShowQuestionScreen extends StatefulWidget {
 
 class _ShowQuestionScreenState extends State<ShowQuestionScreen>
     with TickerProviderStateMixin {
-  String BACKENDURL = "0.0.0.0:8000";
+  String BACKENDURL = "61.98.244.12:8000";
   Animation<double>? topBarAnimation;
   List<SectorListData> sectorList = SectorListData.sectorList;
   List<MealsListData> mealsListData = MealsListData.tabIconsList;

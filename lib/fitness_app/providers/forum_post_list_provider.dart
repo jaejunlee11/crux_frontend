@@ -8,7 +8,7 @@ class ForumPostProvider extends ChangeNotifier {
   ForumPostProvider() {
     fetchPosts();
   }
-  String MINJAEURL = "0.0.0.0:8000";
+  String MINJAEURL = "61.98.244.12:8000";
   List<ForumPost> _posts = [];
   UnmodifiableListView<ForumPost> get allPosts => UnmodifiableListView(_posts);
 
