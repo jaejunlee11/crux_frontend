@@ -29,9 +29,7 @@ class ForumCrewPostDetail extends StatelessWidget {
           orElse: () => ForumCrewPost(documentnum: 0, title: "삭제된 글입니다", content: "삭제된 글입니다", username:"0",region:'없음' ,like: 0, dislike: 0, postdate: DateFormat("yyyy-MM-dd").format(DateTime.now())),
         );
 
-        return SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child:        
+        return         
         Container(
             decoration: BoxDecoration(
             color: pagecolor,
@@ -115,7 +113,6 @@ class ForumCrewPostDetail extends StatelessWidget {
             ],
           ),
             ),
-        ),
         );
       },
     );

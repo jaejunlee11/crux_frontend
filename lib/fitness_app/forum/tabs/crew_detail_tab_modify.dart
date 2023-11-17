@@ -46,8 +46,8 @@ class _ForumCrewPostDetailModifyState extends State<ForumCrewPostDetailModify> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Original Title: ${widget.specificPost.title}', style: TextStyle(fontWeight: FontWeight.bold)),
-            Text('Original Content: ${widget.specificPost.content}', style: TextStyle(fontWeight: FontWeight.bold)),
+            //Text('Original Title: ${widget.specificPost.title}', style: TextStyle(fontWeight: FontWeight.bold)),
+            //Text('Original Content: ${widget.specificPost.content}', style: TextStyle(fontWeight: FontWeight.bold)),
             SizedBox(height: 16),
             TextField(
               controller: titleController,

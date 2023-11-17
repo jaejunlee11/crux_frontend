@@ -36,6 +36,9 @@ class ProfileIntroPage extends StatelessWidget {
                 ),
       SizedBox(height: 16),
       ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green,
+        ),
         onPressed: () async {
         // Handle intro update
         String newIntro = introController.text;
