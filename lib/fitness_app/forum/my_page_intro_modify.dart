@@ -8,6 +8,7 @@ import '../providers/user_mypage_provider.dart';
 
 class ProfileIntroPage extends StatelessWidget {
   final String intro;
+  final String id;
   ProfileIntroPage({super.key, required this.id, required this.intro});
   TextEditingController introController = TextEditingController();
 
