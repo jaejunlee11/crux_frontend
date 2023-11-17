@@ -27,7 +27,11 @@ class _NewPostScreenState extends State<NewPostScreen> {
     return Scaffold(
       appBar:
           AppBar(title: const Text('New Post'), backgroundColor: Colors.green),
-      body: Padding(
+      body: 
+      SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child:   
+      Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
@@ -82,7 +86,6 @@ class _NewPostScreenState extends State<NewPostScreen> {
                           now.day * 10000 +
                           now.hour * 100 +
                           now.minute;
-                          //아무 의미없는 수정사항.
                       final newpost = ForumPost(
                           title: _title,
                           content: _content,
@@ -109,6 +112,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
             ],
           ),
         ),
+      ),
       ),
     );
   }

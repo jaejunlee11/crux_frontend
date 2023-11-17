@@ -39,6 +39,8 @@ class _ForumPostDetailModifyState extends State<ForumPostDetailModify> {
       ),
     body: Padding(
         padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -70,6 +72,7 @@ class _ForumPostDetailModifyState extends State<ForumPostDetailModify> {
               ),
             ),
           ],
+        ),
         ),
       ),
     );

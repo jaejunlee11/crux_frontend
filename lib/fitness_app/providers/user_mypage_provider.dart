@@ -13,9 +13,10 @@ class UserProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String get error => _error;
 
-  Future<User?> fetchUserInfo(String userId) async {
-    _isLoading = true;
-    _error = 'failed to get user info'; // Reset error message
+
+Future<User?> fetchUserInfo(String userId) async {
+  _isLoading = true;
+  _error = 'failed to get user info'; // Reset error message
 
     final url = 'http://$MYURL/user/$userId';
 
@@ -61,26 +62,23 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> updateProfilePic(String userId, String newProfilePic) async {
-    final url = 'http://$MYURL/put-user/$userId';
+Future<void> updateProfilePic(User user, String newProfilePic) async {
+ final updatedUser = user.copyWith(profilepic: newProfilePic);
+    notifyListeners();
 
-    try {
-      final response = await http.put(
-        Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode({'profilepic': newProfilePic}),
-      );
+    // Update the profile picture in the database
+    final response = await http.put(
+      Uri.parse("http://$MYURL/put-user/${updatedUser.ID}"),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(updatedUser.toJson()), // assuming toJson() method is implemented in the User class
+    );
 
-      if (response.statusCode == 200) {
-        // Successfully updated profile picture in the database
-      } else {
-        print(
-            'Failed to update profile picture. Status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error updating profile picture: $e');
+    if (response.statusCode != 200) {
+      // Handle errors when updating profile picture in the database
+      print('Failed to update profile picture. Status code: ${response.statusCode}');
+      throw Exception('Failed to update profile picture. Status code: ${response.statusCode}');
     }
   }
 
@@ -105,4 +103,5 @@ class UserProvider extends ChangeNotifier {
       print('Error updating intro: $e');
     }
   }
+
 }

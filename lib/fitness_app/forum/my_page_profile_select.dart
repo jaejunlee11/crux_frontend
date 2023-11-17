@@ -13,45 +13,48 @@ class ProfileSelectPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('프로필 변경하기'),
-        backgroundColor: Colors.green,
-      ),
-      body: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 8.0,
-        ),
-        itemCount: ImageList.images.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () async {
-              // Handle image tap
-              String selectedImage = ImageList.images[index].assetName;
-              await Provider.of<UserProvider>(context, listen: false)
-                  .updateProfilePic(id, selectedImage);
-              showCompleteMessage();
+    var userProvider = Provider.of<UserProvider>(context);
 
-              Future.delayed(const Duration(milliseconds: 300), () {
-                Navigator.pop(context);
-              });
-            },
-            child: Card(
-              elevation: 2.0,
-              child: Image(image: ImageList.images[index]),
-            ),
-          );
-        },
-      ),
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('프로필 변경하기'),
+          backgroundColor: Colors.green,
+        ),
+        body: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 8.0,
+          ),
+          itemCount: ImageList.images.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () async {
+                print('눌렸음');
+                // Handle image tap
+                String selectedImage = ImageList.images[index].assetName;
+
+                await Provider.of<UserProvider>(context, listen: false)
+                    .updateProfilePic(id, selectedImage);
+                showCompleteMessage();
+
+                Future.delayed(const Duration(milliseconds: 300), () {
+                  Navigator.pop(context);
+                });
+              },
+              child: Card(
+                elevation: 2.0,
+                child: Image(image: ImageList.images[index]),
+              ),
+            );
+          },
+        ));
   }
 }
 
 void showCompleteMessage() {
   Fluttertoast.showToast(
-    msg: '사진 변경 완료',
+    msg: '프로필 변경 완료',
     gravity: ToastGravity.BOTTOM,
     backgroundColor: Colors.grey,
     fontSize: 20,

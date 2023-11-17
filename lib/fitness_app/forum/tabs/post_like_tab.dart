@@ -1,4 +1,4 @@
-import 'package:best_flutter_ui_templates/fitness_app/forum/forum_post_detail.dart';
+
 import 'package:best_flutter_ui_templates/fitness_app/forum/tabs/post_detail_tab.dart';
 import 'package:best_flutter_ui_templates/fitness_app/providers/forum_post_list_provider.dart';
 import 'package:flutter/material.dart';
