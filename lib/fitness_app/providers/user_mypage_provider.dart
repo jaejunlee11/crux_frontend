@@ -13,10 +13,9 @@ class UserProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String get error => _error;
 
-
-Future<User?> fetchUserInfo(String userId) async {
-  _isLoading = true;
-  _error = 'failed to get user info'; // Reset error message
+  Future<User?> fetchUserInfo(String userId) async {
+    _isLoading = true;
+    _error = 'failed to get user info'; // Reset error message
 
     final url = 'http://$MYURL/user/$userId';
 
@@ -62,8 +61,8 @@ Future<User?> fetchUserInfo(String userId) async {
     }
   }
 
-Future<void> updateProfilePic(User user, String newProfilePic) async {
- final updatedUser = user.copyWith(profilepic: newProfilePic);
+  Future<void> updateProfilePic(User user, String newProfilePic) async {
+    final updatedUser = user.copyWith(profilepic: newProfilePic);
     notifyListeners();
 
     // Update the profile picture in the database
@@ -72,13 +71,16 @@ Future<void> updateProfilePic(User user, String newProfilePic) async {
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(updatedUser.toJson()), // assuming toJson() method is implemented in the User class
+      body: jsonEncode(updatedUser
+          .toJson()), // assuming toJson() method is implemented in the User class
     );
 
     if (response.statusCode != 200) {
       // Handle errors when updating profile picture in the database
-      print('Failed to update profile picture. Status code: ${response.statusCode}');
-      throw Exception('Failed to update profile picture. Status code: ${response.statusCode}');
+      print(
+          'Failed to update profile picture. Status code: ${response.statusCode}');
+      throw Exception(
+          'Failed to update profile picture. Status code: ${response.statusCode}');
     }
   }
 
@@ -91,7 +93,7 @@ Future<void> updateProfilePic(User user, String newProfilePic) async {
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode({'intro': newIntro}),
+        body: jsonEncode({'memberid': userId, 'memberprofileintro': newIntro}),
       );
 
       if (response.statusCode == 200) {
@@ -103,5 +105,4 @@ Future<void> updateProfilePic(User user, String newProfilePic) async {
       print('Error updating intro: $e');
     }
   }
-
 }
