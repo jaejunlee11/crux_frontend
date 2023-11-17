@@ -16,7 +16,7 @@ class _ForumHomeScreenState extends State<ForumHomeScreen>
     with SingleTickerProviderStateMixin {
   // 단일 애니메이션 위젯 정의 시 사용함
   late TabController controller; //차후 확인 (late)
-  int _currentTabIndex = 1;
+  int _currentTabIndex = 0;
   @override
   void initState() {
     super.initState();
