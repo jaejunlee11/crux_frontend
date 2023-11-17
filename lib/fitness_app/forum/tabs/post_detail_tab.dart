@@ -102,7 +102,11 @@ class ForumPostDetail extends StatelessWidget {
             ),
               const SizedBox(height:15),
 
-              Align(alignment: Alignment.bottomCenter,
+
+              Padding( 
+              padding: EdgeInsets.only(bottom: 10.0), // Adjust the value as needed
+
+              child: Align(alignment: Alignment.bottomCenter,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [ 
@@ -110,6 +114,7 @@ class ForumPostDetail extends StatelessWidget {
 
               ElevatedButton(onPressed: () async {await value.dislikePost(docID); showDislikeMessage();}, child: Text("Dislike: ${specificPost.dislike}"), style: ButtonStyle(backgroundColor:MaterialStateProperty.all(Colors.green))),
               ]
+              ),
               ),
               ),
             ],
