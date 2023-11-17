@@ -75,7 +75,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: ()  {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
                         now = DateTime.now();
@@ -102,7 +102,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                         forumPostProvider.addPost(newpost);
                         showCompleteMessage();
                         Navigator.pop(
-                          context,
+                          context,true
                         );
                       }
                     },
