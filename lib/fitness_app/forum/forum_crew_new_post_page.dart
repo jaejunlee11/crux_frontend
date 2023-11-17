@@ -159,11 +159,11 @@ class _NewPostCrewScreenState extends State<NewPostCrewScreen> {
                         Navigator.pop(
                           context,
                         );
-                        sleep(const Duration(seconds: 1));
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const CrewForumApp()));
+                        sleep(const Duration(seconds: 1));
                       }
                     },
                     style: ElevatedButton.styleFrom(
