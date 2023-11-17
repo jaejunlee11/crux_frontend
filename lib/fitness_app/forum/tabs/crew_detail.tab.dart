@@ -105,7 +105,7 @@ class ForumCrewPostDetail extends StatelessWidget {
 
 
               Padding( 
-              padding: EdgeInsets.only(bottom: 10.0), // Adjust the value as needed
+              padding: EdgeInsets.only(bottom: 25.0), // Adjust the value as needed
 
               child: Align(alignment: Alignment.bottomCenter,
               child: Row(
