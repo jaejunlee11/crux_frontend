@@ -25,7 +25,6 @@ class ForumPostProvider extends ChangeNotifier {
 
   Future<void> addPost(ForumPost newPost) async {
     final postJson = newPost.toJson();
-
     final response = await http.post(
       // Uri.parse("http://10.0.2.2:8000/post-forumpost/"),
       Uri.parse("http://$MINJAEURL/post-forumpost/"),
@@ -35,7 +34,9 @@ class ForumPostProvider extends ChangeNotifier {
       body: jsonEncode(postJson),
     );
 
+
     if (response.statusCode == 201) {
+      notifyListeners();
       // Successfully added the new post to the database.
     } else {
       // Handle errors, e.g., server error or validation error

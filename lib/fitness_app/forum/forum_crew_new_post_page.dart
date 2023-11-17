@@ -132,7 +132,7 @@ class _NewPostCrewScreenState extends State<NewPostCrewScreen> {
                     _formKey.currentState!.save();
                       now = DateTime.now();
                     String time = '${now.year}-${now.month}-${now.day}';
-                    int id = defaultid + now.month * 1000000 +now.day * 10000 + now.hour * 100 + now.minute;
+                    int id = defaultid + now.month * 1000000 +now.day * 10000 + now.hour * 100 + now.minute + now.second;
                   membernum = int.parse(_member);
                   final newcrewpost = ForumCrewPost(title: _title, content: _content,region: _region ,documentnum:id,username:'test',postdate:time,like:1,dislike:membernum); //username, postdate 수정 요구
                   defaultid++;

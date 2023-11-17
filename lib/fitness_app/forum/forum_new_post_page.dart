@@ -84,7 +84,9 @@ class _NewPostScreenState extends State<NewPostScreen> {
                             now.month * 1000000 +
                             now.day * 10000 +
                             now.hour * 100 +
-                            now.minute;
+                            now.minute
+                            +now.second
+                            ;
                         final newpost = ForumPost(
                             title: _title,
                             content: _content,
