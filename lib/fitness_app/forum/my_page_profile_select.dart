@@ -7,9 +7,9 @@ import 'package:provider/provider.dart';
 import '../providers/user_mypage_provider.dart';
 
 class ProfileSelectPage extends StatelessWidget {
-  final String id;
+  final User user;
 
-  const ProfileSelectPage({super.key, required this.id});
+  const ProfileSelectPage({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,7 @@ class ProfileSelectPage extends StatelessWidget {
                 print('눌렸음');
                 // Handle image tap
                 String selectedImage = ImageList.images[index].assetName;
-
-                await Provider.of<UserProvider>(context, listen: false)
-                    .updateProfilePic(id, selectedImage);
+                await userProvider.updateProfilePic(user, selectedImage);
                 showCompleteMessage();
 
                 Future.delayed(const Duration(milliseconds: 300), () {
