@@ -159,7 +159,7 @@ class _NewPostCrewScreenState extends State<NewPostCrewScreen> {
                         Navigator.pop(
                           context,
                         );
-                        sleep(const Duration(microseconds: 5));
+                        sleep(const Duration(seconds: 1));
                         Navigator.push(
                             context,
                             MaterialPageRoute(
