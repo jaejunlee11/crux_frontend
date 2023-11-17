@@ -6,6 +6,7 @@ import '../models/forum_post_list_data.dart';
 import 'forum_post_home.dart';
 import 'package:intl/intl.dart';
 import 'forum_crew_post_home.dart';
+import 'forum_page.dart';
 
 // 민재 : 게시판에서 글 작성 화면 구현 -> 해당 화면에 필요현 list_view, model도 구현
 class NewPostScreen extends StatefulWidget {
@@ -75,7 +76,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
-                    onPressed: ()  {
+                    onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
                         now = DateTime.now();
@@ -84,9 +85,8 @@ class _NewPostScreenState extends State<NewPostScreen> {
                             now.month * 1000000 +
                             now.day * 10000 +
                             now.hour * 100 +
-                            now.minute
-                            +now.second
-                            ;
+                            now.minute +
+                            now.second;
                         final newpost = ForumPost(
                             title: _title,
                             content: _content,
@@ -101,9 +101,11 @@ class _NewPostScreenState extends State<NewPostScreen> {
                                 listen: false);
                         forumPostProvider.addPost(newpost);
                         showCompleteMessage();
-                        Navigator.pop(
-                          context,true
-                        );
+                        Navigator.pop(context, true);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ForumApp()));
                       }
                     },
                     style: ElevatedButton.styleFrom(
