@@ -103,12 +103,12 @@ class _NewPostScreenState extends State<NewPostScreen> {
                         forumPostProvider.addPost(newpost);
                         showCompleteMessage();
                         Navigator.pop(context, true);
-                        sleep(const Duration(seconds: 1));
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const ForumApp()));
                       }
+                      sleep(const Duration(seconds: 1));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
