@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:best_flutter_ui_templates/fitness_app/providers/forum_post_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -157,6 +159,7 @@ class _NewPostCrewScreenState extends State<NewPostCrewScreen> {
                         Navigator.pop(
                           context,
                         );
+                        sleep(const Duration(microseconds: 1));
                         Navigator.push(
                             context,
                             MaterialPageRoute(
