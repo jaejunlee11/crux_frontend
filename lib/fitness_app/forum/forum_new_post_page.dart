@@ -103,7 +103,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                         forumPostProvider.addPost(newpost);
                         showCompleteMessage();
                         Navigator.pop(context, true);
-                        sleep(const Duration(microseconds: 1));
+                        sleep(const Duration(microseconds: 5));
                         Navigator.push(
                             context,
                             MaterialPageRoute(
