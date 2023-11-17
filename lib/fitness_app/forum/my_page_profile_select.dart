@@ -7,21 +7,19 @@ import 'package:provider/provider.dart';
 import '../providers/user_mypage_provider.dart';
 
 class ProfileSelectPage extends StatelessWidget {
+  final String id;
 
- final String id;
-  
-  ProfileSelectPage({required this.id});
-
+  const ProfileSelectPage({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('프로필 변경하기'),
+        title: const Text('프로필 변경하기'),
         backgroundColor: Colors.green,
       ),
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 8.0,
           mainAxisSpacing: 8.0,
@@ -32,14 +30,12 @@ class ProfileSelectPage extends StatelessWidget {
             onTap: () async {
               // Handle image tap
               String selectedImage = ImageList.images[index].assetName;
+              await Provider.of<UserProvider>(context, listen: false)
+                  .updateProfilePic(id, selectedImage);
+              showCompleteMessage();
 
-              await Provider.of<UserProvider>(context, listen: false).updateProfilePic(id, selectedImage);
-              showCompleteMessage(); 
-
-              Future.delayed(Duration(milliseconds: 300),(){
-             Navigator.pop(
-                context
-             );
+              Future.delayed(const Duration(milliseconds: 300), () {
+                Navigator.pop(context);
               });
             },
             child: Card(
@@ -53,7 +49,7 @@ class ProfileSelectPage extends StatelessWidget {
   }
 }
 
-void showCompleteMessage(){
+void showCompleteMessage() {
   Fluttertoast.showToast(
     msg: '사진 변경 완료',
     gravity: ToastGravity.BOTTOM,
