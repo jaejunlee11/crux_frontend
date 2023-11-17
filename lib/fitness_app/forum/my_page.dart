@@ -10,7 +10,6 @@ class MyPage extends StatefulWidget {
   const MyPage({super.key, required this.userId, required this.userNickname});
   final String userId;
   final String userNickname;
-  
 
   @override
   _MyPageState createState() => _MyPageState();
@@ -55,81 +54,86 @@ class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('내 정보'),
-        backgroundColor: Colors.green,
-      ),
-       body:  Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            radius: 60,
-            backgroundImage: AssetImage(_user.profilepic),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            '내 닉네임: ${_user.nickname}',
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            '내 ID: ${_user.ID}',
-            style: const TextStyle(fontSize: 20),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            '내 소개글: ${_user.intro}',
-            style: const TextStyle(fontSize: 20),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '내 레벨 $_level',
-                style: const TextStyle(fontSize: 20),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: LinearProgressIndicator(
-                  value: _progress,
-                  backgroundColor: Colors.grey[300],
-                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
+        appBar: AppBar(
+          title: const Text('내 정보'),
+          backgroundColor: Colors.green,
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 60,
+              backgroundImage: AssetImage(_user.profilepic),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              '내 닉네임: ${_user.nickname}',
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              '내 ID: ${_user.ID}',
+              style: const TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              '내 소개글: ${_user.intro}',
+              style: const TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '내 레벨 $_level',
+                  style: const TextStyle(fontSize: 20),
                 ),
-              ),
-              const SizedBox(width: 16),
-              Text(
-                '$_exp / ${_level * 100}',
-                style: const TextStyle(fontSize: 20),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: LinearProgressIndicator(
+                    value: _progress,
+                    backgroundColor: Colors.grey[300],
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.green),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Text(
+                  '$_exp / ${_level * 100}',
+                  style: const TextStyle(fontSize: 20),
+                ),
+              ],
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfileSelectPage(user:_user)),
-              );
-            },
-            child: const Text('프로필 이미지 선택하기'),
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+              ),
+              onPressed: () async {
+                var updatedUser = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileSelectPage(user: _user),
+                  ),
+                );
+                _fetchUserInfo();
+              },
+              child: const Text('프로필 이미지 선택하기'),
             ),
-            onPressed: () {
-                Navigator.push(
+            const SizedBox(height: 16),
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+              ),
+              onPressed: () async {
+                await Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
                           ProfileIntroPage(id: _user.ID, intro: _user.intro)),
                 );
+                _fetchUserInfo();
               },
               child: const Text('소개글 변경하기'),
             )
