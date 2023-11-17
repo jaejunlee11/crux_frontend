@@ -102,7 +102,12 @@ class ForumCrewPostDetail extends StatelessWidget {
               ),
               const SizedBox(height:15),
             
-              Align(alignment: Alignment.bottomCenter,
+
+
+              Padding( 
+              padding: EdgeInsets.only(bottom: 10.0), // Adjust the value as needed
+
+              child: Align(alignment: Alignment.bottomCenter,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children:[
@@ -110,9 +115,10 @@ class ForumCrewPostDetail extends StatelessWidget {
                 ]
               ),
               ),
+              ),
             ],
           ),
-            ),
+        )
         );
       },
     );
