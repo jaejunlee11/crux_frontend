@@ -77,7 +77,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
                         now = DateTime.now();
@@ -100,7 +100,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                         final forumPostProvider =
                             Provider.of<ForumPostProvider>(context,
                                 listen: false);
-                        forumPostProvider.addPost(newpost);
+                        await forumPostProvider.addPost(newpost);
                         showCompleteMessage();
                         Navigator.pop(context, true);
                         Navigator.push(
@@ -108,7 +108,6 @@ class _NewPostScreenState extends State<NewPostScreen> {
                             MaterialPageRoute(
                                 builder: (context) => const ForumApp()));
                       }
-                      sleep(const Duration(seconds: 1));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,

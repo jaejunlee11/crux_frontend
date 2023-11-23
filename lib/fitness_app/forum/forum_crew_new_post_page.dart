@@ -129,7 +129,7 @@ class _NewPostCrewScreenState extends State<NewPostCrewScreen> {
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
                         now = DateTime.now();
@@ -154,7 +154,7 @@ class _NewPostCrewScreenState extends State<NewPostCrewScreen> {
                         final forumcrewPostProvider =
                             Provider.of<ForumCrewPostProvider>(context,
                                 listen: false);
-                        forumcrewPostProvider.addPost(newcrewpost);
+                        await forumcrewPostProvider.addPost(newcrewpost);
                         showCompleteMessage();
                         Navigator.pop(
                           context,
@@ -163,7 +163,6 @@ class _NewPostCrewScreenState extends State<NewPostCrewScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const CrewForumApp()));
-                        sleep(const Duration(seconds: 1));
                       }
                     },
                     style: ElevatedButton.styleFrom(
