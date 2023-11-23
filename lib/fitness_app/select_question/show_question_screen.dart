@@ -14,6 +14,8 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:best_flutter_ui_templates/fitness_app/fitness_app_home_screen_inShow.dart';
 import 'package:dio/dio.dart';
+import '../providers/user_mypage_provider.dart';
+import '../models/user.dart';
 
 // 재준 : 문제를 볼 수 잇는 화면 구현-> 해당 화면에 필요현 list_view, model도 구현
 class ShowQuestionScreen extends StatefulWidget {
@@ -45,6 +47,7 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
   List<SectorListData> sectorList = SectorListData.sectorList;
   List<MealsListData> mealsListData = MealsListData.tabIconsList;
   final List<PlatformFile> _files = [];
+  UserProvider userProvider = UserProvider();
   void _pickFiles() async {
     List<PlatformFile>? uploadedFiles = (await FilePicker.platform.pickFiles(
       allowMultiple: true,
@@ -101,13 +104,14 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
         'uploaddate': 10000 * widget.sectorNum + 100 * widget.colorNum + count,
         'videourl': youtubeUrl
       });
-      // Response response = await Dio().put(url, data: formData);
+
       Response response = await Dio().post(url, data: formData);
 
       if (response.statusCode == 201) {
-        String url = 'http://$BACKENDURL/put-user/$userId';
-
-        print('Image uploaded successfully.');
+        User? user = await userProvider.fetchUserInfo(userId);
+        if (user != null) {
+          userProvider.updateEXP(userId, user.recentqueue + 10);
+        }
       } else {
         uploadVideo(youtubeUrl, count + 1, userId);
       }
