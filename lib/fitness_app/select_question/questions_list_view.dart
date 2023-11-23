@@ -151,15 +151,16 @@ class QuestionsView extends StatelessWidget {
                               decoration: BoxDecoration(
                                 boxShadow: <BoxShadow>[
                                   BoxShadow(
-                                      color: HexColor(questionsData!.endColor)
-                                          .withOpacity(0.6),
-                                      offset: const Offset(1.1, 4.0),
-                                      blurRadius: 8.0),
+                                    color: HexColor(questionsData!.endColor)
+                                        .withOpacity(0.6),
+                                    offset: const Offset(1.1, 4.0),
+                                    blurRadius: 8.0,
+                                  ),
                                 ],
                                 gradient: LinearGradient(
                                   colors: <HexColor>[
-                                    HexColor(questionsData!.endColor),
-                                    HexColor(questionsData!.endColor),
+                                    HexColor(questionsData!.startColor),
+                                    HexColor(questionsData!.startColor),
                                   ],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
@@ -192,6 +193,12 @@ class QuestionsView extends StatelessWidget {
                                           letterSpacing: 0.2,
                                           color: FitnessAppTheme.white,
                                         ),
+                                      ),
+                                      // Add a check mark Icon
+                                      const Icon(
+                                        Icons.check,
+                                        color: Colors.black,
+                                        size: 20,
                                       ),
                                     ],
                                   ),
@@ -217,10 +224,11 @@ class QuestionsView extends StatelessWidget {
                               decoration: BoxDecoration(
                                 boxShadow: <BoxShadow>[
                                   BoxShadow(
-                                      color: HexColor(questionsData!.startColor)
-                                          .withOpacity(0.6),
-                                      offset: const Offset(1.1, 4.0),
-                                      blurRadius: 8.0),
+                                    color: HexColor(questionsData!.endColor)
+                                        .withOpacity(0.6),
+                                    offset: const Offset(1.1, 4.0),
+                                    blurRadius: 8.0,
+                                  ),
                                 ],
                                 gradient: LinearGradient(
                                   colors: <HexColor>[
@@ -236,9 +244,13 @@ class QuestionsView extends StatelessWidget {
                                   topLeft: Radius.circular(8.0),
                                   topRight: Radius.circular(8.0),
                                 ),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 2.0,
+                                ),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
+                              child: const Padding(
+                                padding: EdgeInsets.only(
                                     top: 3, left: 3, right: 3, bottom: 3),
                                 child: SizedBox(
                                   width: 40,
@@ -248,17 +260,17 @@ class QuestionsView extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      Text(
-                                        questionsData!.name,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                          fontFamily: FitnessAppTheme.fontName,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 10,
-                                          letterSpacing: 0.2,
-                                          color: FitnessAppTheme.white,
-                                        ),
-                                      ),
+                                      // Text(
+                                      //   questionsData!.name,
+                                      //   textAlign: TextAlign.center,
+                                      //   style: const TextStyle(
+                                      //     fontFamily: FitnessAppTheme.fontName,
+                                      //     fontWeight: FontWeight.bold,
+                                      //     fontSize: 10,
+                                      //     letterSpacing: 0.2,
+                                      //     color: FitnessAppTheme.white,
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                 ),
