@@ -68,7 +68,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
     ));
     listViews.add(
       TitleView(
-        titleTxt: '최신 동영상',
+        titleTxt: '나의 동영상',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
             curve: const Interval((1 / count) * 2, 1.0,
@@ -85,6 +85,8 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
                 curve: const Interval((1 / count) * 3, 1.0,
                     curve: Curves.fastOutSlowIn))),
         mainScreenAnimationController: widget.animationController,
+        userId: widget.userId,
+        userNickname: widget.userNickname,
       ),
     );
 

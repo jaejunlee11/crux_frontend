@@ -25,7 +25,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
             parent: widget.animationController!,
-            curve: Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
+            curve: const Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
     addAllListData();
 
     scrollController.addListener(() {
@@ -60,8 +60,8 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
         titleTxt: '클라이밍 용품 구매',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 2, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -71,7 +71,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
         mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(
                 parent: widget.animationController!,
-                curve: Interval((1 / count) * 3, 1.0,
+                curve: const Interval((1 / count) * 3, 1.0,
                     curve: Curves.fastOutSlowIn))),
         mainScreenAnimationController: widget.animationController,
       ),
@@ -81,22 +81,23 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
         titleTxt: '최신 동영상',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 2, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
 
-    listViews.add(
-      ClimbingVideoListView(
-        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(
-                parent: widget.animationController!,
-                curve: Interval((1 / count) * 3, 1.0,
-                    curve: Curves.fastOutSlowIn))),
-        mainScreenAnimationController: widget.animationController,
-      ),
-    );
+    // listViews.add(
+    //     // ClimbingVideoListView(
+    //     //   mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+    //     //       CurvedAnimation(
+    //     //           parent: widget.animationController!,
+    //     //           curve: Interval((1 / count) * 3, 1.0,
+    //     //               curve: Curves.fastOutSlowIn))),
+    //     //   mainScreenAnimationController: widget.animationController,
+    //     //   userId: ,
+    //     //   ),
+    //     );
   }
 
   Future<bool> getData() async {

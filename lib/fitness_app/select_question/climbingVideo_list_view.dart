@@ -9,12 +9,16 @@ class ClimbingVideoListView extends StatefulWidget {
       {Key? key,
       this.mainScreenAnimationController,
       this.mainScreenAnimation,
-      required this.vedioID})
+      required this.vedioID,
+      required this.userId,
+      required this.userNickname})
       : super(key: key);
 
   final AnimationController? mainScreenAnimationController;
   final Animation<double>? mainScreenAnimation;
   final int vedioID;
+  final String userId;
+  final String userNickname;
 
   @override
   _MealsListViewState createState() => _MealsListViewState();
@@ -77,6 +81,8 @@ class _MealsListViewState extends State<ClimbingVideoListView>
                     animation: animation,
                     animationController: animationController!,
                     videoID: widget.vedioID,
+                    userId: widget.userId,
+                    userNickname: widget.userNickname,
                   );
                 },
               ),
@@ -94,13 +100,17 @@ class MealsView extends StatelessWidget {
       this.mealsListData,
       this.animationController,
       this.animation,
-      required this.videoID})
+      required this.videoID,
+      required this.userId,
+      required this.userNickname})
       : super(key: key);
   final String BACKENDURL = "61.98.244.12:8000";
   final MealsListData? mealsListData;
   final AnimationController? animationController;
   final Animation<double>? animation;
   final int videoID;
+  final String userId;
+  final String userNickname;
 
   Future<Image> _getImage(int id) async {
     String urlString = "http://$BACKENDURL/sector/$id";
@@ -159,7 +169,11 @@ class MealsView extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => VideoPlayerScreen(videoId: videoId),
+        builder: (context) => VideoPlayerScreen(
+          videoId: videoId,
+          userId: userId,
+          userNickname: userNickname,
+        ),
       ),
     );
   }

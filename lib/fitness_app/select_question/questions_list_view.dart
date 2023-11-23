@@ -249,7 +249,7 @@ class QuestionsView extends StatelessWidget {
                                   width: 2.0,
                                 ),
                               ),
-                              child: Padding(
+                              child: const Padding(
                                 padding: EdgeInsets.only(
                                     top: 3, left: 3, right: 3, bottom: 3),
                                 child: SizedBox(
@@ -259,19 +259,7 @@ class QuestionsView extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      // Text(
-                                      //   questionsData!.name,
-                                      //   textAlign: TextAlign.center,
-                                      //   style: const TextStyle(
-                                      //     fontFamily: FitnessAppTheme.fontName,
-                                      //     fontWeight: FontWeight.bold,
-                                      //     fontSize: 10,
-                                      //     letterSpacing: 0.2,
-                                      //     color: FitnessAppTheme.white,
-                                      //   ),
-                                      // ),
-                                    ],
+                                    children: <Widget>[],
                                   ),
                                 ),
                               ),

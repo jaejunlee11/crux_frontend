@@ -213,58 +213,12 @@ class _SectorsListViewState extends State<SectorsListView> {
                                                   fontSize: 22,
                                                 ),
                                               ),
-                                              // Row(
-                                              //   crossAxisAlignment:
-                                              //       CrossAxisAlignment.center,
-                                              //   mainAxisAlignment:
-                                              //       MainAxisAlignment.start,
-                                              //   children: <Widget>[
-                                              // Text(
-                                              //   sectorData!.subTxt,
-                                              //   style: TextStyle(
-                                              //       fontSize: 14,
-                                              //       color: Colors.grey
-                                              //           .withOpacity(0.8)),
-                                              // ),
-                                              // const SizedBox(
-                                              //   width: 4,
-                                              // ),
-                                              // Icon(
-                                              //   FontAwesomeIcons
-                                              //       .solidCircle,
-                                              //   size: 12,
-                                              //   color: sectorData!.rating ==
-                                              //           1
-                                              //       ? Colors.white
-                                              //       : sectorData!.rating ==
-                                              //               2
-                                              //           ? Colors.yellow
-                                              //           : sectorData!
-                                              //                       .rating ==
-                                              //                   3
-                                              //               ? Colors.green
-                                              //               : sectorData!
-                                              //                           .rating ==
-                                              //                       4
-                                              //                   ? Colors
-                                              //                       .blue
-                                              //                   : sectorData!.rating ==
-                                              //                           5
-                                              //                       ? Colors
-                                              //                           .red
-                                              //                       : sectorData!.rating ==
-                                              //                               6
-                                              //                           ? Colors.purple
-                                              //                           : Colors.grey,
-                                              // ),
-                                              //   ],
-                                              // ),
                                             ],
                                           ),
                                         ),
                                       ),
                                     ),
-                                     Padding(
+                                    const Padding(
                                       //여기?
                                       padding:
                                           EdgeInsets.only(right: 16, top: 8),
@@ -284,28 +238,33 @@ class _SectorsListViewState extends State<SectorsListView> {
                         Positioned(
                           top: 8,
                           right: 8,
-                          child: Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(32.0),
-                              ),
-                              onTap: () {
-                                // 이미지가 선택된 경우에만 작동
-                                _uploadImage(widget.sectorData!.imagePath,
-                                    widget.sectorData!.num); // 이미지 업로드 함수 호출
-                                // _getImage(2);
-                              },
-                              child: const Padding(
-                                padding: EdgeInsets.all(7.0),
-                                child: Icon(
-                                  Icons.change_circle,
-                                  color: Colors.purple,
-                                  size: 50,
-                                ),
-                              ),
-                            ),
-                          ),
+                          child: widget.userNickname == "admin"
+                              ? Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(32.0),
+                                    ),
+                                    onTap: () {
+                                      // 이미지가 선택된 경우에만 작동
+                                      _uploadImage(
+                                          widget.sectorData!.imagePath,
+                                          widget.sectorData!
+                                              .num); // 이미지 업로드 함수 호출
+                                      // _getImage(2);
+                                    },
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(7.0),
+                                      child: Icon(
+                                        Icons.change_circle,
+                                        color: Colors.purple,
+                                        size: 50,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : const SizedBox
+                                  .shrink(), // admin이 아닌 경우 빈 공간으로 처리
                         )
                       ],
                     ),

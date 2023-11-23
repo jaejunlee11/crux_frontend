@@ -28,7 +28,25 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Future<void> _registerUser() async {
-    if (passwordController.text != confirmPasswordController.text) {
+    if (nicknameController.text == "admin") {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('닉네임 확인'),
+            content: const Text('관리자 닉네임은 사용할 수 없습니다.'),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text('확인'),
+              ),
+            ],
+          );
+        },
+      );
+    } else if (passwordController.text != confirmPasswordController.text) {
       // Passwords do not match, show a warning popup
       showDialog(
         context: context,

@@ -101,7 +101,7 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
       String url = 'http://$BACKENDURL/post-video';
       FormData formData = FormData.fromMap({
         'videoid': 10000 * widget.sectorNum + 100 * widget.colorNum + count,
-        'uploaddate': 10000 * widget.sectorNum + 100 * widget.colorNum + count,
+        'uploaddate': userId,
         'videourl': youtubeUrl
       });
 
@@ -227,13 +227,16 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
     );
     listViews.add(
       ClimbingVideoListView(
-          mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-              CurvedAnimation(
-                  parent: widget.animationController!,
-                  curve: const Interval((1 / count) * 3, 1.0,
-                      curve: Curves.fastOutSlowIn))),
-          mainScreenAnimationController: widget.animationController,
-          vedioID: (10000 * widget.sectorNum + 100 * widget.colorNum)),
+        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+                parent: widget.animationController!,
+                curve: const Interval((1 / count) * 3, 1.0,
+                    curve: Curves.fastOutSlowIn))),
+        mainScreenAnimationController: widget.animationController,
+        vedioID: (10000 * widget.sectorNum + 100 * widget.colorNum),
+        userId: widget.userId,
+        userNickname: widget.userNickname,
+      ),
     );
     listViews.add(
       Container(
