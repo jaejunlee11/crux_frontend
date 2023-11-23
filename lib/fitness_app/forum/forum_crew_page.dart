@@ -8,7 +8,8 @@ import 'forum_new_post_page.dart';
 // 민재 : 크루 모집 게시판 화면 구현 -> 해당 화면에 필요현 list_view, model도 구현
 
 class CrewForumApp extends StatelessWidget {
-  const CrewForumApp({super.key});
+  final String userID;
+  const CrewForumApp({super.key, required this.userID});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,9 @@ class CrewForumApp extends StatelessWidget {
       create: (context) => ForumCrewPostProvider(),
       child: MaterialApp(
         title: '자유 게시판(전체보기)',
-        home: ForumCrewHomeScreen(),
+        home: ForumCrewHomeScreen(
+          userid: this.userID,
+        ),
       ),
     );
   }

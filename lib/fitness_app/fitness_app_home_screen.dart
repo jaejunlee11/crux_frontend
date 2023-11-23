@@ -111,7 +111,9 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                   return;
                 }
                 setState(() {
-                  tabBody = const ForumApp();
+                  tabBody = ForumApp(
+                    userid: widget.userId,
+                  );
                 });
               });
             } else if (index == 0) {
@@ -144,7 +146,9 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                   return;
                 }
                 setState(() {
-                  tabBody = CrewForumApp();
+                  tabBody = CrewForumApp(
+                    userID: widget.userId,
+                  );
                 });
               });
             }

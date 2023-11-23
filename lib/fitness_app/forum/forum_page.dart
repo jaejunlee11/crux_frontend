@@ -37,7 +37,8 @@ _fetchComments() async{
 */
 
 class ForumApp extends StatelessWidget {
-  const ForumApp({super.key});
+  final String userid;
+  const ForumApp({super.key, required this.userid});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class ForumApp extends StatelessWidget {
       create: (context) => ForumPostProvider(),
       child: MaterialApp(
         title: '자유 게시판(전체보기)',
-        home: ForumHomeScreen(),
+        home: ForumHomeScreen(userID: this.userid),
       ),
     );
   }

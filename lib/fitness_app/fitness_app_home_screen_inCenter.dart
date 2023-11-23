@@ -120,7 +120,7 @@ class _FitnessAppHomeScreenInCenterState
                   return;
                 }
                 setState(() {
-                  tabBody = ForumHomeScreen();
+                  tabBody = ForumHomeScreen(userID: widget.userId);
                 });
               });
             } else if (index == 0) {
@@ -154,7 +154,7 @@ class _FitnessAppHomeScreenInCenterState
                   return;
                 }
                 setState(() {
-                  tabBody = CrewForumApp();
+                  tabBody = CrewForumApp(userID: widget.userId);
                 });
               });
             }

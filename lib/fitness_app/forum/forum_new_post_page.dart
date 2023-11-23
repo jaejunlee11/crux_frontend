@@ -1,4 +1,5 @@
 import 'package:best_flutter_ui_templates/fitness_app/providers/forum_post_list_provider.dart';
+import 'package:best_flutter_ui_templates/fitness_app/providers/user_mypage_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,7 +12,8 @@ import 'dart:io';
 
 // 민재 : 게시판에서 글 작성 화면 구현 -> 해당 화면에 필요현 list_view, model도 구현
 class NewPostScreen extends StatefulWidget {
-  const NewPostScreen({super.key});
+  final String userid;
+  const NewPostScreen({super.key, required this.userid});
 
   @override
   _NewPostScreenState createState() => _NewPostScreenState();
@@ -24,6 +26,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
   late DateTime now;
   int defaultid = 300;
   int defaultnum = 0;
+  int exp = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -102,11 +105,17 @@ class _NewPostScreenState extends State<NewPostScreen> {
                                 listen: false);
                         await forumPostProvider.addPost(newpost);
                         showCompleteMessage();
+                        final userProvider =
+                            Provider.of<UserProvider>(context, listen: false);
+                        await userProvider.updateEXP(widget.userid, exp);
+
                         Navigator.pop(context, true);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ForumApp()));
+                                builder: (context) => ForumApp(
+                                      userid: widget.userid,
+                                    )));
                       }
                     },
                     style: ElevatedButton.styleFrom(
