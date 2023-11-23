@@ -17,7 +17,6 @@ class MyPage extends StatefulWidget {
 
 class _MyPageState extends State<MyPage> {
   final int _level = 1;
-  final int _exp = 0;
   final String _introtext = '안녕하세요';
   AssetImage profileImage = const AssetImage('assets/images/userImage.png');
   double _progress = 0;
@@ -47,7 +46,7 @@ class _MyPageState extends State<MyPage> {
 
   void _calculateprogress() {
     setState(() {
-      _progress = _exp / (_level * 100);
+      _progress = (_user.recentqueue) / (_level * 100);
     });
   }
 

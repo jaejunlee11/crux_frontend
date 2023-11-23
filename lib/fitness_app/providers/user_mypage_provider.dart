@@ -114,7 +114,7 @@ class UserProvider extends ChangeNotifier {
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode({'memberid': userId, 'memberExp': exp}),
+        body: jsonEncode({'memberid': userId, 'memberexp': exp}),
       );
 
       if (response.statusCode == 200) {
