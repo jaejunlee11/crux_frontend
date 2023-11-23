@@ -105,4 +105,25 @@ class UserProvider extends ChangeNotifier {
       print('Error updating intro: $e');
     }
   }
+
+  Future<void> updateEXP(String userId, int exp) async {
+    final url = 'http://$MYURL/put-user/$userId';
+    try {
+      final response = await http.put(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({'memberid': userId, 'memberExp': exp}),
+      );
+
+      if (response.statusCode == 200) {
+        // Successfully updated intro in the database
+      } else {
+        print('Failed to update intro. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error updating user exp: $e');
+    }
+  }
 }
