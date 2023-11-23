@@ -93,7 +93,7 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
     }
   }
 
-  void uploadVideo(String youtubeUrl, int count) async {
+  void uploadVideo(String youtubeUrl, int count, String userId) async {
     try {
       String url = 'http://$BACKENDURL/post-video';
       FormData formData = FormData.fromMap({
@@ -105,12 +105,14 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
       Response response = await Dio().post(url, data: formData);
 
       if (response.statusCode == 201) {
+        String url = 'http://$BACKENDURL/put-user/$userId';
+
         print('Image uploaded successfully.');
       } else {
-        uploadVideo(youtubeUrl, count + 1);
+        uploadVideo(youtubeUrl, count + 1, userId);
       }
     } catch (e) {
-      uploadVideo(youtubeUrl, count + 1);
+      uploadVideo(youtubeUrl, count + 1, userId);
     }
   }
 
@@ -259,7 +261,7 @@ class _ShowQuestionScreenState extends State<ShowQuestionScreen>
                       ),
                       TextButton(
                         onPressed: () async {
-                          uploadVideo(youtubeUrl, 0);
+                          uploadVideo(youtubeUrl, 0, widget.userId);
                           Navigator.of(context).pop();
                           Navigator.pushReplacement(
                               context,
