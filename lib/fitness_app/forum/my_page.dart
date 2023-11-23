@@ -99,7 +99,7 @@ class _MyPageState extends State<MyPage> {
                 ),
                 const SizedBox(width: 16),
                 Text(
-                  '$_exp / ${_level * 100}',
+                  '${_user.recentqueue} / ${_level * 100}',
                   style: const TextStyle(fontSize: 20),
                 ),
               ],
