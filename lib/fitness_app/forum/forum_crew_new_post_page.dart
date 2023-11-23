@@ -14,7 +14,8 @@ import 'forum_crew_page.dart';
 
 // 민재 : 게시판에서 글 작성 화면 구현 -> 해당 화면에 필요현 list_view, model도 구현
 class NewPostCrewScreen extends StatefulWidget {
-  const NewPostCrewScreen({super.key});
+  final String userid;
+  const NewPostCrewScreen({super.key, required this.userid});
 
   @override
   _NewPostCrewScreenState createState() => _NewPostCrewScreenState();
@@ -162,7 +163,9 @@ class _NewPostCrewScreenState extends State<NewPostCrewScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const CrewForumApp()));
+                                builder: (context) => CrewForumApp(
+                                      userID: widget.userid,
+                                    )));
                       }
                     },
                     style: ElevatedButton.styleFrom(

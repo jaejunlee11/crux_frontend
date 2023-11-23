@@ -6,8 +6,9 @@ import 'tabs/crew_like_tab.dart';
 
 class ForumCrewHomeScreen extends StatefulWidget {
   int docID = 0;
+  final String userid;
 
-  ForumCrewHomeScreen({super.key}); //default id
+  ForumCrewHomeScreen({super.key, required this.userid}); //default id
 
   @override
   _ForumCrewHomeScreenState createState() => _ForumCrewHomeScreenState();
@@ -69,8 +70,11 @@ class _ForumCrewHomeScreenState extends State<ForumCrewHomeScreen>
           ],
           onTap: (index) async {
             if (index == 2) {
-              await Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NewPostCrewScreen()));
+              await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          NewPostCrewScreen(userid: widget.userid)));
             } else {
               setState(() {
                 _currentTabIndex = index;
