@@ -31,7 +31,7 @@ class UserProvider extends ChangeNotifier {
           final Map<String, dynamic> userData = responseData[0];
           print("Fetched user data(array): $userData");
           _user = User.fromJson(userData);
-          print("convert complete: ${_user?.profilepic}");
+          print("convert complete: ${_user?.recentqueue}");
           notifyListeners();
           return _user;
         } else if (responseData is Map<String, dynamic>) {
