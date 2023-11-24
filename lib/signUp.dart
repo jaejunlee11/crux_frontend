@@ -73,6 +73,7 @@ class _SignUpPageState extends State<SignUpPage> {
           'memberid': usernameController.text,
           'memberpw': hashPassword(passwordController.text),
           'membernickname': nicknameController.text,
+          'memberprofilepic': 'assets/images/supportIcon.png'
         },
       );
 
