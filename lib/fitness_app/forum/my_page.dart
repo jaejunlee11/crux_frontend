@@ -30,7 +30,6 @@ class _MyPageState extends State<MyPage> {
     _userProvider = UserProvider();
     _user = User.initial();
     _fetchUserInfo();
-    _calculatelevel();
     // Other initialization if needed
   }
 
@@ -41,6 +40,8 @@ class _MyPageState extends State<MyPage> {
       setState(() {
         _user = user;
       });
+      _calculatelevel();
+      _calculateprogress();
     } else {
       print("Failed to get user info");
     }
@@ -48,7 +49,7 @@ class _MyPageState extends State<MyPage> {
 
   void _calculateprogress() {
     setState(() {
-      _progress = (_user.recentqueue) / (level * 100);
+      _progress = (nowlevelexp) / (level * 100);
     });
   }
 
