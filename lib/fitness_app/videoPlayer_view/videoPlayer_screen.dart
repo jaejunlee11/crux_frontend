@@ -58,39 +58,43 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     const aspectRatio = 9 / 16;
 
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.width / aspectRatio,
-              child: YoutubePlayerBuilder(
-                player: YoutubePlayer(
-                  controller: _controller,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.width / aspectRatio,
+                child: YoutubePlayerBuilder(
+                  player: YoutubePlayer(
+                    controller: _controller,
+                  ),
+                  builder: (context, player) {
+                    return player;
+                  },
                 ),
-                builder: (context, player) {
-                  return player;
-                },
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => NewPostScreen(
-                                  userid: widget.userId,
-                                )));
-                  },
-                  child: const Text('게시글 작성하기'),
-                ),
-              ],
-            ),
-          ],
+                          builder: (context) => NewPostScreen(
+                            userid: widget.userId,
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text('게시글 작성하기'),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
