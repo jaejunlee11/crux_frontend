@@ -90,6 +90,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         ),
                       );
                     },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                    ),
                     child: const Text('게시글 작성하기'),
                   ),
                 ],
@@ -102,6 +105,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         onPressed: () {
           Navigator.pop(context);
         },
+        backgroundColor: Colors.green,
         child: const Icon(
           Icons.arrow_back,
         ),
