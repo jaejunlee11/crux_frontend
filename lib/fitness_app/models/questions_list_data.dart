@@ -26,14 +26,14 @@ class questionsListData {
     questionsListData(
       imagePath: 'assets/fitness_app/test0226.jpeg',
       kacl: 2,
-      name: 'B',
+      name: 'Bl',
       startColor: '#000000',
       endColor: '#006600',
     ),
     questionsListData(
       imagePath: 'assets/fitness_app/test0226.jpeg',
       kacl: 3,
-      name: 'G',
+      name: 'Gr',
       startColor: '#bcbcbc',
       endColor: '#006600',
     ),
@@ -47,7 +47,7 @@ class questionsListData {
     questionsListData(
       imagePath: 'assets/fitness_app/dinner.png',
       kacl: 5,
-      name: 'P',
+      name: 'Pi',
       startColor: '#f4cccc',
       endColor: '#006600',
     ),

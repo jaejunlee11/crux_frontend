@@ -60,6 +60,7 @@ class _SectorsListViewState extends State<SectorsListView> {
     try {
       // String url = 'http://0.0.0.0:8000/post-sector';
       String url = 'http://$BACKENDURL/update-sector/$b';
+      print("바꿔야하는값:$b");
       String fileName = "$a.jpg";
       FormData formData = FormData.fromMap({
         'sectorimage':

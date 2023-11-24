@@ -65,13 +65,13 @@ class _CenterListViewState extends State<CenterListView>
             transform: Matrix4.translationValues(
                 0.0, 30 * (1.0 - widget.mainScreenAnimation!.value), 0.0),
             child: SizedBox(
-              height: 216,
+              height: 600,
               width: double.infinity,
               child: ListView.builder(
                 padding: const EdgeInsets.only(
                     top: 0, bottom: 0, right: 16, left: 16),
                 itemCount: mealsListData.length,
-                scrollDirection: Axis.horizontal,
+                scrollDirection: Axis.vertical,
                 itemBuilder: (BuildContext context, int index) {
                   final int count =
                       mealsListData.length > 10 ? 10 : mealsListData.length;
@@ -83,12 +83,15 @@ class _CenterListViewState extends State<CenterListView>
                                   curve: Curves.fastOutSlowIn)));
                   animationController?.forward();
 
-                  return MealsView(
-                    mealsListData: mealsListData[index],
-                    animation: animation,
-                    animationController: animationController!,
-                    userId: widget.userId,
-                    userNickname: widget.userNickname,
+                  return Align(
+                    alignment: Alignment.center,
+                    child: MealsView(
+                      mealsListData: mealsListData[index],
+                      animation: animation,
+                      animationController: animationController!,
+                      userId: widget.userId,
+                      userNickname: widget.userNickname,
+                    ),
                   );
                 },
               ),
@@ -129,7 +132,7 @@ class MealsView extends StatelessWidget {
             transform: Matrix4.translationValues(
                 100 * (1.0 - animation!.value), 0.0, 0.0),
             child: SizedBox(
-              width: 130,
+              width: 260,
               child: Stack(
                 children: <Widget>[
                   Padding(
@@ -177,8 +180,8 @@ class MealsView extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               top: 4, left: 16, right: 16, bottom: 8),
                           child: SizedBox(
-                            width: 200,
-                            height: 60,
+                            width: 400,
+                            height: 50,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
