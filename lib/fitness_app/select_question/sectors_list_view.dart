@@ -219,7 +219,7 @@ class _SectorsListViewState extends State<SectorsListView> {
                                         ),
                                       ),
                                     ),
-                                    const Padding(
+                                    Padding(
                                       //여기?
                                       padding:
                                           EdgeInsets.only(right: 16, top: 8),

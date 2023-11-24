@@ -16,10 +16,11 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
-  final int _level = 1;
+  late int level = 1;
   final String _introtext = '안녕하세요';
   AssetImage profileImage = const AssetImage('assets/images/userImage.png');
   double _progress = 0;
+  late int nowlevelexp;
   late User _user;
   late UserProvider _userProvider;
 
@@ -29,6 +30,7 @@ class _MyPageState extends State<MyPage> {
     _userProvider = UserProvider();
     _user = User.initial();
     _fetchUserInfo();
+    _calculatelevel();
     // Other initialization if needed
   }
 
@@ -46,7 +48,23 @@ class _MyPageState extends State<MyPage> {
 
   void _calculateprogress() {
     setState(() {
-      _progress = (_user.recentqueue) / (_level * 100);
+      _progress = (_user.recentqueue) / (level * 100);
+    });
+  }
+
+  void _calculatelevel() {
+    setState(() {
+      int tempexp = _user.recentqueue;
+      int templevel = 1;
+      int temprequiredexp = 100;
+      while (tempexp > temprequiredexp) {
+        tempexp = tempexp - temprequiredexp;
+        temprequiredexp = temprequiredexp + 100;
+        templevel++;
+      }
+      ;
+      level = templevel;
+      nowlevelexp = tempexp;
     });
   }
 
@@ -85,7 +103,7 @@ class _MyPageState extends State<MyPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '내 레벨 $_level',
+                  '내 레벨 $level',
                   style: const TextStyle(fontSize: 20),
                 ),
                 const SizedBox(width: 16),
@@ -99,7 +117,7 @@ class _MyPageState extends State<MyPage> {
                 ),
                 const SizedBox(width: 16),
                 Text(
-                  '${_user.recentqueue} / ${_level * 100}',
+                  '${nowlevelexp} / ${level * 100}',
                   style: const TextStyle(fontSize: 20),
                 ),
               ],

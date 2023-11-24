@@ -249,7 +249,7 @@ class QuestionsView extends StatelessWidget {
                                   width: 2.0,
                                 ),
                               ),
-                              child: const Padding(
+                              child: Padding(
                                 padding: EdgeInsets.only(
                                     top: 3, left: 3, right: 3, bottom: 3),
                                 child: SizedBox(
