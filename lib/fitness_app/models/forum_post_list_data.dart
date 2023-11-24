@@ -3,9 +3,10 @@
 class ForumPost {
   int documentnum;
   String title;
-  String content; 
+  String content;
   String username;
   String postdate;
+  String? VidURL;
   int like;
   int dislike;
 
@@ -15,16 +16,17 @@ class ForumPost {
       required this.content,
       required this.username,
       required this.postdate,
+      this.VidURL,
       required this.like,
-      required this.dislike
-      });
+      required this.dislike});
 
   ForumPost copyWith({
     int? documentnum,
     String? title,
-    String? content, 
+    String? content,
     String? username,
     String? postdate,
+    String? VidURL,
     int? like,
     int? dislike,
   }) {
@@ -36,38 +38,37 @@ class ForumPost {
       postdate: postdate ?? this.postdate,
       like: like ?? this.like,
       dislike: dislike ?? this.dislike,
+      VidURL: VidURL ?? this.VidURL,
     );
   }
 
-  factory ForumPost.fromJson(Map<String, dynamic> json){
+  factory ForumPost.fromJson(Map<String, dynamic> json) {
     return ForumPost(
-      documentnum : json['postsid'],
-      title : json['posttitle'],
-      content : json['postcontent'],
-      username : json['postwritememid'],
-      postdate : json['writedate'], 
-      like : json ['likenum'],
-      dislike : json ['dislikenum']
-    );
+        documentnum: json['postsid'],
+        title: json['posttitle'],
+        content: json['postcontent'],
+        username: json['postwritememid'],
+        postdate: json['writedate'],
+        VidURL: json['region'],
+        like: json['likenum'],
+        dislike: json['dislikenum']);
   }
   dynamic toJson() => {
-      'postsid': documentnum,
-      'posttitle': title,
-      'postcontent':content,
-      'postwritememid':username,
-      'writedate':postdate,
-      'likenum':like,
-      'dislikenum':dislike
-  };
+        'postsid': documentnum,
+        'posttitle': title,
+        'postcontent': content,
+        'postwritememid': username,
+        'writedate': postdate,
+        'region': VidURL,
+        'likenum': like,
+        'dislikenum': dislike
+      };
 
-void pluslike(){
-  like++;
-}
+  void pluslike() {
+    like++;
+  }
 
-void plusdislike(){
-  dislike++;
-}
-
-
-
+  void plusdislike() {
+    dislike++;
+  }
 }

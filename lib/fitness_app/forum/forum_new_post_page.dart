@@ -77,7 +77,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                   },
                   onSaved: (value) {
                     setState(() {
-                      _vidURL = value!;
+                      _content = value!;
                     });
                   },
                 ),
@@ -98,7 +98,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                   */
                   onSaved: (value) {
                     setState(() {
-                      _content = value!;
+                      _vidURL = value!;
                     });
                   },
                 ),
@@ -119,7 +119,8 @@ class _NewPostScreenState extends State<NewPostScreen> {
                             title: _title,
                             content: _content,
                             documentnum: id,
-                            username: 'test',
+                            VidURL: _vidURL,
+                            username: widget.userid,
                             postdate: time,
                             like: 0,
                             dislike: 0); //username, postdate 수정 요구

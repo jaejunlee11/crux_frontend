@@ -1,5 +1,5 @@
-
 import 'package:best_flutter_ui_templates/fitness_app/providers/forum_post_list_provider.dart';
+import 'package:best_flutter_ui_templates/fitness_app/videoPlayer_view/videoPlayer_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -14,125 +14,151 @@ class ForumPostDetail extends StatelessWidget {
   Color titlecolor = Color(0xff92BEA9);
   Color pagecolor = Color(0xffC5DEDA);
 
-
   ForumPostDetail(this.docID);
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ForumPostProvider>(
       builder: (context, value, child) {
-
         ForumPost specificPost = value.allPosts.firstWhere(
           (post) => post.documentnum == docID,
-          orElse: () => ForumPost(documentnum: 0, title: "삭제된 글입니다", content: "삭제된 글입니다", username:"0", like: 0, dislike: 0, postdate: DateFormat("yyyy-MM-dd").format(DateTime.now())),
+          orElse: () => ForumPost(
+              documentnum: 0,
+              title: "삭제된 글입니다",
+              content: "삭제된 글입니다",
+              username: "0",
+              like: 0,
+              dislike: 0,
+              postdate: DateFormat("yyyy-MM-dd").format(DateTime.now())),
         );
 
-        return  Container(
+        return Container(
           decoration: BoxDecoration(
             color: pagecolor,
             border: Border.all(color: Colors.black, width: 1.0),
           ),
-
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(0.0,50.0,0.0,70.0),
-
-          child: Column(
-            children: [
-              Column(
-              children: [ 
-              Container(
-
-              decoration: BoxDecoration(
-              color: titlecolor,
-              border: Border.all(color: Colors.black, width: 2.0),
-              borderRadius: BorderRadius.circular(30),
-              ),  
-
-              child: 
-
-              Text("${specificPost.title}",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 32,
-                    fontFamily: 'Arial',
-                  ),
-              ),
-
-              ),
-              ],
-              ),
-              Row(
-                children: [
-                // Add your delete and change icons here
-                  IconButton(
-                    onPressed: () {
-                      showDeleteConfirmation(context,specificPost.documentnum,value);
-                      },
-                            icon: Icon(Icons.delete),
-                            color: Colors.red,
-                          ),
-                  IconButton(
-                     onPressed: () {
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ForumPostDetailModify(specificPost: specificPost)),
-                );
-                      },
-                            icon: Icon(Icons.edit),
-                            color: Colors.blue,
-                          ),
-                ],
-              ),
-
-
-
-              const SizedBox(height:15),
-
-            Expanded(
-              child:Align(
-                alignment: Alignment.center,
-                child:Text("${specificPost.content}",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontFamily: 'Arial',
-                  )
+            padding: const EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 70.0),
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: titlecolor,
+                        border: Border.all(color: Colors.black, width: 2.0),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Text(
+                        "${specificPost.title}",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 32,
+                          fontFamily: 'Arial',
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+                Row(
+                  children: [
+                    // Add your delete and change icons here
+                    IconButton(
+                      onPressed: () {
+                        showDeleteConfirmation(
+                            context, specificPost.documentnum, value);
+                      },
+                      icon: Icon(Icons.delete),
+                      color: Colors.red,
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForumPostDetailModify(
+                                  specificPost: specificPost)),
+                        );
+                      },
+                      icon: Icon(Icons.edit),
+                      color: Colors.blue,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text("${specificPost.content}",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontFamily: 'Arial',
+                        )),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Padding(
+                  padding: EdgeInsets.only(
+                      bottom: 25.0), // Adjust the value as needed
+
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                              onPressed: () async {
+                                await value.likePost(docID);
+                                showLikeMessage();
+                              },
+                              child: Text("Like: ${specificPost.like}"),
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.green))),
+                          ElevatedButton(
+                              onPressed: () async {
+                                await value.dislikePost(docID);
+                                showDislikeMessage();
+                              },
+                              child: Text("Dislike: ${specificPost.dislike}"),
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.green))),
+                        ]),
+                  ),
+                ),
+                Positioned(
+                    bottom: 10,
+                    right: 10,
+                    child: specificPost.VidURL != null &&
+                            specificPost.VidURL!.isNotEmpty
+                        ? IconButton(
+                            icon: Icon(Icons.play_arrow),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => VideoPlayerScreen(
+                                          videoId: specificPost.VidURL!,
+                                          userId: specificPost.username,
+                                          userNickname: '',
+                                        )),
+                              );
+                            },
+                            color: Colors.green,
+                          )
+                        : SizedBox()),
+              ],
             ),
-              const SizedBox(height:15),
-
-
-              Padding( 
-              padding: EdgeInsets.only(bottom: 25.0), // Adjust the value as needed
-
-              child: Align(alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [ 
-              ElevatedButton(onPressed: () async {await value.likePost(docID); showLikeMessage();}, child: Text("Like: ${specificPost.like}"), style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.green))),
-
-              ElevatedButton(onPressed: () async {await value.dislikePost(docID); showDislikeMessage();}, child: Text("Dislike: ${specificPost.dislike}"), style: ButtonStyle(backgroundColor:MaterialStateProperty.all(Colors.green))),
-              ]
-              ),
-              ),
-              ),
-            ],
           ),
-        ),
         );
-      },      
+      },
     );
   }
- 
-
-
-
 }
 
-
-
-void showLikeMessage(){
+void showLikeMessage() {
   Fluttertoast.showToast(
     msg: '좋아요를 눌렀습니다',
     gravity: ToastGravity.BOTTOM,
@@ -143,7 +169,7 @@ void showLikeMessage(){
   );
 }
 
-void showDislikeMessage(){
+void showDislikeMessage() {
   Fluttertoast.showToast(
     msg: '싫어요를 눌렀습니다',
     gravity: ToastGravity.BOTTOM,
@@ -152,10 +178,9 @@ void showDislikeMessage(){
     textColor: Colors.white,
     toastLength: Toast.LENGTH_SHORT,
   );
-
 }
 
-void showDeleteMessage(){
+void showDeleteMessage() {
   Fluttertoast.showToast(
     msg: '글을 삭제했습니다',
     gravity: ToastGravity.BOTTOM,
@@ -164,10 +189,10 @@ void showDeleteMessage(){
     textColor: Colors.white,
     toastLength: Toast.LENGTH_SHORT,
   );
-
 }
 
-Future<void> showDeleteConfirmation(BuildContext context, int docID,ForumPostProvider value) async {
+Future<void> showDeleteConfirmation(
+    BuildContext context, int docID, ForumPostProvider value) async {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -185,7 +210,7 @@ Future<void> showDeleteConfirmation(BuildContext context, int docID,ForumPostPro
             onPressed: () async {
               await value.deletePost(docID);
               Navigator.of(context).pop(); // Close the dialog
-              showDeleteMessage();// Optionally, pop the current screen after deletion
+              showDeleteMessage(); // Optionally, pop the current screen after deletion
             },
             child: Text('삭제'),
           ),
@@ -194,4 +219,3 @@ Future<void> showDeleteConfirmation(BuildContext context, int docID,ForumPostPro
     },
   );
 }
-
