@@ -25,6 +25,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
   final _formKey = GlobalKey<FormState>();
   String _title = '';
   String _content = '';
+  String _vidURL = '';
   late DateTime now;
   int defaultid = 300;
   int defaultnum = 0;
@@ -76,6 +77,27 @@ class _NewPostScreenState extends State<NewPostScreen> {
                   },
                   onSaved: (value) {
                     setState(() {
+                      _vidURL = value!;
+                    });
+                  },
+                ),
+                const SizedBox(height: 16.0),
+                TextFormField(
+                  initialValue: widget.videoURL ?? _vidURL,
+                  decoration: const InputDecoration(
+                    labelText: 'Option: VideoURL',
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLines: null,
+                  /*validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Option: Please Enter Video URL';
+                    }
+                    return null;
+                  },
+                  */
+                  onSaved: (value) {
+                    setState(() {
                       _content = value!;
                     });
                   },
@@ -112,12 +134,14 @@ class _NewPostScreenState extends State<NewPostScreen> {
                         await userProvider.updateEXP(widget.userid, exp);
 
                         Navigator.pop(context, true);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ForumApp(
-                                      userid: widget.userid,
-                                    )));
+                        if (widget.videoURL != null) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ForumApp(
+                                        userid: widget.userid,
+                                      )));
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(
