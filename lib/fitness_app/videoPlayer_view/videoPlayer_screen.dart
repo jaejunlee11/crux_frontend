@@ -85,6 +85,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         MaterialPageRoute(
                           builder: (context) => NewPostScreen(
                             userid: widget.userId,
+                            videoURL: widget.videoId,
                           ),
                         ),
                       );
