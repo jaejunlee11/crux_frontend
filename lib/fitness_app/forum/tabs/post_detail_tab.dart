@@ -1,4 +1,4 @@
-import 'dart:js';
+//import 'dart:js';
 
 import 'package:best_flutter_ui_templates/fitness_app/providers/forum_post_list_provider.dart';
 import 'package:best_flutter_ui_templates/fitness_app/videoPlayer_view/videoPlayer_screen.dart';
@@ -42,7 +42,7 @@ class ForumPostDetail extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('동영상 URL 확인하기'),
-          content: Text(text),
+          content: Text('$text'),
           actions: [
             TextButton(
               onPressed: () {
@@ -193,6 +193,8 @@ class ForumPostDetail extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
+                                   //fullscreenDialog: true,
+                                   //넘어가는 VideoPlayerScreen 하단 바 포함하도록 할 수는 없는가?
                                     builder: (context) => VideoPlayerScreen(
                                           videoId: specificPost.VidURL!,
                                           userId: specificPost.username,
