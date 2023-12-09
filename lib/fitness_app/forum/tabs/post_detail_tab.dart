@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:best_flutter_ui_templates/fitness_app/providers/forum_post_list_provider.dart';
 import 'package:best_flutter_ui_templates/fitness_app/videoPlayer_view/videoPlayer_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,8 @@ class ForumPostDetail extends StatelessWidget {
 
   ForumPostDetail(this.docID);
 
+
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ForumPostProvider>(
@@ -31,6 +35,29 @@ class ForumPostDetail extends StatelessWidget {
               dislike: 0,
               postdate: DateFormat("yyyy-MM-dd").format(DateTime.now())),
         );
+        
+    Future<void> _showVideoURLPopup(String text) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('동영상 URL 확인하기'),
+          content: Text(text),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('확인'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+
 
         return Container(
           decoration: BoxDecoration(
@@ -62,7 +89,6 @@ class ForumPostDetail extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    // Add your delete and change icons here
                     IconButton(
                       onPressed: () {
                         showDeleteConfirmation(
@@ -100,7 +126,7 @@ class ForumPostDetail extends StatelessWidget {
                 const SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.only(
-                      bottom: 25.0), // Adjust the value as needed
+                      bottom: 25.0), 
 
                   child: Align(
                     alignment: Alignment.bottomCenter,
@@ -128,12 +154,40 @@ class ForumPostDetail extends StatelessWidget {
                         ]),
                   ),
                 ),
-                Positioned(
-                    bottom: 10,
-                    right: 10,
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom:10, right: 10),
                     child: specificPost.VidURL != null &&
                             specificPost.VidURL!.isNotEmpty
-                        ? IconButton(
+                        ? Row(
+                        mainAxisSize: MainAxisSize.min,                        
+                        children: [
+                          GestureDetector(
+                            onTap:(){
+                              _showVideoURLPopup('${specificPost.VidURL}');
+                            },
+
+                          child: Text(
+                          '이 게시글에는 연결된 동영상이 있습니다. URL 보기 ',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14.0,
+                            fontFamily: 'Arial',
+                            ),
+                          ),
+                          ),
+
+                          Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1.0,
+                            ),
+                            color: Colors.white,
+                          ),                        
+                        child: IconButton(
                             icon: Icon(Icons.play_arrow),
                             onPressed: () {
                               Navigator.push(
@@ -147,8 +201,12 @@ class ForumPostDetail extends StatelessWidget {
                               );
                             },
                             color: Colors.green,
-                          )
+                          ),
+                          ),
+                        ],
+                        )
                         : SizedBox()),
+                ),
               ],
             ),
           ),

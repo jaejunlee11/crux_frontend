@@ -20,7 +20,7 @@ class _MyPageState extends State<MyPage> {
   final String _introtext = '안녕하세요';
   AssetImage profileImage = const AssetImage('assets/images/userImage.png');
   double _progress = 0;
-  late int nowlevelexp;
+  late int nowlevelexp = 0;
   late User _user;
   late UserProvider _userProvider;
 
