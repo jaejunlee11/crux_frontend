@@ -159,7 +159,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             children: [
               SizedBox(
                 height:
-                    600.0, // Set the height you desire for the YoutubePlayer
+                    550.0, // Set the height you desire for the YoutubePlayer
                 child: YoutubePlayerBuilder(
                   player: YoutubePlayer(
                     controller: _controller,
