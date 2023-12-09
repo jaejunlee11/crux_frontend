@@ -157,7 +157,7 @@ class ForumPostDetail extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom:10, right: 10),
+                    padding: const EdgeInsets.only(bottom:30, right: 10),
                     child: specificPost.VidURL != null &&
                             specificPost.VidURL!.isNotEmpty
                         ? Row(
