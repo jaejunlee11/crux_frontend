@@ -74,6 +74,7 @@ class _ForumHomeScreenState extends State<ForumHomeScreen>
                   MaterialPageRoute(
                       builder: (context) => NewPostScreen(
                             userid: widget.userID,
+                            whereyoufrom: 0,
                           )));
             } else {
               setState(() {

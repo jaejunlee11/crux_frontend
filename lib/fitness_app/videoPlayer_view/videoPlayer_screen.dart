@@ -186,6 +186,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                           builder: (context) => NewPostScreen(
                             userid: widget.userId,
                             videoURL: widget.videoId,
+                            whereyoufrom: 1
                           ),
                         ),
                       );

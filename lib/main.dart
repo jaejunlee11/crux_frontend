@@ -2,6 +2,7 @@ import 'package:best_flutter_ui_templates/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'fitness_app/providers/user_mypage_provider.dart';
+import 'fitness_app/providers/forum_post_list_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -11,10 +12,13 @@ void main() async {
     DeviceOrientation.portraitDown
   ]);
     runApp(
-    ChangeNotifierProvider(
-      create: (context) => UserProvider(), // or your specific provider
-      child: MyApp(),
-    ),
+      MultiProvider(
+        providers: [
+           ChangeNotifierProvider(create: (context) => UserProvider()),
+           ChangeNotifierProvider(create: (context) => ForumPostProvider()),         
+        ],
+        child: MyApp(),
+      ),
   );
 }
 

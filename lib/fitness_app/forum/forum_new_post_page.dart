@@ -14,7 +14,8 @@ import 'dart:io';
 class NewPostScreen extends StatefulWidget {
   final String userid;
   String? videoURL;
-  NewPostScreen({Key? key, required this.userid, this.videoURL})
+  final int whereyoufrom;
+  NewPostScreen({Key? key, required this.userid, this.videoURL, required this.whereyoufrom})
       : super(key: key);
 
   @override
@@ -135,14 +136,14 @@ class _NewPostScreenState extends State<NewPostScreen> {
                         await userProvider.updateEXP(widget.userid, exp);
 
                         Navigator.pop(context, true);
-                        if (widget.videoURL != null) {
+                         if (widget.whereyoufrom == 0) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ForumApp(
                                         userid: widget.userid,
                                       )));
-                        }
+                        } 
                       }
                     },
                     style: ElevatedButton.styleFrom(
